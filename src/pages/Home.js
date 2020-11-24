@@ -16,7 +16,7 @@ class Home extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <p className="pt-3">Howdy! My name is Patrick, and I'm here to help you! If you have any questions about software development, live music production, or leadership development, then you've come to the right place! Connect with me through any of my social media accounts or send me an email. I can't wait to connect with you!</p>
+                        <p>Howdy! My name is Patrick, and I'm here to help you! If you have any questions about software development, live music production, or leadership development, then you've come to the right place! Connect with me through any of my social media accounts or send me an email. I can't wait to connect with you!</p>
                     </Col>
                 </Row>
                 <hr />
