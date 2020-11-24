@@ -10,7 +10,7 @@ class Home extends Component {
         return (
             <Container>
                 <Row className="justify-content-center">
-                    <Col xs="6" sm="6" md="12" lg="12" xl="12" className="text-center">
+                    <Col xs="12" sm="12" md="12" lg="12" xl="12" className="text-center">
                         <img className="banner" alt="Patrick A Robinson" src={banner} />
                     </Col>
                 </Row>
@@ -21,17 +21,17 @@ class Home extends Component {
                 </Row>
                 <hr />
                 <Row className="pt-2">
-                    <Col>
+                    <Col xs="12" sm="12" md="4" lg="4" xl="4">
                         <h2 className="text-center">Software Engineering</h2>
                         <img className="topic-image" alt="code" src={code} />
                         <p>Access to over 10 years of experience developing software using current best practices and agile methodlogies.</p>
                     </Col>
-                    <Col>
+                    <Col xs="12" sm="12" md="4" lg="4" xl="4">
                         <h2 className="text-center">Leadership</h2>
                         <img className="topic-image" alt="leadership" src={leadership} />
                         <p>Discover your potential through leadership development, and become who you were meant to be.</p>
                     </Col>
-                    <Col>
+                    <Col xs="12" sm="12" md="4" lg="4" xl="4">
                         <h2 className="text-center">Live Music Production</h2>
                         <img className="topic-image" alt="sound" src={sound} />
                         <p>Audio not up to par for your live event? Need help with lighting, lyrics, and live streaming? We can help!</p>
