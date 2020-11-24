@@ -24,7 +24,7 @@ class Home extends Component {
                     <Col xs="12" sm="12" md="4" lg="4" xl="4">
                         <h2 className="text-center">Software Engineering</h2>
                         <img className="topic-image" alt="code" src={code} />
-                        <p>Access to over 10 years of experience developing software using current best practices and agile methodlogies.</p>
+                        <p>Access to over 10 years of experience developing software using current best practices and agile methodologies.</p>
                     </Col>
                     <Col xs="12" sm="12" md="4" lg="4" xl="4">
                         <h2 className="text-center">Leadership</h2>
