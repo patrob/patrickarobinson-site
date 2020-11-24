@@ -9,7 +9,7 @@ class Footer extends Component {
                 <Container className="justify-content-center">
                     <Row className="text-center">
                         <Col xs="12" sm="12" md="12" lg="12" xl="12">
-                            <SocialIcon className="mx-2" url="http://twitter.com/patrobsatx" style={{ height: 50, width: 50 }} bgColor="#333333" />
+                            <SocialIcon className="mx-2" url="http://twitter.com/realPatRobinson" style={{ height: 50, width: 50 }} bgColor="#333333" />
                             <SocialIcon className="mx-2" url="http://facebook.com/patrobsatx" style={{ height: 50, width: 50 }} bgColor="#333333" />
                             <SocialIcon className="mx-2" url="http://instagram.com/patrobsatx" style={{ height: 50, width: 50 }} bgColor="#333333" />
                             <SocialIcon className="mx-2" url="http://linkedin.com/in/patrick-robinson-b8b6628" style={{ height: 50, width: 50 }} bgColor="#333333" />
