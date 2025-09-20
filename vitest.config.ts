@@ -5,5 +5,10 @@ export default defineConfig({
     environment: 'happy-dom',
     globals: true,
     setupFiles: [],
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/*.astro'
+    ]
   },
 })

@@ -1,138 +1,208 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+/* Import design system stylesheets */
+@import './design-tokens.css';
+@import './utilities.css';
+@import './components.css';
 
-:root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px
-		rgba(var(--gray), 33%);
+/*
+  Global styles with design system integration
+*/
+html {
+	font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+	font-size: 16px;
+	color-scheme: light;
+	scroll-behavior: smooth;
 }
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-regular.woff") format("woff");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-bold.woff") format("woff");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
+
 body {
-	font-family: "Atkinson", sans-serif;
+	font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
+	background: var(--color-bg-primary);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
+	color: var(--color-text-primary);
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-normal);
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
-main {
-	width: 720px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
+
+/* Reset margins and improve typography */
+h1, h2, h3, h4, h5, h6 {
+	margin: 0 0 0.75rem 0;
+	color: var(--color-text-primary);
+	line-height: var(--line-height-tight);
+	font-weight: var(--font-weight-semibold);
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
-}
-h1 {
-	font-size: 3.052em;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: 1.953em;
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
-	font-weight: 700;
-}
-a {
-	color: var(--accent);
-}
-a:hover {
-	color: var(--accent);
-}
+
+h1 { font-size: var(--font-size-4xl); }
+h2 { font-size: var(--font-size-3xl); }
+h3 { font-size: var(--font-size-2xl); }
+h4 { font-size: var(--font-size-xl); }
+h5 { font-size: var(--font-size-lg); }
+h6 { font-size: var(--font-size-base); }
+
 p {
-	margin-bottom: 1em;
+	margin-bottom: 1.25rem;
+	color: var(--color-text-primary);
+	line-height: var(--line-height-relaxed);
 }
-.prose p {
-	margin-bottom: 2em;
+
+strong, b {
+	font-weight: var(--font-weight-bold);
 }
-textarea {
-	width: 100%;
-	font-size: 16px;
+
+/* Forms */
+textarea, input, select {
+	font-size: 16px; /* Prevent zoom on mobile */
+	font-family: inherit;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	padding: var(--space-3);
+	transition: border-color var(--transition-fast);
 }
-input {
-	font-size: 16px;
+
+textarea:focus, input:focus, select:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
 }
+
+/* Tables */
 table {
 	width: 100%;
+	border-collapse: collapse;
+	margin: var(--space-6) 0;
 }
+
+th, td {
+	padding: var(--space-3);
+	text-align: left;
+	border-bottom: 1px solid var(--color-border);
+}
+
+th {
+	font-weight: var(--font-weight-semibold);
+	color: var(--color-text-primary);
+	background: var(--color-bg-secondary);
+}
+
+/* Images */
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 }
+
+/* Code */
 code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
+	padding: 0.25rem 0.5rem;
+	background-color: var(--color-bg-secondary);
+	border-radius: var(--radius-sm);
+	color: var(--color-primary);
+	font-size: 0.875em;
+	font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
 }
+
 pre {
-	padding: 1.5em;
-	border-radius: 8px;
+	padding: var(--space-6);
+	border-radius: var(--radius-md);
+	background-color: var(--color-bg-tertiary);
+	overflow-x: auto;
+	margin: var(--space-6) 0;
+	border: 1px solid var(--color-border);
 }
+
 pre > code {
 	all: unset;
+	color: inherit;
 }
+
+/* Blockquotes */
 blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0px;
-	font-size: 1.333em;
+	border-left: 4px solid var(--color-primary);
+	padding: var(--space-6);
+	margin: var(--space-6) 0;
+	background: var(--color-bg-secondary);
+	border-radius: var(--radius-md);
+	font-style: italic;
+	color: var(--color-text-secondary);
 }
+
+blockquote p:last-child {
+	margin-bottom: 0;
+}
+
+/* Lists */
+ul, ol {
+	margin: var(--space-4) 0;
+	padding-left: var(--space-6);
+}
+
+li {
+	margin-bottom: var(--space-2);
+	line-height: var(--line-height-relaxed);
+}
+
+/* Links */
+a {
+	color: var(--color-primary);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+
+a:hover {
+	color: var(--color-primary-dark);
+	text-decoration: underline;
+}
+
+/* Horizontal Rules */
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid var(--color-border);
+	margin: var(--space-8) 0;
 }
-@media (max-width: 720px) {
-	body {
-		font-size: 18px;
+
+/* Focus styles for accessibility */
+*:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+/* Smooth transitions */
+*, *::before, *::after {
+	transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+	html {
+		font-size: 14px;
 	}
-	main {
-		padding: 1em;
+}
+
+/* Print styles */
+@media print {
+	* {
+		background: transparent !important;
+		color: black !important;
+		box-shadow: none !important;
+		text-shadow: none !important;
+	}
+
+	a, a:visited {
+		text-decoration: underline;
+	}
+
+	pre, blockquote {
+		border: 1px solid #999;
+		page-break-inside: avoid;
+	}
+
+	h1, h2, h3 {
+		page-break-after: avoid;
 	}
 }
 

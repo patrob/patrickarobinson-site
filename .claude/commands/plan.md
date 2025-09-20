@@ -4,7 +4,8 @@ description: Generate a deterministic, stage-based execution plan from approved 
 ---
 
 ## Variables
-RESEARCH_FILE = $ARGUMENTS // or `research/research.md` if not provided.
+RESEARCH_FILE = $ARGUMENTS // or `thoughts/research.md` if not provided.
+OUTPUT_FILE = `<same folder as RESEARCH_FILE>/plan.md`
 
 You are an expert software planner. Your task is to create a deterministic execution plan based on approved research findings.  
 
@@ -21,7 +22,7 @@ Steps:
 7. Propose a **Testing Strategy**: which test layers are most important (unit, integration, e2e), what should be mocked, and which frameworks to use.  
 8. Do not include frontmatter in the output.  
 
-**Output strictly in Markdown** to `plan/plan.md` with the following structure:  
+**Output strictly in Markdown** to OUTPUT_FILE with the following structure:  
 
 ```markdown
 # Plan
@@ -30,27 +31,18 @@ Steps:
 ## Phase X - <phase short name>
 <Short phase description>
 
-### Stage: Scaffold
-- [ ] run: `...`                           # deterministic command
-- [ ] create: path/to/NewFile.ext          # new file with purpose
-
-### Stage: Tests
-- [ ] create: tests/FeatureXTests.ext
-- [ ] add: "test skeleton for <behavior>; mirror tests/AuthTests.ext" (P)
-
-### Stage: Implement
-- [ ] implement: path/to/Service.ext :: "add method <X> per tests"
-- [ ] update: app wiring in path/to/Startup.ext
-
-### Stage: Docs
-- [ ] update: README.md :: "document new endpoint and config flag"
+### Tasks
+- [ ] atomic task (run command, create file, etc)
+- [ ] [P] parallel-capable task
+...
+- [ ] Run tests, linter, type-check, and build
 
 ### Phase Acceptance Checks
 - Unit tests pass
 - Linter passes
 - Typecheck passes
 - Build passes
-- Docs updated
+- Docs updated (ReadMe.md specifically)
 
 ### Testing Strategy
 Utilize TDD (Red, Green, Refactor) religiously.

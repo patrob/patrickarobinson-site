@@ -3,6 +3,10 @@ name: research
 description: Perform structured research for a problem/ticket, producing clear findings, FAR validation, and a testing strategy.
 ---
 
+## Variables
+PROBLEM_STATEMENT = $ARGUMENTS
+OUTPUT_FILE = `thoughts/<PROBLEM_STATEMENT as short-name-description>/research.md`
+
 You are an expert software researcher. Analyze the provided problem or ticket and produce structured research findings.  
 
 Steps:  
@@ -19,7 +23,7 @@ Steps:
    - Calculate the average.  
 7. Propose a **Testing Strategy**: which kinds of tests are needed (unit, integration, end-to-end), what to mock, and which tools or libraries to use.  
 
-You DO NOT modify code or other resources, you **output strictly in Markdown** to `research/research.md` with the following structure:
+You DO NOT modify code or other resources, you **output strictly in Markdown** to OUTPUT_FILE with the following structure:
 
 ```markdown
 # Problem Statement

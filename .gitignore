@@ -25,3 +25,5 @@ pnpm-debug.log*
 
 .mcp*.json
 !.mcp-example.json
+
+.playwright-mcp/

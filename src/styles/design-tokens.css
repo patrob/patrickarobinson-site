@@ -1,0 +1,120 @@
+/* Design Tokens - CSS Custom Properties */
+
+:root {
+  /* Patrick Blue Gradients - Inspired by patrickellis.io */
+  --color-patrick-blue-start: #0066CC;
+  --color-patrick-blue-end: #004499;
+  --gradient-primary: linear-gradient(135deg, var(--color-patrick-blue-start), var(--color-patrick-blue-end));
+  --gradient-hover: linear-gradient(135deg, #0077DD, #0055AA);
+
+  /* Extended Color System */
+  --color-primary: var(--color-patrick-blue-start);
+  --color-primary-dark: var(--color-patrick-blue-end);
+  --color-text-primary: #1a202c;
+  --color-text-secondary: #718096;
+  --color-text-tertiary: #a0aec0;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f7fafc;
+  --color-bg-tertiary: #edf2f7;
+  --color-border: #e2e8f0;
+  --color-border-light: #f0f4f8;
+
+  /* Typography Scale - Fluid Typography */
+  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --font-size-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+  --font-size-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem);
+  --font-size-4xl: clamp(2.25rem, 1.9rem + 1.75vw, 3rem);
+  --font-size-5xl: clamp(3rem, 2.25rem + 3.75vw, 4rem);
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 1.75;
+
+  /* Spacing System - 8px Base */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  --space-32: 8rem;     /* 128px */
+
+  /* Border Radius */
+  --radius-sm: 0.125rem;
+  --radius-base: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 200ms ease-in-out;
+  --transition-slow: 300ms ease-in-out;
+
+  /* Interaction Tokens */
+  --transition-colors: color 150ms ease-in-out, background-color 150ms ease-in-out, border-color 150ms ease-in-out;
+  --transition-transform: transform 200ms ease-in-out;
+  --transition-opacity: opacity 200ms ease-in-out;
+  --transition-all: all 200ms ease-in-out;
+
+  /* Focus States */
+  --focus-ring: 0 0 0 3px rgba(var(--color-patrick-blue-start), 0.2);
+  --focus-ring-offset: 2px;
+
+  /* Hover State Modifiers */
+  --hover-opacity: 0.8;
+  --hover-scale: 1.05;
+  --hover-lift: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  /* Animation Easing */
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Z-Index Scale */
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+
+  /* Breakpoints (for reference in JS) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
