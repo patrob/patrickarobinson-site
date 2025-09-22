@@ -6,8 +6,7 @@ export const SITE_DESCRIPTION = 'Personal website and blog of Patrick Robinson -
 
 export const NAV_ITEMS = [
   { label: 'Home', href: '/' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'About', href: '/about' },
+  { label: 'Articles', href: '/blog' },
   { label: 'Contact', href: '/contact' }
 ];
 

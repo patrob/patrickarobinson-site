@@ -35,33 +35,10 @@ const currentPath = Astro.url.pathname;
   {...attrs}
 >
   <div class="container mx-auto px-4">
-    <div class="nav-wrapper flex items-center justify-between h-16">
-      {logo && (
-        <a href={logo.href || '/'} class="nav-logo flex items-center space-x-2 text-xl font-bold text-gray-900 hover:text-primary transition-colors">
-          {logo.image ? (
-            <img src={logo.image} alt={logo.imageAlt || logo.text || 'Logo'} class="h-8 w-auto" />
-          ) : logo.text && (
-            <span>{logo.text}</span>
-          )}
-        </a>
-      )}
+    <div class="nav-wrapper flex items-center justify-center h-16">
 
-      <button
-        type="button"
-        class="mobile-menu-button nav-toggle md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors"
-        aria-controls="mobile-menu"
-        aria-expanded="false"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg class="menu-icon nav-toggle-open block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg class="close-icon nav-toggle-close hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
 
-      <ul class="nav-desktop hidden md:flex items-center space-x-1" style="list-style: none;">
+      <ul class="nav-desktop flex items-center gap-8" style="list-style: none;">
         {items.map((item) => {
           const isActive = currentPath === item.href || item.active;
           return (
@@ -69,10 +46,10 @@ const currentPath = Astro.url.pathname;
               <a
                 href={item.href}
                 class:list={[
-                  'nav-link px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                  'nav-link text-base font-normal transition-all',
                   isActive
-                    ? 'bg-primary text-white'
-                    : 'text-gray-700 hover:text-primary hover:bg-gray-100'
+                    ? 'text-primary border-b-2 border-primary'
+                    : 'text-gray-600 hover:text-gray-900'
                 ]}
                 aria-current={isActive ? 'page' : undefined}
               >
@@ -84,82 +61,55 @@ const currentPath = Astro.url.pathname;
       </ul>
     </div>
 
-    <div
-      id="mobile-menu"
-      class="mobile-menu nav-mobile md:hidden hidden transition-all"
-      aria-hidden="true"
-    >
-      <ul class="py-2 space-y-1" style="list-style: none;">
-        {items.map((item) => {
-          const isActive = currentPath === item.href || item.active;
-          return (
-            <li>
-              <a
-                href={item.href}
-                class:list={[
-                  'nav-link-mobile block px-3 py-2 rounded-md text-base font-medium transition-colors',
-                  isActive
-                    ? 'bg-primary text-white'
-                    : 'text-gray-700 hover:text-primary hover:bg-gray-100'
-                ]}
-                aria-current={isActive ? 'page' : undefined}
-              >
-                {item.label}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
   </div>
 </nav>
 
 <script src="../../scripts/navigation.ts"></script>
 
 <style>
+  .navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0;
+    position: relative;
+  }
+
   .text-gray-900 {
     color: var(--color-text-primary);
   }
 
-  .text-gray-700 {
-    color: var(--color-text-secondary);
-  }
-
   .text-gray-600 {
-    color: var(--color-text-tertiary);
-  }
-
-  .text-primary {
-    color: var(--color-primary);
-  }
-
-  .bg-primary {
-    background: var(--color-primary);
-  }
-
-  .bg-gray-100 {
-    background: var(--color-bg-secondary);
-  }
-
-  .hover\:text-primary:hover {
-    color: var(--color-primary);
+    color: #666;
   }
 
   .hover\:text-gray-900:hover {
     color: var(--color-text-primary);
   }
 
-  .hover\:bg-gray-100:hover {
-    background: var(--color-bg-secondary);
+  .text-primary {
+    color: #4299E1;
   }
 
-  .text-white {
-    color: white;
+  .border-primary {
+    border-color: #4299E1;
   }
 
-  @media (max-width: 767px) {
-    .nav-mobile {
-      border-top: 1px solid var(--color-border);
+  @media (max-width: 768px) {
+    .nav-desktop {
+      gap: 2rem;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
     }
   }
 </style>
