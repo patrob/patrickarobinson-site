@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 /**
  * Hero Component TDD Tests
@@ -275,7 +275,7 @@ describe('Hero Component', () => {
         </section>
       `;
 
-      const gradient = document.querySelector('.hero-gradient');
+      const gradient = document.querySelector('.hero-gradient') as HTMLElement;
       expect(gradient).toBeTruthy();
       expect(gradient?.style.background).toContain('var(--gradient-primary)');
     });

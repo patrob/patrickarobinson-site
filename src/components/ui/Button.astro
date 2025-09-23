@@ -295,17 +295,19 @@ const Tag = href ? 'a' : 'button';
 
     buttons.forEach((button) => {
       if (button.tagName.toLowerCase() === 'button') {
+        const buttonElement = button as HTMLButtonElement;
+
         // Handle keyboard activation (Enter/Space)
-        button.addEventListener('keydown', (event) => {
+        buttonElement.addEventListener('keydown', (event: KeyboardEvent) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            button.click();
+            buttonElement.click();
           }
         });
 
         // Prevent default action when loading
-        button.addEventListener('click', (event) => {
-          const isLoading = button.getAttribute('data-loading') === 'true';
+        buttonElement.addEventListener('click', (event) => {
+          const isLoading = buttonElement.getAttribute('data-loading') === 'true';
           if (isLoading) {
             event.preventDefault();
             event.stopPropagation();
@@ -323,5 +325,10 @@ const Tag = href ? 'a' : 'button';
   }
 
   // Make function available globally for testing
+  declare global {
+    interface Window {
+      initializeButtons: () => void;
+    }
+  }
   window.initializeButtons = initializeButtons;
 </script>

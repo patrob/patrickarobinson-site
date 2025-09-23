@@ -1,24 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-
-// Mock NavigationManager since we need to test its existence
-let mockNavigationManager: any;
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 
 beforeEach(() => {
-  // Reset mock before each test
-  mockNavigationManager = null;
-
-  // Try to import NavigationManager
-  try {
-    // This will fail if the NavigationManager doesn't exist
-    import('../../src/scripts/navigation').then(module => {
-      mockNavigationManager = module.NavigationManager || module.default;
-    }).catch(() => {
-      // Module doesn't exist
-      mockNavigationManager = null;
-    });
-  } catch {
-    mockNavigationManager = null;
-  }
+  // Setup for each test
 });
 
 describe('Navigation Component', () => {
@@ -101,7 +84,7 @@ describe('Navigation Component', () => {
     try {
       const { NavigationManager } = await import('../../src/scripts/navigation');
       navigationManager = new NavigationManager(nav);
-    } catch (error) {
+    } catch {
       navigationManager = null;
     }
   });
@@ -160,14 +143,14 @@ describe('Navigation Component', () => {
       let navigationModule;
       try {
         navigationModule = await import('../../src/scripts/navigation');
-      } catch (error) {
+      } catch {
         // Module doesn't exist or has errors
         navigationModule = null;
       }
 
       // This assertion will fail until NavigationManager is created
       expect(navigationModule).toBeTruthy();
-      expect(navigationModule?.NavigationManager || navigationModule?.default).toBeTruthy();
+      expect((navigationModule as any)?.NavigationManager || (navigationModule as any)?.default).toBeTruthy();
     });
 
     it('should instantiate NavigationManager with nav element', async () => {
@@ -176,7 +159,7 @@ describe('Navigation Component', () => {
         const { NavigationManager } = await import('../../src/scripts/navigation');
         const manager = new NavigationManager(nav);
         expect(manager).toBeTruthy();
-      } catch (error) {
+      } catch {
         // This will fail until NavigationManager is properly implemented
         expect(false).toBe(true); // Force failure when NavigationManager doesn't exist
       }
@@ -377,7 +360,6 @@ describe('Navigation Component', () => {
   describe('Performance and Animation (Testing CSS Transitions)', () => {
     it('should have smooth transitions on hover states', () => {
       const navLink = nav.querySelector('.nav-link') as HTMLElement;
-      const computedStyle = window.getComputedStyle(navLink);
 
       // Should have transition-colors class
       expect(navLink.classList.contains('transition-colors')).toBe(true);

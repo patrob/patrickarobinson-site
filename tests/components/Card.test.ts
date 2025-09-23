@@ -163,7 +163,7 @@ describe('Card Component', () => {
         </article>
       `;
 
-      const imageContainer = document.querySelector('.card-image-container');
+      const imageContainer = document.querySelector('.card-image-container') as HTMLElement;
       expect(imageContainer?.style.aspectRatio).toBe('16 / 9');
     });
 

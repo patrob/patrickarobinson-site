@@ -104,32 +104,34 @@ const wrapperAttrs = href ? { href, 'aria-label': ariaLabel || title } : {};
     const interactiveCards = document.querySelectorAll('.card-interactive');
 
     interactiveCards.forEach(card => {
+      const cardElement = card as HTMLElement;
+
       // Handle keyboard activation
-      card.addEventListener('keydown', (event) => {
+      cardElement.addEventListener('keydown', (event: KeyboardEvent) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
-          card.click();
+          cardElement.click();
         }
       });
 
       // Handle hover effects for tests
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-4px) scale(1.02)';
+      cardElement.addEventListener('mouseenter', () => {
+        cardElement.style.transform = 'translateY(-4px) scale(1.02)';
       });
 
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
+      cardElement.addEventListener('mouseleave', () => {
+        cardElement.style.transform = '';
       });
 
       // Handle focus styles for tests
-      card.addEventListener('focus', () => {
-        card.style.outline = 'var(--focus-ring)';
-        card.style.outlineOffset = 'var(--focus-ring-offset)';
+      cardElement.addEventListener('focus', () => {
+        cardElement.style.outline = 'var(--focus-ring)';
+        cardElement.style.outlineOffset = 'var(--focus-ring-offset)';
       });
 
-      card.addEventListener('blur', () => {
-        card.style.outline = '';
-        card.style.outlineOffset = '';
+      cardElement.addEventListener('blur', () => {
+        cardElement.style.outline = '';
+        cardElement.style.outlineOffset = '';
       });
     });
   }
@@ -142,6 +144,11 @@ const wrapperAttrs = href ? { href, 'aria-label': ariaLabel || title } : {};
   }
 
   // Also expose function globally for test environments
+  declare global {
+    interface Window {
+      initializeCardInteractions: () => void;
+    }
+  }
   if (typeof window !== 'undefined') {
     window.initializeCardInteractions = initializeCardInteractions;
   }

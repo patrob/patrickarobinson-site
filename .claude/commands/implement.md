@@ -24,7 +24,7 @@ Rules:
    - Integration tests may be run if specified  
 5. **Phase Stop Rule**: If the plan has multiple phases, stop execution after completing the current phase. Await explicit instruction before continuing to the next phase. This rule may only be bypassed if the prompter explicitly allows it.  
 6. Stop immediately if validation fails in a non-trivial way. Defer to human guidance before proceeding further.  
-7. Check if tasks are complete - check any complete tasks (i.e. `- [ ]` -> `- [x]`)
+7. Check tasks complete when finished (i.e. `- [ ]` -> `- [x]`)
 
 Your task is to implement the plan directly and surface validation results in real time.
 
