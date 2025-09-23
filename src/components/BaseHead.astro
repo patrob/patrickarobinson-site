@@ -58,13 +58,13 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="og:site_name" content={SITE_TITLE} />
 <meta property="og:locale" content="en_US" />
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image.src, Astro.url)} />
-<meta property="twitter:image:alt" content={`Cover image for ${title}`} />
+<!-- X -->
+<meta property="x:card" content="summary_large_image" />
+<meta property="x:url" content={Astro.url} />
+<meta property="x:title" content={title} />
+<meta property="x:description" content={description} />
+<meta property="x:image" content={new URL(image.src, Astro.url)} />
+<meta property="x:image:alt" content={`Cover image for ${title}`} />
 
 <!-- Additional SEO -->
 <meta name="robots" content="index, follow" />
