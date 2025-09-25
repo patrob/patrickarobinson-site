@@ -2,7 +2,7 @@
 title: 'Introducing the 3D Strategy'
 description: 'A Framework for Reliable AI-Driven Software Development'
 pubDate: 'Sep 24 2025'
-heroImage: '../../assets/3d-strategy-blog-hero-image.jpg'
+heroImage: '../../assets/3d-strategy-blog-hero-image.png'
 ---
 
 Imagine trying to navigate a complex city without a map, GPS, or any clear destination in mind. You'd probably wander aimlessly, take wrong turns, and waste enormous amounts of time and fuel. This is exactly what happens when developers try to harness AI coding agents without a structured approach.
