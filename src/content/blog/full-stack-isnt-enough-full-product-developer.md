@@ -11,7 +11,9 @@ We've all been there - stuck in the feature factory, heads down, churning out wi
 
 Let me share something that's been on my mind lately, and I had the chance to talk about it recently:
 
+<div style="text-align: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/0CF9fg_CCkg" title="Full Stack Isn't Enough - The Rise of the Full Product Developer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## The Resume-Driven Development Trap
 
