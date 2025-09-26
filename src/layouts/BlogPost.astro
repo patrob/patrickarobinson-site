@@ -171,6 +171,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		height: auto;
 	}
 
+	/* Resize AI-generated phase images to 75% */
+	.prose :global(img[src*="3d-strategy-ai-gen"]) {
+		max-width: 75%;
+		width: 75%;
+	}
+
 	.text-gray-900 {
 		color: var(--color-text-primary);
 	}
