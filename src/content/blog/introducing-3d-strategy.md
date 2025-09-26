@@ -67,6 +67,6 @@ Pick a bug or small feature you're working on. Try one Discovery → Design → 
 **Ready to dive deeper?**
 - See the validation scales that make this work: [FAR Scale](https://github.com/patrob/3d-strategy/blob/main/docs/scales/far-scale.md) & [FACTS Scale](https://github.com/patrob/3d-strategy/blob/main/docs/scales/facts-scale.md)
 - Walk through each phase: [Discovery](https://github.com/patrob/3d-strategy/blob/main/docs/phases/Discovery.md), [Design](https://github.com/patrob/3d-strategy/blob/main/docs/phases/Design.md), [Delivery](https://github.com/patrob/3d-strategy/blob/main/docs/phases/Delivery.md)
-- Get started now: [Quick Start Guide](https://github.com/patrob/3d-strategy#quick-start)
+- Get started now: [Quick Start Guide](https://github.com/patrob/3d-strategy#quick-start-5-minutes)
 
 The future isn't about AI replacing developers—it's about developers who know how to direct AI replacing those who don't. The 3D Strategy gives you that superpower.
