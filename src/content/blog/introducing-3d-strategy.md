@@ -49,20 +49,20 @@ Let's say you receive a new ticket: "Add ability for users to bulk delete their 
 The secret is in what we don't let AI do: make big decisions without validation. Instead, we use AI's strengths—pattern matching, code generation, systematic execution—while humans handle strategy and validation.
 
 Those validation scales aren't just checkboxes. They're guardrails that prevent the most common AI failures:
-- **Context overflow?** Eliminated by keeping tasks under 4 hours
-- **Hallucination?** Prevented by FAR validation requiring factual evidence
+- **Context overflow?** Eliminated by keeping tasks atomic (i.e. a command call, file edit)
+- **Hallucination?** Prevented by [FAR](https://github.com/patrob/3d-strategy/blob/main/docs/scales/far-scale.md) validation requiring factual evidence
 - **Wrong problem solved?** Impossible when Discovery validates relevance first
-- **Untestable code?** FACTS ensures every task has clear success criteria
+- **Untestable code?** [FACTS](https://github.com/patrob/3d-strategy/blob/main/docs/scales/facts-scale.md) validation ensures plan has clear success criteria
 
 ## Start Using It Today
 
 The 3D Strategy works with whatever AI tools you're already using—Claude, GitHub Copilot, Cursor. It's not about new tools; it's about directing them properly.
 
-This isn't theoretical. Teams using 3D are shipping faster with fewer bugs, because their AI assistants finally understand exactly what's needed.
+Teams are experimenting with 3D and taming AI, because their AI assistants finally understand exactly what's needed.
 
 ## Your Next Step
 
-Pick a bug or small feature you're working on. Try one Discovery → Design → Delivery cycle. It'll take less than an hour, and you'll immediately see the difference.
+Pick a bug or small feature you're working on. Try one Discovery → Design → Delivery cycle. It won't take long, and you'll immediately see the difference.
 
 **Ready to dive deeper?**
 - See the validation scales that make this work: [FAR Scale](https://github.com/patrob/3d-strategy/blob/main/docs/scales/far-scale.md) & [FACTS Scale](https://github.com/patrob/3d-strategy/blob/main/docs/scales/facts-scale.md)
