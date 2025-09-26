@@ -26,10 +26,10 @@ Here's the magic: The framework includes validation scales ([FAR](https://github
 ### The Three Phases That Change Everything
 
 **Discovery: Build Context & Insight**
-You start by researching the problem thoroughly—gathering evidence, mapping code surfaces, validating findings. The FAR scale (Factual, Actionable, Relevant) ensures your discoveries are based on facts, not assumptions. No more building on shaky foundations.
+You start by researching the problem thoroughly—gathering evidence, mapping code surfaces, validating findings. The [FAR](https://github.com/patrob/3d-strategy/blob/main/docs/scales/far-scale.md) scale (Factual, Actionable, Relevant) ensures your discoveries are based on facts, not assumptions. No more building on shaky foundations.
 
 **Design: Decide What to Do & How**
-Here's where the magic happens: You break work into tasks under 4 hours each. Why 4 hours? Because that's the sweet spot where AI excels—big enough to be meaningful, small enough to stay focused. The FACTS scale validates that each task is Feasible, Atomic, Clear, Testable, and properly Sized.
+Here's where the magic happens: You break work into atomic tasks. Why atomic tasks? That keeps AI on track with simple instructions to check off as it goes. The [FACTS](https://github.com/patrob/3d-strategy/blob/main/docs/scales/facts-scale.md) scale validates that each task is Feasible, Atomic, Clear, Testable, and properly Sized.
 
 **Delivery: Ship & Learn**
 With validated context and properly sized tasks, your AI becomes unstoppable. It executes each task systematically, with continuous validation through builds, tests, and lints. You stay in control of decisions while AI handles the implementation.
@@ -38,9 +38,9 @@ With validated context and properly sized tasks, your AI becomes unstoppable. It
 
 Let's say you receive a new ticket: "Add ability for users to bulk delete their uploaded files."
 
-**Discovery**: Instead of guessing requirements, your AI uses "Reverse Prompting"—asking you clarifying questions one at a time. "Should this work from the file manager or dashboard?" "Any file type restrictions?" "What happens to shared files?" After the Q&A reveals insights you hadn't considered, the AI analyzes your codebase and documentation, then outputs a discovery markdown file. The FAR scale validates these findings are factual (based on actual code), actionable (you know exactly what to build), and relevant (solves the real user need).
+**Discovery**: Instead of guessing requirements, your AI uses "Reverse Prompting"—asking you clarifying questions one at a time. "Should this work from the file manager or dashboard?" "Any file type restrictions?" "What happens to shared files?" After the Q&A reveals insights you hadn't considered, the AI analyzes your codebase and documentation, then outputs a discovery markdown file. The [FAR](https://github.com/patrob/3d-strategy/blob/main/docs/scales/far-scale.md) scale validates these findings are factual (based on actual code), actionable (you know exactly what to build), and relevant (solves the real user need).
 
-**Design**: Using the discovery doc in a fresh context, your AI analyzes requirements and creates a phased approach with atomic tasks with markdown checkboxes. Phase 1: "Add bulk selection UI to file manager." Phase 2: "Create delete confirmation modal with file count." Phase 3: "Implement backend bulk delete API." Each phase passes FACTS validation to ensure it's feasible and properly scoped.
+**Design**: Using the discovery doc in a fresh context, your AI analyzes requirements and creates a phased approach with atomic tasks with markdown checkboxes. Phase 1: "Add bulk selection UI to file manager." Phase 2: "Create delete confirmation modal with file count." Phase 3: "Implement backend bulk delete API." Each phase passes [FACTS](https://github.com/patrob/3d-strategy/blob/main/docs/scales/facts-scale.md) validation to ensure it's feasible and properly scoped.
 
 **Delivery**: With your design doc loaded in fresh context, your AI iterates through tasks systematically. You choose your feedback loop: "Do a task, validate" for maximum control, "Do a phase, validate" for speed, or "Do the whole thing, validate" when you're confident. Quality gates—tests, builds, lints—must pass after each task. No hallucinations, no scope creep—just focused execution that works.
 
