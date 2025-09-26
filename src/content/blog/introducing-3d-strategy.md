@@ -29,7 +29,7 @@ Here's the magic: The framework includes validation scales ([FAR](https://github
 You start by researching the problem thoroughly—gathering evidence, mapping code surfaces, validating findings. The [FAR](https://github.com/patrob/3d-strategy/blob/main/docs/scales/far-scale.md) scale (Factual, Actionable, Relevant) ensures your discoveries are based on facts, not assumptions. No more building on shaky foundations.
 
 **Design: Decide What to Do & How**
-Here's where the magic happens: You break work into atomic tasks. Why atomic tasks? That keeps AI on track with simple instructions to check off as it goes. The [FACTS](https://github.com/patrob/3d-strategy/blob/main/docs/scales/facts-scale.md) scale validates that each task is Feasible, Atomic, Clear, Testable, and properly Sized.
+Here's where the magic happens: You break work into atomic tasks. Why atomic tasks? That keeps AI on track with simple instructions to check off as it goes. The [FACTS](https://github.com/patrob/3d-strategy/blob/main/docs/scales/facts-scale.md) scale validates that each task is Feasible, Atomic, Clear, Testable, and properly Scoped.
 
 **Delivery: Ship & Learn**
 With validated context and properly sized tasks, your AI becomes unstoppable. It executes each task systematically, with continuous validation through builds, tests, and lints. You stay in control of decisions while AI handles the implementation.
