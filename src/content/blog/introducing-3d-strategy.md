@@ -5,9 +5,9 @@ pubDate: 'Sep 24 2025'
 heroImage: '../../assets/3d-strategy-blog-hero-image.png'
 ---
 
-Imagine an AI coding assistant that never hallucinates, stays focused on exactly what you need, and produces code that actually works the first time. Sound impossible? It's not—you just need the right framework.
+Imagine an AI coding assistant that rarely hallucinates, stays focused on exactly what you need, and produces code that actually works the first time. Sound impossible? It's not—you just need the right framework.
 
-The 3D Strategy is a battle-tested framework that transforms chaotic AI interactions into predictable, high-quality software delivery. It's the difference between hoping your AI assistant understands you and knowing it will deliver exactly what you need.
+The 3D Strategy is a framework that transforms chaotic AI interactions into predictable, high-quality software delivery. It's the difference between hoping your AI assistant understands you and knowing it will deliver exactly what you need.
 
 ## Why Most AI Development Fails
 
@@ -17,9 +17,9 @@ The issue isn't the AI—it's that we're asking it to read our minds. Without st
 
 ## The 3D Strategy: Your AI Development GPS
 
-Think of the 3D Strategy as turning your AI from an eager intern into a seasoned developer. How? By breaking work into three focused phases—Discovery, Design, and Delivery—each with built-in validation that ensures you're ready to proceed.
+Think of the 3D Strategy as turning your AI from an eager intern into a seasoned developer. How? By breaking work into three focused phases—Discovery, Design, and Delivery—each with  validation mechanisms that ensures you're ready to proceed.
 
-Here's the magic: The framework includes validation scales (FAR for Discovery, FACTS for Design) that score your work to ensure it's factual, actionable, and properly scoped. No more guessing if you're ready to move forward—the framework tells you.
+Here's the magic: The framework includes validation scales ([FAR](https://github.com/patrob/3d-strategy/blob/main/docs/scales/far-scale.md) for Discovery, [FACTS](https://github.com/patrob/3d-strategy/blob/main/docs/scales/facts-scale.md) for Design) that score your work to ensure it's factual, actionable, and properly scoped. No more guessing if you're ready to move forward—the framework tells you.
 
 ![3D Strategy Workflow Diagram](../../assets/3d-strategy-workflow.png)
 
