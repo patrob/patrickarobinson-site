@@ -28,23 +28,29 @@ Here's the magic: The framework includes validation scales (FAR for Discovery, F
 **Discovery: Build Context & Insight**
 You start by researching the problem thoroughly—gathering evidence, mapping code surfaces, validating findings. The FAR scale (Factual, Actionable, Relevant) ensures your discoveries are based on facts, not assumptions. No more building on shaky foundations.
 
+![AI exploring with magnifying glass and question marks](../../assets/3d-strategy-ai-gen-discovery.png)
+
 **Design: Decide What to Do & How**
 Here's where the magic happens: You break work into tasks under 4 hours each. Why 4 hours? Because that's the sweet spot where AI excels—big enough to be meaningful, small enough to stay focused. The FACTS scale validates that each task is Feasible, Atomic, Clear, Testable, and properly Sized.
 
+![AI planning with blueprints and gears](../../assets/3d-strategy-ai-gen-design.png)
+
 **Delivery: Ship & Learn**
 With validated context and properly sized tasks, your AI becomes unstoppable. It executes each task systematically, with continuous validation through builds, tests, and lints. You stay in control of decisions while AI handles the implementation.
+
+![AI building with construction blocks](../../assets/3d-strategy-ai-gen-delivery.png)
 
 
 
 ## A Real Example
 
-Let's say you have a bug: "User login fails on mobile Chrome."
+Let's say you receive a new ticket: "Add ability for users to bulk delete their uploaded files."
 
-**Discovery**: Your AI investigates—finds 3 support tickets, identifies the exact error ("session undefined"), maps it to the authentication module. The FAR scale validates these findings are factual (real tickets), actionable (you found the code), and relevant (it's breaking users).
+**Discovery**: Instead of guessing requirements, your AI uses "Reverse Prompting"—asking you clarifying questions one at a time. "Should this work from the file manager or dashboard?" "Any file type restrictions?" "What happens to shared files?" After the Q&A reveals insights you hadn't considered, the AI analyzes your codebase and documentation, then outputs a discovery markdown file. The FAR scale validates these findings are factual (based on actual code), actionable (you know exactly what to build), and relevant (solves the real user need).
 
-**Design**: You break the fix into three 2-hour tasks: 1) Add session validation, 2) Handle edge cases, 3) Add test coverage. Each task is validated by FACTS to ensure it's achievable and properly scoped.
+**Design**: Using the discovery doc in a fresh context, your AI analyzes requirements and creates atomic tasks with markdown checkboxes—each under 4 hours. Task 1: "Add bulk selection UI to file manager." Task 2: "Create delete confirmation modal with file count." Task 3: "Implement backend bulk delete API." Each task passes FACTS validation to ensure it's feasible and properly scoped.
 
-**Delivery**: Your AI implements each task in sequence. Tests pass, lint is clean, the bug is fixed. No hallucinations, no rabbit holes—just focused execution.
+**Delivery**: With your design doc loaded in fresh context, your AI iterates through tasks systematically. You choose your feedback loop: "Do a task, validate" for maximum control, "Do a phase, validate" for speed, or "Do the whole thing, validate" when you're confident. Quality gates—tests, builds, lints—must pass after each task. No hallucinations, no scope creep—just focused execution that works.
 
 ## Why This Actually Works
 
