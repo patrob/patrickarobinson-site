@@ -70,3 +70,7 @@ Pick a bug or small feature you're working on. Try one Discovery → Design → 
 - Get started now: [Quick Start Guide](https://github.com/patrob/3d-strategy#quick-start-5-minutes)
 
 The future isn't about AI replacing developers—it's about developers who know how to direct AI replacing those who don't. The 3D Strategy gives you that superpower.
+
+---
+
+*Inspired by [this YouTube video](https://www.youtube.com/watch?v=IS_y40zY-hc) that sparked the idea for systematic AI development.*
