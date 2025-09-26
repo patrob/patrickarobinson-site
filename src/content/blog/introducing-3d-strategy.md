@@ -28,19 +28,11 @@ Here's the magic: The framework includes validation scales (FAR for Discovery, F
 **Discovery: Build Context & Insight**
 You start by researching the problem thoroughly—gathering evidence, mapping code surfaces, validating findings. The FAR scale (Factual, Actionable, Relevant) ensures your discoveries are based on facts, not assumptions. No more building on shaky foundations.
 
-![AI exploring with magnifying glass and question marks](../../assets/3d-strategy-ai-gen-discovery.png)
-
 **Design: Decide What to Do & How**
 Here's where the magic happens: You break work into tasks under 4 hours each. Why 4 hours? Because that's the sweet spot where AI excels—big enough to be meaningful, small enough to stay focused. The FACTS scale validates that each task is Feasible, Atomic, Clear, Testable, and properly Sized.
 
-![AI planning with blueprints and gears](../../assets/3d-strategy-ai-gen-design.png)
-
 **Delivery: Ship & Learn**
 With validated context and properly sized tasks, your AI becomes unstoppable. It executes each task systematically, with continuous validation through builds, tests, and lints. You stay in control of decisions while AI handles the implementation.
-
-![AI building with construction blocks](../../assets/3d-strategy-ai-gen-delivery.png)
-
-
 
 ## A Real Example
 
