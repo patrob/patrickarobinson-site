@@ -7,7 +7,7 @@ tags: ["ai", "productivity", "critical-thinking", "creativity", "collaboration",
 draft: false
 ---
 
-We're all feeling it - that weird tension between the incredible power of AI tools and the nagging worry that maybe we're getting a little too comfortable letting them do the thinking for us. I've been building software for twenty years, and this moment feels different. Not scary different, but pay-attention different.
+We're all feeling it - that weird tension between the incredible power of AI tools and the nagging worry that maybe we're getting a little too comfortable letting them do the thinking for us. I've been building software for fifteen years, and this moment feels different. Not scary different, but pay-attention different.
 
 Here's what I've figured out: AI isn't making us smarter or dumber. It's just a tool. But how we use it? That's everything.
 
