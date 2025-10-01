@@ -22,23 +22,27 @@ One path makes you weaker. The other makes you sharper. I've caught myself defau
 
 ## Using AI to Actually Think Better
 
-Here's a concrete example from a recent project. I was designing a system to handle webhook retries with exponential backoff. My initial approach was straightforward: dead letter queue, retry with exponential delay, max retry count.
+Here's a story from coaching teams on working with AI. Recently, I worked with a team that wanted to "vibe code" a new feature - just jump in and have AI generate code without understanding the problem first. They'd been stuck in this exhausting loop: ask AI for code, test it, realize it doesn't quite work, ask for modifications, repeat. Hours of iterative prompting with little context, producing mediocre results.
 
-Instead of asking AI to "write a design for webhook retry logic," I asked: "Give me three unconventional approaches to handling webhook retries that avoid the typical dead letter queue pattern."
+The issue wasn't the AI. It was their approach.
 
-The AI suggested:
-1. Circuit breaker pattern with adaptive retry windows based on endpoint health
-2. Streaming retry queue with priority levels derived from payload criticality
-3. Event sourcing approach where retries are replayable events in the system log
+They were treating AI like a magic code vending machine: insert prompt, receive solution, hope it works. No understanding of the requirements. No plan. Just vibes and iteration.
 
-Here's where the value came in - I critiqued each approach against my specific constraints:
-- Circuit breaker: Great for protecting downstream services, but adds complexity for tracking state
-- Priority streaming: Interesting, but how do I determine criticality without domain logic leaking into infrastructure?
-- Event sourcing: Powerful for replay scenarios, but overkill for simple webhook delivery
+I asked them to step back. "Before you write a single line of code, help me understand: what problem are we actually solving? What are the constraints? What does success look like?"
 
-I ended up with a hybrid: circuit breaker pattern for endpoint health, combined with a traditional retry queue but with adaptive backoff windows based on the circuit breaker state. That fourth option - the one I built by synthesizing ideas - was better than anything the AI initially suggested.
+We spent 30 minutes building context:
+- Mapped out the actual requirements (not just "build a feature")
+- Identified integration points with existing systems
+- Discussed edge cases and failure scenarios
+- Sketched a rough implementation approach
 
-The key difference: I used AI to expand my solution space, not to shrink my thinking.
+Then we went back to AI - but this time with a completely different prompt. Instead of "build me this feature," they asked AI to help them evaluate their approach, identify blindspots, and suggest improvements to specific parts of their plan.
+
+The implementation became dramatically easier. The code quality improved. More importantly, when things didn't work (and they won't always), the team could debug effectively because they understood what they were building and why.
+
+The key difference: They used AI to help think through the problem, not to avoid thinking about it. They provided context, maintained a clear plan, and treated AI as a pair partner rather than a replacement for understanding.
+
+This is what I mean by augmentation over replacement. The team got faster and produced better work - not because AI wrote more code, but because they built better mental models before writing any code at all.
 
 ## When AI Gets It Wrong (And It Will)
 
