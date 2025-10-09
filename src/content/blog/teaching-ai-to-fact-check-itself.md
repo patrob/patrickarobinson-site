@@ -83,8 +83,7 @@ Here's the workflow I use with FAR Scale:
                          │
                          ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Only findings with F≥4, A≥3, R≥3 and Mean≥4.00 pass        │
-│  validation                                                  │
+│  Only findings with F≥4, A≥3, R≥3, Mean≥4.00 pass          │
 └────────────────────────┬────────────────────────────────────┘
                          │
                          ▼
