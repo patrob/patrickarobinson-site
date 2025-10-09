@@ -1,8 +1,8 @@
 ---
-title: 'Teaching AI to Fact-Check Itself'
+title: 'How I Got AI to Stop Lying to Me'
 description: 'How FAR Scale helps reduce hallucinations and improve AI research reliability'
 pubDate: 'Oct 09 2025'
-heroImage: '../../assets/hero-teaching-ai-fact-check.jpg'
+heroImage: '../../assets/hero-ai-stop-lying.jpg'
 ---
 
 I've been working with AI coding assistants for a while now, and I kept running into the same frustrating pattern: I'd ask Claude or another LLM to research something technical, get back what looked like a great answer, and then discover later that critical details were hallucinated or outdated. The problem wasn't that the AI was bad—it was that I had no systematic way to validate what it told me.
@@ -19,9 +19,9 @@ The issue wasn't obvious until I manually cross-referenced the Node.js documenta
 
 ## Enter FAR Scale: A Simple Framework for AI Research Validation
 
-FAR Scale is a three-part scoring system I developed that forces AI to fact-check itself before presenting findings. Each finding gets scored 0-5 on three dimensions:
+The approach is simple: before the AI hands you research, it has to grade itself on three questions. Can this be verified? Can I act on it immediately? Is it actually relevant to what I asked? Score each 0-5, and only findings that pass a quality threshold make it through.
 
-I've documented FAR Scale in the [RPI Strategy framework](https://github.com/patrob/rpi-strategy) as a validation methodology I'm developing for research findings.
+I've documented FAR Scale in the [RPI Strategy framework](https://github.com/patrob/rpi-strategy) as a validation methodology I'm developing for research findings. Here's how the scoring works:
 
 ### F - Factual (0-5)
 Can this information be verified and proven?
@@ -57,13 +57,13 @@ A finding needs **Factual ≥4, Actionable ≥3, Relevant ≥3** with a **mean s
 
 ## The Key Insight: AI as Judge
 
-Here's what I discovered makes FAR Scale work: LLMs struggle with factual recall, but they're surprisingly good at self-evaluation. When you give them specific criteria and ask them to evaluate their own output, they'll honestly say "I can't find a source for this" or "This is based on my training data, not current documentation."
+Here's what I discovered makes FAR Scale work: LLMs struggle with factual recall, but when you give them specific criteria and structured rubrics—especially when validation happens in a separate context from the research itself—they can perform useful self-evaluation. They'll honestly say "I can't find a source for this" or "This is based on my training data, not current documentation."
 
 It's the difference between "The answer is definitely X" and "I think the answer is X, but I'm only 60% confident because I can only find partial evidence in the docs." The latter is infinitely more useful.
 
 ## How It Works: The Research Workflow
 
-Here's the workflow I use with FAR Scale:
+So how do you actually use this in practice? Here's the workflow I use with FAR Scale:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -96,11 +96,11 @@ The critical step is the **self-scoring**. The AI must justify each score with e
 
 ## A Real Example: Validating Astro 5 Migration Research
 
-Let me show you what this looks like in practice. Here's what I did when I needed to understand the impact of upgrading to Astro 5.
+Want to see how this plays out in practice? Let me show you what I did when I needed to understand the impact of upgrading to Astro 5.
 
 ### The Critical Insight: Separate Research from Validation
 
-The most important thing I learned about FAR Scale is this: **it's not for conducting research—it's for validating research that's already been done.** The workflow requires two distinct contexts:
+Want to know the trick that made FAR Scale actually work? The most important thing I learned is this: **it's not for conducting research—it's for validating research that's already been done.** The workflow requires two distinct contexts:
 
 1. **Research Context**: AI gathers information, explores documentation, makes connections
 2. **Validation Context**: Fresh AI instance scores the research findings objectively
@@ -183,7 +183,7 @@ Vitest works with Astro 5 and Node 22, but watch for potential performance diffe
 
 ### The Key Difference: High Scores vs. Low Scores
 
-Notice the pattern:
+See the difference between these scores?
 
 **Perfect score (5.00)**: Zero ambiguity. Verified in official sources. No caveats. Turned out to require zero code changes.
 
@@ -256,6 +256,8 @@ Justification: [Why these scores; what evidence exists or is missing]
 The key is using these templates in **separate conversations**. Don't let the AI that did the research score itself.
 
 ## Final Thoughts
+
+Here's what changes when you can trust AI research: you stop second-guessing every answer. You stop manually cross-referencing documentation for hours. You can delegate research confidently because you know low-scoring findings will get flagged. The AI becomes less like a source of truth and more like a research assistant who actually tells you when they're unsure.
 
 AI coding assistants are powerful tools, but they're not magic. They hallucinate. They get things wrong. They confidently present outdated information.
 
