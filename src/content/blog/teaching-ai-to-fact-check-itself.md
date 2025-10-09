@@ -7,7 +7,7 @@ heroImage: '../../assets/hero-teaching-ai-fact-check.jpg'
 
 I've been working with AI coding assistants for a while now, and I kept running into the same frustrating pattern: I'd ask Claude or another LLM to research something technical, get back what looked like a great answer, and then discover later that critical details were hallucinated or outdated. The problem wasn't that the AI was bad—it was that I had no systematic way to validate what it told me.
 
-So I built something about it. Not a revolutionary framework, not the answer to AI reliability—just a practical methodology that's working for me. I call it FAR Scale: Findability, Accuracy, and Relevance.
+So I built something about it. Not a revolutionary framework, not the answer to AI reliability—just a practical methodology that's working for me. I call it FAR Scale: Factual, Actionable, and Relevant.
 
 ## The Problem: When AI Research Fails You
 
@@ -20,6 +20,8 @@ The issue wasn't obvious until I manually cross-referenced the Node.js documenta
 ## Enter FAR Scale: A Simple Framework for AI Research Validation
 
 FAR Scale is a three-part scoring system that forces AI to fact-check itself before presenting findings. Each finding gets scored 0-5 on three dimensions:
+
+FAR Scale is documented in the [RPI Strategy framework](https://github.com/patrob/rpi-strategy) as a validation methodology I've been developing for research findings.
 
 ### F - Factual (0-5)
 Can this information be verified and proven?
@@ -61,6 +63,8 @@ LLMs struggle with factual recall—they'll confidently hallucinate details. But
 
 It's like having an AI that says, "I think the answer is X, but I'm only 60% confident because I can only find partial evidence in the docs." That's infinitely more useful than "The answer is definitely X" when X is wrong.
 
+In my experience across dozens of research queries, explicitly asking for confidence levels and source attribution yields substantially more hedged language and citations, though I haven't conducted formal measurements.
+
 ## How It Works: The Research Workflow
 
 Here's the workflow I use with FAR Scale:
@@ -83,8 +87,8 @@ Here's the workflow I use with FAR Scale:
                          │
                          ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Only findings with F≥7, A≥7, R≥7 are presented             │
-│  as "reliable"                                               │
+│  Only findings with F≥4, A≥3, R≥3 and Mean≥4.00 pass        │
+│  validation                                                  │
 └────────────────────────┬────────────────────────────────────┘
                          │
                          ▼
@@ -120,7 +124,7 @@ Format each finding as:
 **Justification**: [Why these scores; what evidence exists or is missing]
 ```
 
-Here's what I got back (abbreviated):
+Here's an example of what FAR-scored output looks like:
 
 ---
 
@@ -247,6 +251,8 @@ But when I ask an AI to research something *and* score its own confidence, I'm t
 This mental shift has made me both more productive with AI and less frustrated by its limitations.
 
 ## Try It Yourself: A Starter Template
+
+The complete, up-to-date FAR Scale rubric is maintained at [github.com/patrob/rpi-strategy](https://github.com/patrob/rpi-strategy/blob/main/docs/scales/far-scale.md).
 
 If you want to experiment with FAR Scale, here's a simple template to get started:
 
