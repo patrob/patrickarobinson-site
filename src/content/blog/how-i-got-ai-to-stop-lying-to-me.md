@@ -7,19 +7,21 @@ heroImage: '../../assets/hero-ai-stop-lying.jpg'
 
 I've been working with AI coding assistants for a while now, and I kept running into the same frustrating pattern: I'd ask Claude or another LLM to research something technical, get back what looked like a great answer, and then discover later that critical details were hallucinated or outdated. The problem wasn't that the AI was bad—it was that I had no systematic way to validate what it told me.
 
-So I built something about it. Not a revolutionary framework, not the answer to AI reliability—just a practical methodology that's working for me. I call it FAR Scale: Factual, Actionable, and Relevant.
+So I built something about it. Not a revolutionary framework, not the answer to AI reliability—just a practical methodology that's working for me in my own projects. I call it FAR Scale: Factual, Actionable, and Relevant.
 
 ## The Problem: When AI Research Fails You
 
-Here's a real example. Recently, I needed to migrate a project from Node 20 to Node 22. Simple enough, right? I asked Claude to research the breaking changes and migration steps.
+In my experience, here's a pattern I've encountered repeatedly. Recently, I needed to understand specific deprecations in the Node 22 release that could affect production code. I asked Claude to research the breaking changes and migration steps.
 
-The response was detailed, confident, and... partially wrong. It mentioned several breaking changes that sounded plausible but weren't actually in the official migration guide. It cited best practices that were outdated. And crucially, it missed a few important deprecations that could have broken my production code.
+The response was detailed, confident, and... partially wrong. It mentioned several breaking changes that sounded plausible but weren't actually in the official migration guide. It cited best practices that were outdated. And crucially, it missed a few deprecations documented in the official Node.js changelog that I only caught when manually cross-referencing.
 
-The issue wasn't obvious until I manually cross-referenced the Node.js documentation. And that's when it hit me: **I was treating AI-generated research like gospel instead of treating it like research from a junior developer who needs their work validated.**
+That's when it hit me: **I was treating AI-generated research like gospel instead of treating it like research from a junior developer who needs their work validated.**
 
 ## Enter FAR Scale: A Simple Framework for AI Research Validation
 
-The approach is simple: after the AI completes research, you validate each finding by asking three questions. Can this be verified? Can I act on it immediately? Is it actually relevant to what I asked? Score each 0-5, and only findings that pass a quality threshold get trusted.
+The approach is simple: after the AI completes research, you validate each finding by asking three questions. Can this be verified? Can I act on it immediately? Is it actually relevant to what I asked?
+
+Score each question from 0-5. Only findings that pass a quality threshold get trusted.
 
 I've documented FAR Scale in the [RPI Strategy framework](https://github.com/patrob/rpi-strategy) as a validation methodology I'm developing for research findings. Here's how the scoring works:
 
@@ -57,37 +59,29 @@ A finding needs **Factual ≥4, Actionable ≥3, Relevant ≥3** with a **mean s
 
 ## The Key Insight: AI as Judge
 
-Here's what I discovered makes FAR Scale work: LLMs struggle with factual recall, but when you give them specific criteria and structured rubrics—especially when validation happens in a separate context from the research itself—they can perform useful self-evaluation. They'll honestly say "I can't find a source for this" or "This is based on my training data, not current documentation."
+Here's what I've observed makes this approach work for me: LLMs struggle with factual recall, but when you give them specific criteria and structured rubrics, they can perform useful self-evaluation. This seems especially true when validation happens in a separate context from the research itself.
+
+They'll honestly say "I can't find a source for this" or "This is based on my training data, not current documentation."
 
 It's the difference between "The answer is definitely X" and "I think the answer is X, but I'm only 60% confident because I can only find partial evidence in the docs." The latter is infinitely more useful.
 
 ## How It Works: The Research Workflow
 
-So how do you actually use this in practice? Here's the workflow I use with FAR Scale:
+So how do you actually use this in practice? Here's the workflow I use:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│              CONTEXT 1: Research Phase                      │
-├─────────────────────────────────────────────────────────────┤
-│  1. User asks research question                             │
-│  2. AI conducts research (docs, web search, etc.)           │
-│  3. AI generates findings and saves them                    │
-└─────────────────────────┬───────────────────────────────────┘
-                          │
-                          │ (Start fresh conversation)
-                          │
-                          ▼
-┌─────────────────────────────────────────────────────────────┐
-│              CONTEXT 2: Validation Phase                    │
-├─────────────────────────────────────────────────────────────┤
-│  1. Fresh AI instance receives research findings            │
-│  2. Scores each finding against FAR Scale criteria          │
-│  3. Only findings with F≥4, A≥3, R≥3, Mean≥4.00 pass        │
-│  4. Lower-scored findings flagged with gaps identified      │
-└─────────────────────────────────────────────────────────────┘
-```
+**Phase 1: Research (First Conversation)**
+1. Ask your research question
+2. AI conducts research using docs, web search, etc.
+3. AI generates findings and saves them to a file
 
-The critical step is the **context separation**. A fresh AI instance validates the research without any stake in defending it. This prevents confirmation bias and forces objective scoring with evidence justification.
+**Phase 2: Validation (Fresh Conversation)**
+1. Start a completely new conversation with a fresh AI instance
+2. Give it the research findings file
+3. The fresh AI scores each finding against FAR Scale criteria
+4. Only findings with F≥4, A≥3, R≥3, Mean≥4.00 pass
+5. Lower-scored findings get flagged with gaps identified
+
+The critical step is the **context separation**. A fresh AI instance validates the research without any stake in defending it. In my experience, this prevents confirmation bias and forces objective scoring with evidence justification.
 
 ## Limitations and Honest Caveats
 
@@ -97,13 +91,11 @@ FAR Scale isn't magic. The real limitations:
 
 **Still requires critical thinking.** A passing FAR score doesn't mean blindly implement. You still need to understand if it fits your context.
 
-**Some subjectivity in scoring.** I've found consistency matters more than precision—as long as the AI is consistently honest about uncertainty and provides clear justification, the exact number matters less.
+**Some subjectivity in scoring.** In my experience, consistency matters more than precision—as long as the AI is consistently honest about uncertainty and provides clear justification, the exact number matters less.
 
 ## Try It Yourself: The Two-Context Workflow
 
 The complete, up-to-date FAR Scale rubric is maintained at [github.com/patrob/rpi-strategy](https://github.com/patrob/rpi-strategy/blob/main/docs/scales/far-scale.md).
-
-I developed FAR Scale as a validation methodology, and the key insight is the **two-context separation**: research in one conversation, validation in a completely separate conversation. This prevents confirmation bias and gives you objective scoring.
 
 Here are the exact prompts I use:
 
@@ -147,7 +139,7 @@ The key is using these templates in **separate conversations**. Don't let the AI
 
 ## Final Thoughts
 
-Here's what changes when you can trust AI research: you stop second-guessing every answer. You stop manually cross-referencing documentation for hours. You can delegate research confidently because you know low-scoring findings will get flagged. The AI becomes less like a source of truth and more like a research assistant who actually tells you when they're unsure.
+Here's what I've observed changes when you can better trust AI research: you stop second-guessing every answer. You stop manually cross-referencing documentation for hours. You can delegate research more confidently because you know low-scoring findings will get flagged. The AI becomes less like a source of truth and more like a research assistant who actually tells you when they're unsure.
 
 AI coding assistants are powerful tools, but they're not magic. They hallucinate. They get things wrong. They confidently present outdated information.
 
