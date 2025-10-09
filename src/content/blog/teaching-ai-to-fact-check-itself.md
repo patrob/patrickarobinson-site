@@ -71,7 +71,7 @@ Here's the workflow I use with FAR Scale:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    User asks research question               │
+│                    User asks research question              │
 └────────────────────────┬────────────────────────────────────┘
                          │
                          ▼
@@ -94,7 +94,7 @@ Here's the workflow I use with FAR Scale:
                          ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  Lower-scored findings are flagged with specific            │
-│  concerns and confidence levels                              │
+│  concerns and confidence levels                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
