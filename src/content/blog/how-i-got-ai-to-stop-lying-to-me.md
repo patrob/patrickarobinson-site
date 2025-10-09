@@ -82,7 +82,7 @@ So how do you actually use this in practice? Here's the workflow I use with FAR 
 ├─────────────────────────────────────────────────────────────┤
 │  1. Fresh AI instance receives research findings            │
 │  2. Scores each finding against FAR Scale criteria          │
-│  3. Only findings with F≥4, A≥3, R≥3, Mean≥4.00 pass       │
+│  3. Only findings with F≥4, A≥3, R≥3, Mean≥4.00 pass        │
 │  4. Lower-scored findings flagged with gaps identified      │
 └─────────────────────────────────────────────────────────────┘
 ```
