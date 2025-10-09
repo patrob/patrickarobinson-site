@@ -57,13 +57,9 @@ A finding needs **Factual ≥4, Actionable ≥3, Relevant ≥3** with a **mean s
 
 ## The Key Insight: AI as Judge
 
-The beautiful thing about FAR Scale is that it leverages what LLMs are actually good at: **evaluation and comparison**.
+Here's what makes FAR Scale work: LLMs struggle with factual recall, but they're surprisingly good at self-evaluation. When you give them specific criteria and ask them to evaluate their own output, they'll honestly say "I can't find a source for this" or "This is based on my training data, not current documentation."
 
-LLMs struggle with factual recall—they'll confidently hallucinate details. But when you give them specific criteria and ask them to evaluate their own output against those criteria, they're surprisingly honest. They'll tell you "I can't find a source for this" or "This is based on my training data, not current documentation."
-
-It's like having an AI that says, "I think the answer is X, but I'm only 60% confident because I can only find partial evidence in the docs." That's infinitely more useful than "The answer is definitely X" when X is wrong.
-
-In my experience across dozens of research queries, explicitly asking for confidence levels and source attribution yields substantially more hedged language and citations, though I haven't conducted formal measurements.
+It's the difference between "The answer is definitely X" and "I think the answer is X, but I'm only 60% confident because I can only find partial evidence in the docs." The latter is infinitely more useful.
 
 ## How It Works: The Research Workflow
 
@@ -201,84 +197,19 @@ All three passed FAR Scale thresholds, but the scores told me exactly which find
 
 ### What This Workflow Gave Me
 
-The two-context approach—research in one conversation, validation in another—produced objective scores I could actually trust. The validator wasn't defending the research; it was honestly evaluating it.
+When I ran the migration, the FAR scores were predictive. The perfect-score finding required no changes. The import attributes finding was accurate but irrelevant to my code. The Vitest finding remains something I'm watching, but hasn't caused issues yet.
 
-The result? I could proceed with the Astro 5 upgrade with confidence in the high-scoring findings, while remaining appropriately skeptical of the lower-scored caveat about Vitest performance.
-
-And when I actually ran the migration? The FAR scores were predictive. The perfect-score finding required no changes. The import attributes finding was accurate but irrelevant to my code. The Vitest finding remains something I'm watching, but hasn't caused issues yet.
-
-## Why This Works: Three Key Reasons
-
-### 1. Forces Explicit Source Attribution
-When the AI has to score Findability, it can't hand-wave about "best practices" without backing it up. Either there's a link to official docs or there isn't.
-
-### 2. Surfaces Uncertainty Early
-Instead of discovering hallucinations after acting on them, you see uncertainty flags upfront. This changes AI research from "verify everything" to "verify low-confidence findings."
-
-### 3. Maintains AI Utility
-This isn't about crippling the AI or only allowing it to quote docs verbatim. Lower-scored findings are still valuable—they just come with appropriate caveats. Sometimes a 5/10 Findability finding from Stack Overflow is exactly what you need, as long as you know that's what it is.
-
-## Practical Implementation: How I Use This Daily
-
-I've integrated FAR Scale into my development workflow through a custom Claude project. Here's my typical usage pattern:
-
-**For technical research questions:**
-```
-Research [topic] using FAR Scale scoring. Present findings that pass
-(F≥4, A≥3, R≥3, Mean≥4.00) first, then flagged findings with explicit gaps.
-```
-
-**For migration/upgrade tasks:**
-```
-Research breaking changes from [old version] to [new version] using
-FAR Scale. Only present changes that pass all thresholds as "confirmed
-breaking changes". Flag anything uncertain with justification.
-```
-
-**For architectural decisions:**
-```
-Research pros/cons of [approach A] vs [approach B] for [use case].
-Use FAR Scale to distinguish between well-verified best practices
-(high Factual scores) and community opinions (lower Factual scores).
-```
-
-The key is being explicit in the prompt that you want FAR Scale scoring. Once that's established, the AI maintains that standard throughout the conversation.
+The two-context approach—research in one conversation, validation in another—gave me objective scores I could trust because the validator wasn't defending the research.
 
 ## Limitations and Honest Caveats
 
-FAR Scale isn't magic. Here are the real limitations I've encountered:
+FAR Scale isn't magic. The real limitations:
 
-### 1. Only as Good as Available Documentation
-If official docs are sparse or outdated, even the AI's honest effort will yield low Findability scores. That's useful information, but it doesn't create knowledge that doesn't exist.
+**Only as good as available documentation.** If official docs are sparse, you'll get low Factual scores. That's useful information, but it doesn't create knowledge that doesn't exist.
 
-### 2. Requires Source Access
-This works best when the AI can actually search documentation or the web. If you're asking about proprietary internal systems with no public docs, FAR Scale can't help much.
+**Still requires critical thinking.** A passing FAR score doesn't mean blindly implement. You still need to understand if it fits your context.
 
-### 3. Still Requires Critical Thinking
-A passing FAR score doesn't mean you should blindly implement the finding. It means the finding is well-verified, actionable, and relevant, but you still need to understand it and decide if it fits your context.
-
-### 4. Scoring Can Be Subjective
-What counts as a "4" vs a "5" on Factual? There's some subjectivity here. I've found consistency matters more than precision—as long as the AI is consistently honest about uncertainty and provides clear justification, the exact number matters less.
-
-## What About Other Validation Approaches?
-
-You might be thinking, "Why not just use tools like retrieval-augmented generation (RAG) or citation-based systems?" Fair question.
-
-**RAG systems** are excellent when you have a well-defined corpus of documents. But they require setup, infrastructure, and work best with static internal knowledge bases. FAR Scale works with any public information and requires no infrastructure—just a well-crafted prompt.
-
-**Citation-based systems** (like Perplexity or Bing Chat) are great for showing sources. But they often don't score the quality or relevance of those sources. A citation to a random blog post looks the same as a citation to official docs. FAR Scale explicitly distinguishes these.
-
-Think of FAR Scale as a lightweight, prompt-based approach that bridges the gap between "raw LLM" and "fully-engineered RAG system." It's not better than RAG for all use cases—it's more accessible for solo developers or small teams who just need better research validation today.
-
-## The Broader Implication: Changing How We Use AI
-
-Here's what I think is really interesting about this approach: **It changes the relationship between human and AI from "master/servant" to "researcher/reviewer."**
-
-When I ask an AI to research something without validation, I'm implicitly trusting it to be right. When it hallucinates, I feel betrayed or frustrated.
-
-But when I ask an AI to research something *and* score its own confidence, I'm treating it like a junior researcher who's doing their best but needs oversight. When it says "I'm not sure about this," I'm not frustrated—I'm grateful for the honesty.
-
-This mental shift has made me both more productive with AI and less frustrated by its limitations.
+**Some subjectivity in scoring.** I've found consistency matters more than precision—as long as the AI is consistently honest about uncertainty and provides clear justification, the exact number matters less.
 
 ## Try It Yourself: A Starter Template
 
@@ -324,17 +255,6 @@ Status: [Pass/Flag]
 [Description]
 Justification: [Why these scores; what evidence exists or is missing]
 ```
-
-## What's Next: Iterating on the Framework
-
-I'm continuing to refine this approach. A few things I'm exploring:
-
-1. **Domain-specific scoring criteria**: What if Factual means something different for academic research vs. bug reports?
-2. **Confidence intervals**: Instead of single scores, should findings have ranges (F: 3-4/5) to capture uncertainty?
-3. **Aggregate scoring for complex questions**: When a question requires synthesizing multiple findings, how should we score the overall research?
-4. **Temporal decay**: How should we score information that was accurate in docs but might be outdated?
-
-If you experiment with FAR Scale, I'd love to hear what works and what doesn't. This isn't a finished product—it's a working methodology that I'm sharing because it's helped me, and it might help you too.
 
 ## Final Thoughts
 
