@@ -91,11 +91,11 @@ The critical step is the **context separation**. A fresh AI instance validates t
 
 ## A Real Example: Validating Astro 5 Migration Research
 
-Want to see how this plays out in practice? Let me show you what I did when I needed to understand the impact of upgrading to Astro 5.
+Let me walk you through a real migration I did recently. I needed to upgrade to Astro 5, and FAR Scale helped me sort the signal from the noise.
 
 ### The Critical Insight: Separate Research from Validation
 
-Want to know the trick that made FAR Scale actually work? The most important thing I learned is this: **it's not for conducting research—it's for validating research that's already been done.** The workflow requires two distinct contexts:
+Here's the trick that made FAR Scale actually work: **it's not for conducting research—it's for validating research that's already been done.** The workflow requires two distinct contexts:
 
 1. **Research Context**: AI gathers information, explores documentation, makes connections
 2. **Validation Context**: Fresh AI instance scores the research findings objectively
