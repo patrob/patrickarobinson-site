@@ -130,12 +130,15 @@ This context separation is what makes FAR Scale effective. The validator has no 
 In the fresh context, I provided the raw research findings and asked for FAR Scale validation. I used this prompt:
 
 ```markdown
-Validate these research findings using FAR Scale scoring.
-For each finding, score: Factual (0-5), Actionable (0-5), Relevant (0-5)
+Validate these research findings using the FAR Scale rubric from:
+https://github.com/patrob/rpi-strategy/blob/main/docs/scales/far-scale.md
+
+Score each finding on Factual (0-5), Actionable (0-5), Relevant (0-5)
+using the full rubric criteria.
 
 Pass criteria: F≥4, A≥3, R≥3, Mean≥4.00
 
-Be objective. If sources are missing or claims can't be verified, score accordingly.
+Be objective. Score based on evidence, not optimism.
 ```
 
 Here's what came back from our real validation:
