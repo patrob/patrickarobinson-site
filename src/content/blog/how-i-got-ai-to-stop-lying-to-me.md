@@ -19,7 +19,7 @@ The issue wasn't obvious until I manually cross-referenced the Node.js documenta
 
 ## Enter FAR Scale: A Simple Framework for AI Research Validation
 
-The approach is simple: before the AI hands you research, it has to grade itself on three questions. Can this be verified? Can I act on it immediately? Is it actually relevant to what I asked? Score each 0-5, and only findings that pass a quality threshold make it through.
+The approach is simple: after the AI completes research, you validate each finding by asking three questions. Can this be verified? Can I act on it immediately? Is it actually relevant to what I asked? Score each 0-5, and only findings that pass a quality threshold get trusted.
 
 I've documented FAR Scale in the [RPI Strategy framework](https://github.com/patrob/rpi-strategy) as a validation methodology I'm developing for research findings. Here's how the scoring works:
 
@@ -67,32 +67,27 @@ So how do you actually use this in practice? Here's the workflow I use with FAR 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    User asks research question              │
-└────────────────────────┬────────────────────────────────────┘
-                         │
-                         ▼
+│              CONTEXT 1: Research Phase                      │
+├─────────────────────────────────────────────────────────────┤
+│  1. User asks research question                             │
+│  2. AI conducts research (docs, web search, etc.)           │
+│  3. AI generates findings and saves them                    │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          │ (Start fresh conversation)
+                          │
+                          ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  AI conducts research (docs search, web search, etc.)       │
-└────────────────────────┬────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  AI generates findings and SELF-SCORES each finding         │
-│  against FAR Scale criteria                                 │
-└────────────────────────┬────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  Only findings with F≥4, A≥3, R≥3, Mean≥4.00 pass          │
-└────────────────────────┬────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  Lower-scored findings flagged with gaps identified         │
+│              CONTEXT 2: Validation Phase                    │
+├─────────────────────────────────────────────────────────────┤
+│  1. Fresh AI instance receives research findings            │
+│  2. Scores each finding against FAR Scale criteria          │
+│  3. Only findings with F≥4, A≥3, R≥3, Mean≥4.00 pass       │
+│  4. Lower-scored findings flagged with gaps identified      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-The critical step is the **self-scoring**. The AI must justify each score with evidence (or lack thereof). This forces it to confront gaps in its knowledge before presenting findings to you.
+The critical step is the **context separation**. A fresh AI instance validates the research without any stake in defending it. This prevents confirmation bias and forces objective scoring with evidence justification.
 
 ## A Real Example: Validating Astro 5 Migration Research
 
