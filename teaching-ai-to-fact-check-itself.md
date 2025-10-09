@@ -14,36 +14,39 @@ The issue wasn't obvious until I manually cross-referenced the Node.js documenta
 
 ## Enter FAR Scale: A Simple Framework for AI Research Validation
 
-FAR Scale is a three-part scoring system that forces AI to fact-check itself before presenting findings. Each finding gets scored 0-10 on three dimensions:
+FAR Scale is a three-part scoring system that forces AI to fact-check itself before presenting findings. Each finding gets scored 0-5 on three dimensions:
 
-### F - Findability (0-10)
-Can this information be found in authoritative, publicly accessible sources?
+### F - Factual (0-5)
+Can this information be verified and proven?
 
-- **10**: Direct quote or paraphrase from official docs with exact URL
-- **7-8**: Information clearly stated in official docs, URL to relevant section
-- **4-6**: Information implied or requires interpretation from official sources
-- **1-3**: Found only in community discussions, Stack Overflow, blog posts
-- **0**: Cannot be verified in any public source
+- **5**: Strongly verified - Minimal repro + automated failing test; root cause identified
+- **4**: Corroborated - Deterministic repro; multiple environments; call graph aligns
+- **3**: Provisionally credible - Partial repro; stack trace matches; one failing test
+- **2**: Single-source, weak provenance - One screenshot/log snippet; indirect evidence
+- **1**: Rumor - Hearsay in chat/issue; no repro, logs, or code references
+- **0**: Fabricated - Contradicts code/architecture; no artifacts; synthetic/edited logs
 
-### A - Accuracy (0-10)
-How correct is this information given the current context?
+### A - Actionable (0-5)
+How immediately can you act on this information?
 
-- **10**: Exact match to official documentation, no interpretation needed
-- **7-8**: Accurate interpretation of official sources
-- **4-6**: Partially accurate, missing nuance or context
-- **1-3**: Outdated, misleading, or requires significant caveats
-- **0**: Demonstrably false or contradicts official sources
+- **5**: Immediate, high-leverage - One-liner fix; can open PR in < 60 minutes
+- **4**: Clear, low-friction plan - Stepwise fix plan; known owner; small PR possible
+- **3**: Concrete next step exists - Specific file/function to probe; can add logs/tests
+- **2**: Directional, heavy lift - Hypothesis exists; requires significant environment work
+- **1**: Vague/long-term only - Needs large refactor; unclear ownership
+- **0**: No action possible - No repro, no hypothesis, no access
 
-### R - Relevance (0-10)
-How directly does this apply to the user's specific question?
+### R - Relevant (0-5)
+How directly does this apply to your specific question or problem?
 
-- **10**: Directly answers the specific question, no extrapolation needed
-- **7-8**: Strongly related, minor adaptation required
-- **4-6**: Tangentially related, significant adaptation needed
-- **1-3**: Loosely connected, may not actually help
-- **0**: Not relevant to the question asked
+- **5**: Bullseye for now - Directly unblocks critical path; measurable customer impact
+- **4**: Core + timely - Blocks ticket; within team ownership
+- **3**: On-theme - Within component; affects acceptance criteria
+- **2**: Adjacent/general interest - Related subsystem behavior
+- **1**: Tangential - Neighboring area; theoretical risk, low priority
+- **0**: Off-topic - Unrelated subsystem; no impact on acceptance criteria
 
-A finding needs **7+ on all three scales** to be considered reliable. Anything below that gets flagged with reasoning about what's uncertain or missing.
+A finding needs **Factual ≥4, Actionable ≥3, Relevant ≥3** with a **mean score ≥4.00** to be considered reliable. Anything below that gets flagged with reasoning about what's uncertain or missing.
 
 ## The Key Insight: AI as Judge
 
@@ -96,61 +99,74 @@ Let me show you what this looks like in practice. Here's the prompt I now use fo
 Research the breaking changes when migrating from Node 20 to Node 22.
 
 For each finding, score it using FAR Scale:
-- F (Findability): Can you link to official docs? Score 0-10.
-- A (Accuracy): How confident are you this is correct? Score 0-10.
-- R (Relevance): How directly does this answer my question? Score 0-10.
+- F (Factual): Can this be verified? Score 0-5.
+- A (Actionable): How immediately can I act on this? Score 0-5.
+- R (Relevant): How directly does this apply to my migration? Score 0-5.
 
-Only present findings that score 7+ on ALL three dimensions as "reliable".
-For findings scoring below 7 on any dimension, explain the gap and your
-uncertainty.
+Pass criteria: Factual ≥4, Actionable ≥3, Relevant ≥3, Mean ≥4.00
 
 Format each finding as:
 ## Finding: [Brief title]
-**FAR Score**: F: X/10, A: Y/10, R: Z/10
-**Status**: [Reliable / Uncertain]
+**FAR Score**: F: X/5, A: Y/5, R: Z/5, Mean: W.XX
+**Status**: [Pass / Flag]
 
 [Description with sources]
 
-**Evidence**: [Links to official docs or explanation of why score is lower]
+**Justification**: [Why these scores; what evidence exists or is missing]
 ```
 
 Here's what I got back (abbreviated):
 
 ---
 
-**Finding 1: Removal of DEP0151 (require() of .json modules)**
-- **FAR Score**: F: 9/10, A: 9/10, R: 10/10
-- **Status**: Reliable
+**Finding 1: ESM JSON Import Assertion Required**
+- **FAR Score**: F: 4/5, A: 4/5, R: 5/5, Mean: 4.33
+- **Status**: Pass
 
-Node 22 removes support for requiring `.json` files without explicit file extensions when using ESM. You must use `import data from './file.json' assert { type: 'json' }` in ESM contexts.
+Node 22 requires explicit import assertions for JSON modules in ESM contexts. You must use `import data from './file.json' assert { type: 'json' }`.
+
+**Justification**:
+- *Factual*: Corroborated in official Node.js ESM documentation with code examples in multiple sections
+- *Actionable*: Clear, low-friction plan - Search codebase for `.json` imports, add assertions; small PR
+- *Relevant*: Bullseye - This will break existing ESM code on upgrade; directly blocks migration
 
 **Evidence**: [https://nodejs.org/docs/latest-v22.x/api/esm.html#json-modules](https://nodejs.org/docs/latest-v22.x/api/esm.html#json-modules)
 
 ---
 
 **Finding 2: V8 Engine Update Performance Improvements**
-- **FAR Score**: F: 5/10, A: 6/10, R: 7/10
-- **Status**: Uncertain (Low Findability, Low Accuracy)
+- **FAR Score**: F: 2/5, A: 2/5, R: 2/5, Mean: 2.00
+- **Status**: Flag (Below thresholds)
 
-Node 22 includes an updated V8 engine which may improve performance for certain JavaScript operations, particularly array methods and async functions.
+Node 22 includes an updated V8 engine which may improve performance for certain JavaScript operations.
 
-**Evidence**: I can confirm Node 22 ships with a newer V8 version from the release notes, but I cannot find specific performance benchmarks in official documentation. This is based on general V8 update patterns. If performance is critical to your migration, I recommend running your own benchmarks.
+**Justification**:
+- *Factual*: Single-source, weak provenance - Release notes mention V8 update but no specific performance data
+- *Actionable*: Directional, heavy lift - Would need to set up benchmarks across Node versions to verify
+- *Relevant*: Adjacent/general interest - Nice to know, but doesn't affect migration success
 
----
-
-**Finding 3: Changes to crypto module defaults**
-- **FAR Score**: F: 3/10, A: 4/10, R: 8/10
-- **Status**: Uncertain (Low Findability, Low Accuracy)
-
-There may be changes to default cryptographic algorithms in the crypto module, particularly around deprecated ciphers.
-
-**Evidence**: I cannot find this in the official Node 22 migration guide or changelog. This is based on patterns from previous Node versions. You should manually check the crypto module documentation if you use cryptography in your codebase.
+**Evidence**: Mentioned in release notes, but I cannot find reproducible performance benchmarks in official documentation. If performance is critical, run your own benchmarks.
 
 ---
 
-See the difference? Finding 1 gets a clean "Reliable" stamp with a direct doc link. Findings 2 and 3 are flagged with specific concerns: "I can't find benchmarks" or "This is based on patterns, not documentation."
+**Finding 3: Deprecated crypto.DEFAULT_ENCODING Removed**
+- **FAR Score**: F: 1/5, A: 1/5, R: 3/5, Mean: 1.67
+- **Status**: Flag (Below thresholds)
 
-This gives me actionable information. I can trust Finding 1 and immediately update my code. For Finding 2, I know I need to run benchmarks if performance matters. For Finding 3, I know I need to manually check the crypto docs.
+There may be changes to deprecated constants in the crypto module.
+
+**Justification**:
+- *Factual*: Rumor - Based on deprecation patterns from Node 18→20, not found in Node 22 docs
+- *Actionable*: Vague/long-term only - Would need to audit entire crypto module usage without specific guidance
+- *Relevant*: On-theme - Would affect migration if true, but unverified
+
+**Evidence**: I cannot find this in the official Node 22 migration guide or changelog. This is speculative based on historical patterns. Manually check crypto module documentation if you use it.
+
+---
+
+See the difference? Finding 1 passes all thresholds with a 4.33 mean—actionable and verified. Findings 2 and 3 are flagged for low Factual scores: one lacks benchmarks, the other is purely speculative.
+
+This gives me actionable information. I can trust Finding 1 and immediately create a PR. Finding 2 is interesting but not blocking. Finding 3 tells me to manually audit crypto usage, but I don't treat it as confirmed.
 
 ## Why This Works: Three Key Reasons
 
@@ -169,22 +185,22 @@ I've integrated FAR Scale into my development workflow through a custom Claude p
 
 **For technical research questions:**
 ```
-Research [topic] using FAR Scale scoring. Present reliable findings
-first, then uncertain findings with explicit gaps.
+Research [topic] using FAR Scale scoring. Present findings that pass
+(F≥4, A≥3, R≥3, Mean≥4.00) first, then flagged findings with explicit gaps.
 ```
 
 **For migration/upgrade tasks:**
 ```
 Research breaking changes from [old version] to [new version] using
-FAR Scale. Only present changes that score F≥7, A≥7 as "confirmed
-breaking changes". Flag anything uncertain.
+FAR Scale. Only present changes that pass all thresholds as "confirmed
+breaking changes". Flag anything uncertain with justification.
 ```
 
 **For architectural decisions:**
 ```
 Research pros/cons of [approach A] vs [approach B] for [use case].
-Use FAR Scale to distinguish between documented best practices
-(high F/A scores) and community opinions (lower F scores).
+Use FAR Scale to distinguish between well-verified best practices
+(high Factual scores) and community opinions (lower Factual scores).
 ```
 
 The key is being explicit in the prompt that you want FAR Scale scoring. Once that's established, the AI maintains that standard throughout the conversation.
@@ -200,10 +216,10 @@ If official docs are sparse or outdated, even the AI's honest effort will yield 
 This works best when the AI can actually search documentation or the web. If you're asking about proprietary internal systems with no public docs, FAR Scale can't help much.
 
 ### 3. Still Requires Critical Thinking
-A 10/10 FAR score doesn't mean you should blindly implement the finding. It means the finding is well-sourced and relevant, but you still need to understand it and decide if it fits your context.
+A passing FAR score doesn't mean you should blindly implement the finding. It means the finding is well-verified, actionable, and relevant, but you still need to understand it and decide if it fits your context.
 
 ### 4. Scoring Can Be Subjective
-What counts as a "7" vs an "8" on Accuracy? There's some subjectivity here. I've found consistency matters more than precision—as long as the AI is consistently honest about uncertainty, the exact number matters less.
+What counts as a "4" vs a "5" on Factual? There's some subjectivity here. I've found consistency matters more than precision—as long as the AI is consistently honest about uncertainty and provides clear justification, the exact number matters less.
 
 ## What About Other Validation Approaches?
 
@@ -234,45 +250,47 @@ I need you to research: [YOUR QUESTION]
 
 Use FAR Scale scoring for all findings:
 
-F (Findability): Can this be found in official/authoritative sources?
-  10 = Direct quote with URL
-  7-8 = Clear statement in official docs
-  4-6 = Implied or interpreted from official sources
-  1-3 = Only found in community content
-  0 = Cannot verify
+F (Factual): Can this be verified and proven?
+  5 = Strongly verified (minimal repro + automated test; root cause identified)
+  4 = Corroborated (deterministic repro; multiple environments)
+  3 = Provisionally credible (partial repro; stack trace matches)
+  2 = Single-source, weak provenance (one screenshot/log snippet)
+  1 = Rumor (hearsay; no repro, logs, or code references)
+  0 = Fabricated (contradicts code/architecture)
 
-A (Accuracy): How correct is this information?
-  10 = Exact match to official docs
-  7-8 = Accurate interpretation
-  4-6 = Partially accurate, missing nuance
-  1-3 = Outdated or misleading
-  0 = Demonstrably false
+A (Actionable): How immediately can I act on this?
+  5 = Immediate, high-leverage (one-liner fix; PR in <60 min)
+  4 = Clear, low-friction plan (stepwise fix; small PR possible)
+  3 = Concrete next step exists (specific file/function to probe)
+  2 = Directional, heavy lift (hypothesis exists; significant work)
+  1 = Vague/long-term only (needs large refactor)
+  0 = No action possible (no repro, no hypothesis)
 
-R (Relevance): How directly does this answer my question?
-  10 = Directly answers question
-  7-8 = Strongly related
-  4-6 = Tangentially related
-  1-3 = Loosely connected
-  0 = Not relevant
+R (Relevant): How directly does this apply to my question?
+  5 = Bullseye for now (directly unblocks critical path)
+  4 = Core + timely (blocks ticket; within ownership)
+  3 = On-theme (within component; affects criteria)
+  2 = Adjacent/general interest (related subsystem)
+  1 = Tangential (neighboring area; low priority)
+  0 = Off-topic (unrelated subsystem)
 
-Present findings that score 7+ on all dimensions as "Reliable".
-Flag findings below 7 on any dimension as "Uncertain" with explanation.
+Pass criteria: F≥4, A≥3, R≥3, Mean≥4.00
 
 Format:
 ## Finding: [Title]
-FAR Score: F: X/10, A: Y/10, R: Z/10
-Status: [Reliable/Uncertain]
+FAR Score: F: X/5, A: Y/5, R: Z/5, Mean: W.XX
+Status: [Pass/Flag]
 [Description]
-Evidence: [Sources or explanation of gaps]
+Justification: [Why these scores; what evidence exists or is missing]
 ```
 
 ## What's Next: Iterating on the Framework
 
 I'm continuing to refine this approach. A few things I'm exploring:
 
-1. **Domain-specific scoring criteria**: What if Findability means something different for academic research vs. API documentation?
-2. **Confidence intervals**: Instead of single scores, should findings have ranges (F: 7-9/10) to capture uncertainty?
-3. **Aggregate scoring for complex questions**: When a question requires synthesizing multiple findings, how should we score the overall answer?
+1. **Domain-specific scoring criteria**: What if Factual means something different for academic research vs. bug reports?
+2. **Confidence intervals**: Instead of single scores, should findings have ranges (F: 3-4/5) to capture uncertainty?
+3. **Aggregate scoring for complex questions**: When a question requires synthesizing multiple findings, how should we score the overall research?
 4. **Temporal decay**: How should we score information that was accurate in docs but might be outdated?
 
 If you experiment with FAR Scale, I'd love to hear what works and what doesn't. This isn't a finished product—it's a working methodology that I'm sharing because it's helped me, and it might help you too.
