@@ -88,8 +88,7 @@ Here's the workflow I use with FAR Scale:
                          │
                          ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Lower-scored findings are flagged with specific            │
-│  concerns and confidence levels                             │
+│  Lower-scored findings flagged with gaps identified         │
 └─────────────────────────────────────────────────────────────┘
 ```
 
