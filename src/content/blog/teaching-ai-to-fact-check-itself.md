@@ -100,82 +100,109 @@ Here's the workflow I use with FAR Scale:
 
 The critical step is the **self-scoring**. The AI must justify each score with evidence (or lack thereof). This forces it to confront gaps in its knowledge before presenting findings to you.
 
-## A Real Example: Node 20 to Node 22 Migration
+## A Real Example: Validating Astro 5 Migration Research
 
-Let me show you what this looks like in practice. Here's the prompt I now use for research tasks:
+Let me show you what this looks like in practice. Here's what I did when I needed to understand the impact of upgrading to Astro 5.
+
+### The Critical Insight: Separate Research from Validation
+
+The most important thing I learned about FAR Scale is this: **it's not for conducting research—it's for validating research that's already been done.** The workflow requires two distinct contexts:
+
+1. **Research Context**: AI gathers information, explores documentation, makes connections
+2. **Validation Context**: Fresh AI instance scores the research findings objectively
+
+Why separate contexts? Because if the AI that conducted the research also scores it, you get confirmation bias. The AI will rationalize its own findings and inflate scores. A clean validation context prevents this.
+
+### Phase 1: Research (First Context)
+
+I started a conversation and asked Claude to research Astro 5 breaking changes, compatibility considerations, and migration requirements for my specific tech stack (Node 22, Vitest, TypeScript). No FAR Scale scoring yet—just pure research.
+
+Claude dug through the Astro 5 release notes, compatibility matrices, GitHub discussions, and related tooling documentation. It produced a comprehensive set of findings about what would need to change.
+
+### Phase 2: Context Clear (Critical Step)
+
+Here's where it gets interesting. I didn't ask the same AI to score its own work. Instead, I started a completely fresh conversation—new context, no memory of the research phase.
+
+This context separation is what makes FAR Scale effective. The validator has no stake in defending the research.
+
+### Phase 3: Validation (Second Context)
+
+In the fresh context, I provided the raw research findings and asked for FAR Scale validation. I used this prompt:
 
 ```markdown
-Research the breaking changes when migrating from Node 20 to Node 22.
+Validate these research findings using FAR Scale scoring.
+For each finding, score: Factual (0-5), Actionable (0-5), Relevant (0-5)
 
-For each finding, score it using FAR Scale:
-- F (Factual): Can this be verified? Score 0-5.
-- A (Actionable): How immediately can I act on this? Score 0-5.
-- R (Relevant): How directly does this apply to my migration? Score 0-5.
+Pass criteria: F≥4, A≥3, R≥3, Mean≥4.00
 
-Pass criteria: Factual ≥4, Actionable ≥3, Relevant ≥3, Mean ≥4.00
-
-Format each finding as:
-## Finding: [Brief title]
-**FAR Score**: F: X/5, A: Y/5, R: Z/5, Mean: W.XX
-**Status**: [Pass / Flag]
-
-[Description with sources]
-
-**Justification**: [Why these scores; what evidence exists or is missing]
+Be objective. If sources are missing or claims can't be verified, score accordingly.
 ```
 
-Here's an example of what FAR-scored output looks like:
+Here's what came back from our real validation:
 
 ---
 
-**Finding 1: ESM JSON Import Assertion Required**
-- **FAR Score**: F: 4/5, A: 4/5, R: 5/5, Mean: 4.33
+**Finding: Astro 5 is compatible with Node 22**
+- **FAR Score**: F: 5/5, A: 5/5, R: 5/5, Mean: 5.00
+- **Status**: Pass (Perfect Score)
+
+Astro 5 officially supports Node 22. The migration is straightforward with no breaking changes for Node 22 environments.
+
+**Why This Scored High**:
+- Verified in multiple official sources (release notes, compatibility matrix, CI configuration)
+- Immediately actionable (can upgrade with confidence)
+- Directly answers the core migration question
+- Later confirmed: Zero changes required, tests passed in CI
+
+---
+
+**Finding: Import attributes syntax (not assertions) required**
+- **FAR Score**: F: 4/5, A: 5/5, R: 4/5, Mean: 4.33
 - **Status**: Pass
 
-Node 22 requires explicit import assertions for JSON modules in ESM contexts. You must use `import data from './file.json' assert { type: 'json' }`.
+Node 22 and Astro 5 support the newer import attributes syntax. While import assertions are being phased out, this is a breaking change only if you're actively using the older syntax.
 
-**Justification**:
-- *Factual*: Corroborated in official Node.js ESM documentation with code examples in multiple sections
-- *Actionable*: Clear, low-friction plan - Search codebase for `.json` imports, add assertions; small PR
-- *Relevant*: Bullseye - This will break existing ESM code on upgrade; directly blocks migration
-
-**Evidence**: [https://nodejs.org/docs/latest-v22.x/api/esm.html#json-modules](https://nodejs.org/docs/latest-v22.x/api/esm.html#json-modules)
-
----
-
-**Finding 2: V8 Engine Update Performance Improvements**
-- **FAR Score**: F: 2/5, A: 2/5, R: 2/5, Mean: 2.00
-- **Status**: Flag (Below thresholds)
-
-Node 22 includes an updated V8 engine which may improve performance for certain JavaScript operations.
-
-**Justification**:
-- *Factual*: Single-source, weak provenance - Release notes mention V8 update but no specific performance data
-- *Actionable*: Directional, heavy lift - Would need to set up benchmarks across Node versions to verify
-- *Relevant*: Adjacent/general interest - Nice to know, but doesn't affect migration success
-
-**Evidence**: Mentioned in release notes, but I cannot find reproducible performance benchmarks in official documentation. If performance is critical, run your own benchmarks.
+**Why This Scored Well**:
+- Factual: Corroborated in Node.js and TC39 documentation
+- Actionable: Clear migration path if needed
+- Relevant: Important to know, but only affects projects using JSON imports
+- Later confirmed: Not used in my codebase, no changes needed
 
 ---
 
-**Finding 3: Deprecated crypto.DEFAULT_ENCODING Removed**
-- **FAR Score**: F: 1/5, A: 1/5, R: 3/5, Mean: 1.67
-- **Status**: Flag (Below thresholds)
+**Finding: Vitest compatibility with caveat about performance monitoring**
+- **FAR Score**: F: 3/5, A: 3/5, R: 4/5, Mean: 3.33
+- **Status**: Pass (Lowest Score)
 
-There may be changes to deprecated constants in the crypto module.
+Vitest works with Astro 5 and Node 22, but watch for potential performance differences in test execution. The research suggested monitoring test run times.
 
-**Justification**:
-- *Factual*: Rumor - Based on deprecation patterns from Node 18→20, not found in Node 22 docs
-- *Actionable*: Vague/long-term only - Would need to audit entire crypto module usage without specific guidance
-- *Relevant*: On-theme - Would affect migration if true, but unverified
-
-**Evidence**: I cannot find this in the official Node 22 migration guide or changelog. This is speculative based on historical patterns. Manually check crypto module documentation if you use it.
+**Why This Scored Lower**:
+- Factual: No specific issues documented, based on general compatibility
+- Actionable: Vague recommendation (just "watch for issues")
+- Relevant: On-theme but not specific to my implementation
+- Later confirmed: Tests passed, but this remains the finding I'm least confident about
 
 ---
 
-See the difference? Finding 1 passes all thresholds with a 4.33 mean—actionable and verified. Findings 2 and 3 are flagged for low Factual scores: one lacks benchmarks, the other is purely speculative.
+### The Key Difference: High Scores vs. Low Scores
 
-This gives me actionable information. I can trust Finding 1 and immediately create a PR. Finding 2 is interesting but not blocking. Finding 3 tells me to manually audit crypto usage, but I don't treat it as confirmed.
+Notice the pattern:
+
+**Perfect score (5.00)**: Zero ambiguity. Verified in official sources. No caveats. Turned out to require zero code changes.
+
+**Good score (4.33)**: Well-documented breaking change, but with a clear scope. Didn't affect my project, but good to know about.
+
+**Passing but weakest (3.33)**: Vague recommendation without specific evidence. This is the finding I'd manually verify or monitor over time.
+
+All three passed FAR Scale thresholds, but the scores told me exactly which findings to trust immediately versus which to keep an eye on.
+
+### What This Workflow Gave Me
+
+The two-context approach—research in one conversation, validation in another—produced objective scores I could actually trust. The validator wasn't defending the research; it was honestly evaluating it.
+
+The result? I could proceed with the Astro 5 upgrade with confidence in the high-scoring findings, while remaining appropriately skeptical of the lower-scored caveat about Vitest performance.
+
+And when I actually ran the migration? The FAR scores were predictive. The perfect-score finding required no changes. The import attributes finding was accurate but irrelevant to my code. The Vitest finding remains something I'm watching, but hasn't caused issues yet.
 
 ## Why This Works: Three Key Reasons
 
