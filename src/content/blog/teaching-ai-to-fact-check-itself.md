@@ -19,9 +19,9 @@ The issue wasn't obvious until I manually cross-referenced the Node.js documenta
 
 ## Enter FAR Scale: A Simple Framework for AI Research Validation
 
-FAR Scale is a three-part scoring system that forces AI to fact-check itself before presenting findings. Each finding gets scored 0-5 on three dimensions:
+FAR Scale is a three-part scoring system I developed that forces AI to fact-check itself before presenting findings. Each finding gets scored 0-5 on three dimensions:
 
-FAR Scale is documented in the [RPI Strategy framework](https://github.com/patrob/rpi-strategy) as a validation methodology I've been developing for research findings.
+I've documented FAR Scale in the [RPI Strategy framework](https://github.com/patrob/rpi-strategy) as a validation methodology I'm developing for research findings.
 
 ### F - Factual (0-5)
 Can this information be verified and proven?
@@ -57,7 +57,7 @@ A finding needs **Factual ≥4, Actionable ≥3, Relevant ≥3** with a **mean s
 
 ## The Key Insight: AI as Judge
 
-Here's what makes FAR Scale work: LLMs struggle with factual recall, but they're surprisingly good at self-evaluation. When you give them specific criteria and ask them to evaluate their own output, they'll honestly say "I can't find a source for this" or "This is based on my training data, not current documentation."
+Here's what I discovered makes FAR Scale work: LLMs struggle with factual recall, but they're surprisingly good at self-evaluation. When you give them specific criteria and ask them to evaluate their own output, they'll honestly say "I can't find a source for this" or "This is based on my training data, not current documentation."
 
 It's the difference between "The answer is definitely X" and "I think the answer is X, but I'm only 60% confident because I can only find partial evidence in the docs." The latter is infinitely more useful.
 
@@ -209,44 +209,43 @@ FAR Scale isn't magic. The real limitations:
 
 **Some subjectivity in scoring.** I've found consistency matters more than precision—as long as the AI is consistently honest about uncertainty and provides clear justification, the exact number matters less.
 
-## Try It Yourself: A Starter Template
+## Try It Yourself: The Two-Context Workflow
 
 The complete, up-to-date FAR Scale rubric is maintained at [github.com/patrob/rpi-strategy](https://github.com/patrob/rpi-strategy/blob/main/docs/scales/far-scale.md).
 
-If you want to experiment with FAR Scale, here's a simple template to get started:
+I developed FAR Scale as a validation methodology, and the key insight is the **two-context separation**: research in one conversation, validation in a completely separate conversation. This prevents confirmation bias and gives you objective scoring.
+
+Here are the exact prompts I use:
+
+### Template 1: Research Prompt (Context 1)
 
 ```markdown
 I need you to research: [YOUR QUESTION]
 
-Use FAR Scale scoring for all findings:
+Please gather information from official documentation, release notes,
+and reliable sources. Focus on:
+- Specific technical details
+- Breaking changes or migration requirements
+- Compatibility considerations
+- Concrete examples where available
 
-F (Factual): Can this be verified and proven?
-  5 = Strongly verified (minimal repro + automated test; root cause identified)
-  4 = Corroborated (deterministic repro; multiple environments)
-  3 = Provisionally credible (partial repro; stack trace matches)
-  2 = Single-source, weak provenance (one screenshot/log snippet)
-  1 = Rumor (hearsay; no repro, logs, or code references)
-  0 = Fabricated (contradicts code/architecture)
+Save your findings to a file so I can validate them separately.
+```
 
-A (Actionable): How immediately can I act on this?
-  5 = Immediate, high-leverage (one-liner fix; PR in <60 min)
-  4 = Clear, low-friction plan (stepwise fix; small PR possible)
-  3 = Concrete next step exists (specific file/function to probe)
-  2 = Directional, heavy lift (hypothesis exists; significant work)
-  1 = Vague/long-term only (needs large refactor)
-  0 = No action possible (no repro, no hypothesis)
+### Template 2: Validation Prompt (Context 2 - Fresh Conversation)
 
-R (Relevant): How directly does this apply to my question?
-  5 = Bullseye for now (directly unblocks critical path)
-  4 = Core + timely (blocks ticket; within ownership)
-  3 = On-theme (within component; affects criteria)
-  2 = Adjacent/general interest (related subsystem)
-  1 = Tangential (neighboring area; low priority)
-  0 = Off-topic (unrelated subsystem)
+```markdown
+Validate these research findings using the FAR Scale rubric from:
+https://github.com/patrob/rpi-strategy/blob/main/docs/scales/far-scale.md
+
+Score each finding on Factual (0-5), Actionable (0-5), Relevant (0-5)
+using the full rubric criteria.
 
 Pass criteria: F≥4, A≥3, R≥3, Mean≥4.00
 
-Format:
+Be objective. Score based on evidence, not optimism.
+
+Format each finding as:
 ## Finding: [Title]
 FAR Score: F: X/5, A: Y/5, R: Z/5, Mean: W.XX
 Status: [Pass/Flag]
@@ -254,11 +253,13 @@ Status: [Pass/Flag]
 Justification: [Why these scores; what evidence exists or is missing]
 ```
 
+The key is using these templates in **separate conversations**. Don't let the AI that did the research score itself.
+
 ## Final Thoughts
 
 AI coding assistants are powerful tools, but they're not magic. They hallucinate. They get things wrong. They confidently present outdated information.
 
-FAR Scale doesn't fix hallucinations—it surfaces them. It turns "I think this is right" into "Here's what I'm confident about and here's what I'm uncertain about."
+What I built with FAR Scale doesn't fix hallucinations—it surfaces them. It turns "I think this is right" into "Here's what I'm confident about and here's what I'm uncertain about."
 
 That's not revolutionary. But it's practical, it's working for me, and it's made my AI-assisted development workflow significantly more reliable.
 
