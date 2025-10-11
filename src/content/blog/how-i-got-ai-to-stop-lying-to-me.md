@@ -69,7 +69,7 @@ It's the difference between "The answer is definitely X" and "I think the answer
 
 So how do you actually use this in practice? Here's the workflow I use:
 
-**Phase 1: Research (First Conversation)**
+**Phase 1: [Research](https://github.com/patrob/rpi-strategy/blob/main/docs/phases/Research.md) (First Conversation)**
 1. Ask your research question
 2. AI conducts research using docs, web search, etc.
 3. AI generates findings and saves them to a file
