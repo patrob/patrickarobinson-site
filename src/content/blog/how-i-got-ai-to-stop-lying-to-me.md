@@ -139,11 +139,11 @@ The key is using these templates in **separate conversations**. Don't let the AI
 
 ## Final Thoughts
 
-Here's what I've observed changes when you can better trust AI research: you stop second-guessing every answer. You stop manually cross-referencing documentation for hours. You can delegate research more confidently because you know low-scoring findings will get flagged. The AI becomes less like a source of truth and more like a research assistant who actually tells you when they're unsure.
+When you can trust AI research, something shifts. You stop second-guessing every answer. You stop manually cross-referencing documentation for hours. You delegate research more confidently because you know low-scoring findings will surface with clear warnings. The AI becomes less like a source of truth and more like a research assistant who actually tells you when they're unsure.
 
 AI coding assistants are powerful tools, but they're not magic. They hallucinate. They get things wrong. They confidently present outdated information.
 
-What I built with FAR Scale doesn't fix hallucinations—it surfaces them. It turns "I think this is right" into "Here's what I'm confident about and here's what I'm uncertain about."
+FAR Scale doesn't fix hallucinations—it surfaces them. It turns "I think this is right" into "Here's what I'm confident about and here's what I'm uncertain about."
 
 That's not revolutionary. But it's practical, it's working for me, and it's made my AI-assisted development workflow significantly more reliable.
 
