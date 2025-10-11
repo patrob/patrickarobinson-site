@@ -2,7 +2,7 @@
 title: 'How I Got AI to Stop Lying to Me'
 description: 'How FAR Scale helps reduce hallucinations and improve AI research reliability'
 pubDate: 'Oct 09 2025'
-heroImage: '../../assets/hero-ai-stop-lying.jpg'
+heroImage: '../../assets/hero-ai-stop-lying.png'
 ---
 
 I've been working with AI coding assistants for a while now, and I kept running into the same frustrating pattern: I'd ask Claude or another LLM to research something technical, get back what looked like a great answer, and then discover later that critical details were hallucinated or outdated. The problem wasn't that the AI was bad—it was that I had no systematic way to validate what it told me.
