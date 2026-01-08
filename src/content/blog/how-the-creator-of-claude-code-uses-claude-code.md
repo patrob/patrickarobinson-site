@@ -9,7 +9,7 @@ draft: false
 
 Imagine having a small team of AI developers working in parallel, each tackling a different task, while you coordinate from your phone during lunch. Sound far-fetched? That's exactly how Boris Cherny, the creator of Claude Code, works every day.
 
-Recently, Boris shared his workflow on X, and it completely changed how I think about AI-assisted development. Here's the original thread:
+Recently, Boris shared his workflow on X, and it got me thinking about how these patterns apply to the teams I coach and my own side projects. What follows is a summary of his approach, a quick cheat sheet to his methods, and some of my own thoughts from the trenches. Here's the original thread:
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Been getting a lot of Qs on how I use <a href="https://twitter.com/ClaudeCode">@ClaudeCode</a>. Here&#39;s my personal setup...</p>&mdash; Boris Cherny (@bcherny) <a href="https://x.com/bcherny/status/2007179832300581177">June 4, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -38,13 +38,17 @@ Boris's team even tags `@.claude` on PRs to automatically update the file via Gi
 
 This one resonated deeply. Boris emphasizes giving Claude a way to **verify its own work**: start the server, run tests, check UI via browser extensions, simulate on devices. Good feedback loops can 2-3x your output quality.
 
-For long-running tasks, he mentions using plugins like [ralph-loop](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop) (inspired by [Geoffrey Huntley's blog post](https://ghuntley.com/ralph/)) that help Claude self-verify through background agents and stop hooks.
+**My take:** Smaller feedback loops beat one big PR at the end. I've seen this play out repeatedly with the teams I coach. Big PRs create bottlenecks, especially in larger organizations where review cycles can stretch for days. If AI helps you ship smaller, validated chunks more frequently, you're not just moving faster, you're reducing risk and keeping the team unblocked.
+
+For long-running tasks, Boris mentions using plugins like [ralph-loop](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop) (inspired by [Geoffrey Huntley's blog post](https://ghuntley.com/ralph/)) that help Claude self-verify through background agents and stop hooks. Autonomous, long-running agents are still pretty new territory. There's no silver bullet here, but the idea of AI working while you sleep is compelling. I'd say it works best when you have small, well-defined tasks that you trust AI to handle, grouped together with clear validation gates.
 
 The AI becomes dramatically more reliable when it can check its own answers rather than just generating and hoping.
 
 ## Use the Best Model
 
 Boris prefers **Opus 4.5 with thinking** for everything. Better tool use, fewer corrections needed. The time saved from not fixing mistakes outweighs any speed difference from smaller models.
+
+**Grain of salt:** This advice comes from someone who works at the company that makes the model. That doesn't make it wrong, but it's worth noting. In my experience, the "best" model depends on your budget, your task complexity, and how much you're willing to babysit the output. For quick tasks, smaller models work fine. For complex multi-file changes, the investment in a more capable model often pays off.
 
 ## The Philosophy That Ties It Together
 
@@ -53,6 +57,10 @@ Two principles stood out from Boris's approach:
 1. **Claude Code works well vanilla.** You don't need elaborate customization to be productive. Start simple, add complexity only when you need it.
 
 2. **There's no single correct workflow.** Tailor your setup to how you actually work and what your toolchain needs. Boris's patterns are inspiration, not prescription.
+
+And one principle I'd add from my own experience:
+
+3. **Even though AI writes the code, you own the outcome.** The AI isn't going to be on call at 2am when production breaks. It won't explain the architecture to new team members or defend the design decisions in a review. You will. Treat AI-generated code with the same scrutiny you'd give a PR from any teammate. Understand it, test it, own it.
 
 ## Try This Today
 
@@ -67,4 +75,4 @@ The future of development isn't about AI replacing us. It's about developers who
 
 ---
 
-*Based on [Boris Cherny's thread on X](https://x.com/bcherny/status/2007179832300581177). Adapted and interpreted through my own experience with Claude Code.*
+*Based on [Boris Cherny's thread on X](https://x.com/bcherny/status/2007179832300581177), with my own commentary from coaching engineering teams and experimenting with these approaches in my spare time. There's plenty more that engineers and engineering leaders might add, but hopefully this gives you a solid starting point.*
