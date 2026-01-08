@@ -166,6 +166,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		text-decoration: underline;
 	}
 
+	/* Center Twitter iframe after widget loads */
+	.prose :global(.twitter-tweet-rendered),
+	.prose :global(iframe.twitter-tweet) {
+		margin: 2rem auto !important;
+	}
+
 	.prose :global(code) {
 		background: var(--color-bg-secondary);
 		padding: 0.25rem 0.5rem;
