@@ -9,7 +9,12 @@ draft: false
 
 Imagine having a small team of AI developers working in parallel, each tackling a different task, while you coordinate from your phone during lunch. Sound far-fetched? That's exactly how Boris Cherny, the creator of Claude Code, works every day.
 
-Recently, Boris shared his workflow on X, and it completely changed how I think about AI-assisted development. Here are the patterns that stood out.
+Recently, Boris shared his workflow on X, and it completely changed how I think about AI-assisted development. Here's the original thread:
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Been getting a lot of Qs on how I use <a href="https://twitter.com/ClaudeCode">@ClaudeCode</a>. Here&#39;s my personal setup...</p>&mdash; Boris Cherny (@bcherny) <a href="https://x.com/bcherny/status/2007179832300581177">June 4, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Here are the patterns that stood out.
 
 ## Run Multiple Sessions in Parallel
 
@@ -32,6 +37,8 @@ Boris's team even tags `@.claude` on PRs to automatically update the file via Gi
 ## Verification is the Secret Sauce
 
 This one resonated deeply. Boris emphasizes giving Claude a way to **verify its own work**: start the server, run tests, check UI via browser extensions, simulate on devices. Good feedback loops can 2-3x your output quality.
+
+For long-running tasks, he mentions using plugins like [ralph-wiggum](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop) (inspired by [Geoffrey Huntley's blog post](https://ghuntley.com/ralph/)) that help Claude self-verify through background agents and stop hooks.
 
 The AI becomes dramatically more reliable when it can check its own answers rather than just generating and hoping.
 
@@ -60,4 +67,4 @@ The future of development isn't about AI replacing us. It's about developers who
 
 ---
 
-*Based on Boris Cherny's workflow shared on X/Twitter. Adapted and interpreted through my own experience with Claude Code.*
+*Based on [Boris Cherny's thread on X](https://x.com/bcherny/status/2007179832300581177). Adapted and interpreted through my own experience with Claude Code.*
