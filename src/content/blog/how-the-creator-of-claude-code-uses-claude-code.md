@@ -38,7 +38,7 @@ Boris's team even tags `@.claude` on PRs to automatically update the file via Gi
 
 This one resonated deeply. Boris emphasizes giving Claude a way to **verify its own work**: start the server, run tests, check UI via browser extensions, simulate on devices. Good feedback loops can 2-3x your output quality.
 
-**My take:** Smaller feedback loops beat one big PR at the end. This isn't new wisdom. Extreme Programming taught us this decades ago, and [*Accelerate*](https://www.amazon.com/Accelerate-Software-Performing-Technology-Organizations/dp/1942788339) by Nicole Forsgren, Jez Humble, and Gene Kim digs into the research behind it. I've seen this play out repeatedly with the teams I coach. Big PRs create bottlenecks, especially in larger organizations where review cycles can stretch for days. If AI helps you ship smaller, validated chunks more frequently, you're not just moving faster, you're reducing risk and keeping the team unblocked.
+**My take:** Smaller feedback loops beat one big PR at the end. This isn't new wisdom. [Extreme Programming](https://amzn.to/4purZqs) taught us this decades ago, and [*Accelerate*](https://amzn.to/4purZqs) by Nicole Forsgren, Jez Humble, and Gene Kim digs into the research behind it. I've seen this play out repeatedly with the teams I coach. Big PRs create bottlenecks, especially in larger organizations where review cycles can stretch for days. If AI helps you ship smaller, validated chunks more frequently, you're not just moving faster, you're reducing risk and keeping the team unblocked.
 
 For long-running tasks, Boris mentions using plugins like [ralph-loop](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop) (inspired by [Geoffrey Huntley's blog post](https://ghuntley.com/ralph/)) that help Claude self-verify through background agents and stop hooks. Autonomous, long-running agents are still pretty new territory. There's no silver bullet here, but the idea of AI working while you sleep is compelling. I'd say it tends to work better when you have small, well-defined tasks that you trust AI to handle, grouped together with clear validation gates.
 
@@ -76,3 +76,5 @@ The future of development isn't about AI replacing us. It's about developers who
 ---
 
 *Based on [Boris Cherny's thread on X](https://x.com/bcherny/status/2007179832300581177), with my own commentary from coaching engineering teams and experimenting with these approaches in my spare time. There's plenty more that engineers and engineering leaders might add, but hopefully this gives you a solid starting point.*
+
+*Some links in this article are affiliate links.*
