@@ -38,7 +38,7 @@ Boris's team even tags `@.claude` on PRs to automatically update the file via Gi
 
 This one resonated deeply. Boris emphasizes giving Claude a way to **verify its own work**: start the server, run tests, check UI via browser extensions, simulate on devices. Good feedback loops can 2-3x your output quality.
 
-For long-running tasks, he mentions using plugins like [ralph-wiggum](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop) (inspired by [Geoffrey Huntley's blog post](https://ghuntley.com/ralph/)) that help Claude self-verify through background agents and stop hooks.
+For long-running tasks, he mentions using plugins like [ralph-loop](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop) (inspired by [Geoffrey Huntley's blog post](https://ghuntley.com/ralph/)) that help Claude self-verify through background agents and stop hooks.
 
 The AI becomes dramatically more reliable when it can check its own answers rather than just generating and hoping.
 
