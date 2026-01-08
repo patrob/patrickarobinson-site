@@ -134,11 +134,35 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		border-radius: var(--radius-md);
 	}
 
-	/* Let Twitter/X widget handle its own styling */
+	/* Twitter/X embed card styling */
 	.prose :global(blockquote.twitter-tweet) {
 		all: unset;
 		display: block;
+		max-width: 550px;
 		margin: 2rem auto;
+		padding: 1.25rem;
+		border: 1px solid var(--color-border);
+		border-radius: 12px;
+		background: var(--color-bg-primary);
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+		font-style: normal;
+		color: var(--color-text-primary);
+	}
+
+	.prose :global(blockquote.twitter-tweet p) {
+		margin: 0 0 0.75rem 0;
+		font-size: 1rem;
+		line-height: 1.5;
+		color: var(--color-text-primary);
+	}
+
+	.prose :global(blockquote.twitter-tweet a) {
+		color: var(--color-primary);
+		text-decoration: none;
+	}
+
+	.prose :global(blockquote.twitter-tweet a:hover) {
+		text-decoration: underline;
 	}
 
 	.prose :global(code) {
