@@ -134,6 +134,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		border-radius: var(--radius-md);
 	}
 
+	/* Let Twitter/X widget handle its own styling */
+	.prose :global(blockquote.twitter-tweet) {
+		all: unset;
+		display: block;
+		margin: 2rem auto;
+	}
+
 	.prose :global(code) {
 		background: var(--color-bg-secondary);
 		padding: 0.25rem 0.5rem;
