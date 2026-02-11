@@ -1,8 +1,12 @@
 ---
-title: 'I Burned Through 300 Copilot Premium Requests in 3 Days — Here's My New System'
-description: 'How I went from blowing through GitHub Copilot premium requests to a sustainable system that gets more done with fewer requests'
-pubDate: 'Feb 11 2026'
-tags: ['ai', 'github-copilot', 'developer-productivity', 'agentic-engineering']
+title: "I Burned Through 300 Copilot Premium Requests in 3 Days"
+description: "How I went from blowing through GitHub Copilot premium requests to a sustainable system that gets more done with fewer requests"
+pubDate: "Feb 11 2026"
+tags:
+  - ai
+  - github-copilot
+  - developer-productivity
+  - agentic-engineering
 draft: true
 ---
 
