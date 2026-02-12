@@ -2,7 +2,7 @@
 title: "The Atlas Method: 7 AI Agents Inside Copilot (And Why the Architecture Matters More Than the Hack)"
 description: "Someone built a multi-agent system inside GitHub Copilot using custom instructions and subagent spawning. The economics are wild, but the architecture patterns are what I can't stop thinking about."
 pubDate: 2026-02-11
-heroImage: "/images/atlas-method-hero.jpg"
+heroImage: ""
 ---
 
 I've been building my own multi-agent system for months now. So when I stumbled across the Atlas Method — a framework that orchestrates seven specialized AI agents inside VS Code through GitHub Copilot — I didn't just see a clever hack. I saw someone solving the same architectural problems I've been wrestling with, from a completely different angle.
@@ -24,6 +24,28 @@ Here's the roster:
 - **Explorer** — Scouts the codebase structure and reports back to Atlas.
 
 Seven agents. One chat window. No external tooling.
+
+And here's how they fit together:
+
+```
+                         ┌─────────┐
+                         │  Atlas  │
+                         │  (5%)   │
+                         └────┬────┘
+            ┌──────────┬──────┼──────┬────────────┐
+            │          │      │      │            │
+       ┌────┴─────┐ ┌──┴──┐ ┌┴────┐ ┌┴─────────┐ ┌┴────────┐
+       │Prometheus│ │Oracle│ │Sisyphus│ │Code Review│ │Explorer│
+       │ Planner  │ │Research│ │Executor│ │    QA     │ │ Scout  │
+       └──────────┘ └──────┘ └───┬───┘ └───────────┘ └────────┘
+                                 │
+                          ┌──────┴──────┐
+                          │  Frontend   │
+                          │  Engineer   │
+                          └─────────────┘
+```
+
+Atlas sits at the top, thin and fast. It routes work to four primary agents — Prometheus plans, Oracle researches, Sisyphus executes, Code Review validates — plus Explorer for codebase scouting. Sisyphus can further delegate UI-specific work to Frontend Engineer. The key: context flows *down*, and every agent owns exactly one responsibility.
 
 ## The 5% Principle
 
@@ -63,10 +85,34 @@ That's both its genius and its fragility. It works today because Copilot's agent
 
 But the *ideas* inside it — orchestrator minimalism, plan-then-execute, spec-driven development, specialized agents with bounded roles — those aren't going anywhere. Those are the patterns that every serious multi-agent system is converging on, whether it's built inside Copilot, on LangGraph, or on something custom like what I'm doing with OpenClaw.
 
-If you're building anything with AI agents, study the Atlas Method. Not to copy the instructions file, but to understand *why* it works. The separation of planning and execution. The orchestrator that stays thin. The review loop that catches drift.
-
-These aren't clever tricks. They're architecture. And architecture outlasts any pricing loophole.
+If you're building anything with AI agents, study the Atlas Method. Not to copy the instructions file, but to understand *why* it works: a thin orchestrator that routes instead of thinks, specialized agents with bounded roles, and a plan-then-execute-then-review loop that catches drift before it compounds. These aren't clever tricks. They're architecture. And architecture outlasts any pricing loophole.
 
 ---
 
-*The Atlas Method was created by [u/bigguy345](https://github.com/bigguy345/Github-Copilot-Atlas) and shared on r/GithubCopilot. The architecture patterns discussed — plan-then-execute, spec-driven development — also echo the [Research Plan Implement (RPI) Strategy](https://github.com/patrob/rpi-strategy) originally developed by [Dex Horthy](https://x.com/dexhorthy) of HumanLayer.*
+I'm documenting my own multi-agent setup as I build it. Follow along at [patrickarobinson.com](https://patrickarobinson.com) or check out [agent-voices](https://github.com/on-par/agent-voices) — an open-source framework for giving your AI agents distinct voices.
+
+---
+
+*The Atlas Method was shared on [r/GithubCopilot](https://www.reddit.com/r/GithubCopilot/). If you're curious about the original discussion, that's where to find it.*
+
+---
+
+## Tweets
+
+**Tweet 1:**
+The Atlas Method uses 7 AI agents inside GitHub Copilot. The orchestrator (Atlas) uses ~5% of the context window. It doesn't think. It delegates. That's the whole insight — your orchestrator should be a router, not a brain.
+
+**Tweet 2:**
+GitHub Copilot charges per prompt, but subagents spawned within one prompt are free. The Atlas Method exploits this to run 4+ agents per request. Will this loophole last? No. Is the architecture behind it still correct? Yes.
+
+**Tweet 3:**
+The Atlas Method's best pattern: never let the AI start coding without a plan. A planner agent (GPT 5.2) writes the spec. An executor agent codes to the spec. A reviewer checks against the spec. Simple. Wildly effective. Most people skip step one.
+
+**Tweet 4:**
+I'm building my own multi-agent system and independently arrived at the same architecture as the Atlas Method — thin orchestrator, specialized subagents, plan-before-execute. When different teams converge on the same design, that's not coincidence. That's the right answer.
+
+**Tweet 5:**
+Hot take: the "separation of planning and execution" pattern in AI agents is the new "separation of concerns" in software. If your agent plans AND codes in the same context, you're doing it wrong. The Atlas Method gets this right.
+
+**Tweet 6:**
+The Atlas Method is just a custom instructions file for Copilot. Not a product. Not a framework. A prompt. And it turns one chat window into a 7-agent team. That's either terrifying or exciting depending on how you feel about prompt engineering being real engineering.
