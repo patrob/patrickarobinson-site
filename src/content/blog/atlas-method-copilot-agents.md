@@ -68,3 +68,5 @@ If you're building anything with AI agents, study the Atlas Method. Not to copy 
 These aren't clever tricks. They're architecture. And architecture outlasts any pricing loophole.
 
 ---
+
+*The Atlas Method was created by [u/bigguy345](https://github.com/bigguy345/Github-Copilot-Atlas) and shared on r/GithubCopilot. The architecture patterns discussed — plan-then-execute, spec-driven development — also echo the [Research Plan Implement (RPI) Strategy](https://github.com/patrob/rpi-strategy) originally developed by [Dex Horthy](https://x.com/dexhorthy) of HumanLayer.*
