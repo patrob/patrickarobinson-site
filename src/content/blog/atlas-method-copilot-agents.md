@@ -2,7 +2,7 @@
 title: "The Atlas Method: 7 AI Agents Inside Copilot (And Why the Architecture Matters More Than the Hack)"
 description: "Someone built a multi-agent system inside GitHub Copilot using custom instructions and subagent spawning. The economics are wild, but the architecture patterns are what I can't stop thinking about."
 pubDate: 2026-02-11
-heroImage: ""
+heroImage: "/images/atlas-method-hero.jpg"
 ---
 
 I've been building my own multi-agent system for months now. So when I stumbled across the Atlas Method — a framework that orchestrates seven specialized AI agents inside VS Code through GitHub Copilot — I didn't just see a clever hack. I saw someone solving the same architectural problems I've been wrestling with, from a completely different angle.
