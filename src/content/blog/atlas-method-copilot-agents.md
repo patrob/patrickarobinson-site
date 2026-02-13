@@ -2,7 +2,7 @@
 title: "The Atlas Method: 7 AI Agents Inside Copilot (And Why the Architecture Matters More Than the Hack)"
 description: "Someone built a multi-agent system inside GitHub Copilot using custom instructions and subagent spawning. The economics are wild, but the architecture patterns are what I can't stop thinking about."
 pubDate: 2026-02-11
-heroImage: ""
+heroImage: "/images/atlas-method-hero.jpg"
 ---
 
 I've been building my own multi-agent system for months now. So when I stumbled across the Atlas Method — a framework that orchestrates seven specialized AI agents inside VS Code through GitHub Copilot — I didn't just see a clever hack. I saw someone solving the same architectural problems I've been wrestling with, from a completely different angle.
@@ -78,25 +78,3 @@ I'm documenting my own multi-agent setup as I build it. Follow along at [patrick
 ---
 
 *The Atlas Method was shared on [r/GithubCopilot](https://www.reddit.com/r/GithubCopilot/). If you're curious about the original discussion, that's where to find it.*
-
----
-
-## Tweets
-
-**Tweet 1:**
-The Atlas Method uses 7 AI agents inside GitHub Copilot. The orchestrator (Atlas) uses ~5% of the context window. It doesn't think. It delegates. That's the whole insight — your orchestrator should be a router, not a brain.
-
-**Tweet 2:**
-GitHub Copilot charges per prompt, but subagents spawned within one prompt are free. The Atlas Method exploits this to run 4+ agents per request. Will this loophole last? No. Is the architecture behind it still correct? Yes.
-
-**Tweet 3:**
-The Atlas Method's best pattern: never let the AI start coding without a plan. A planner agent (GPT 5.2) writes the spec. An executor agent codes to the spec. A reviewer checks against the spec. Simple. Wildly effective. Most people skip step one.
-
-**Tweet 4:**
-I'm building my own multi-agent system and independently arrived at the same architecture as the Atlas Method — thin orchestrator, specialized subagents, plan-before-execute. When different teams converge on the same design, that's not coincidence. That's the right answer.
-
-**Tweet 5:**
-Hot take: the "separation of planning and execution" pattern in AI agents is the new "separation of concerns" in software. If your agent plans AND codes in the same context, you're doing it wrong. The Atlas Method gets this right.
-
-**Tweet 6:**
-The Atlas Method is just a custom instructions file for Copilot. Not a product. Not a framework. A prompt. And it turns one chat window into a 7-agent team. That's either terrifying or exciting depending on how you feel about prompt engineering being real engineering.
