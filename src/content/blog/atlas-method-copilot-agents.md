@@ -5,7 +5,7 @@ pubDate: 2026-02-11
 heroImage: "../../assets/atlas-method-hero.jpg"
 ---
 
-I've been building my own multi-agent system for months now. So when I stumbled across the Atlas Method — a framework that orchestrates seven specialized AI agents inside VS Code through GitHub Copilot — I didn't just see a clever hack. I saw someone solving the same architectural problems I've been wrestling with, from a completely different angle.
+I've been building my own multi-agent system for months now. So when I stumbled across the Atlas Method, a framework that orchestrates seven specialized AI agents inside VS Code through GitHub Copilot, I didn't just see a clever hack. I saw someone solving the same architectural problems I've been wrestling with, from a completely different angle.
 
 And honestly? Some of their solutions are better than mine.
 
@@ -15,13 +15,13 @@ The Atlas Method is a set of custom instructions for GitHub Copilot's agent mode
 
 Here's the roster:
 
-- **Atlas** — The orchestrator. Runs on Claude Sonnet 4.5. Delegates everything, executes almost nothing.
-- **Prometheus** — The planner. Runs on GPT 5.2. Builds detailed execution plans before anyone writes a line of code.
-- **Oracle** — The researcher. Gathers context, reads docs, maps the codebase.
-- **Sisyphus** — The executor. Does the actual coding, file by file, following the plan Prometheus laid out.
-- **Code Review** — Exactly what it sounds like. Reviews Sisyphus's output against the original spec.
-- **Frontend Engineer** — Specialized for UI work, component architecture, styling.
-- **Explorer** — Scouts the codebase structure and reports back to Atlas.
+- **Atlas**: The orchestrator. Runs on Claude Sonnet 4.5. Delegates everything, executes almost nothing.
+- **Prometheus**: The planner. Runs on GPT 5.2. Builds detailed execution plans before anyone writes a line of code.
+- **Oracle**: The researcher. Gathers context, reads docs, maps the codebase.
+- **Sisyphus**: The executor. Does the actual coding, file by file, following the plan Prometheus laid out.
+- **Code Review**: Exactly what it sounds like. Reviews Sisyphus's output against the original spec.
+- **Frontend Engineer**: Specialized for UI work, component architecture, styling.
+- **Explorer**: Scouts the codebase structure and reports back to Atlas.
 
 Seven agents. One chat window. No external tooling.
 
@@ -29,15 +29,15 @@ And here's how they fit together:
 
 ![Atlas Method Architecture](/images/atlas-architecture.png)
 
-Atlas sits at the top, thin and fast. It routes work to four primary agents — Prometheus plans, Oracle researches, Sisyphus executes, Code Review validates — plus Explorer for codebase scouting. Sisyphus can further delegate UI-specific work to Frontend Engineer. The key: context flows *down*, and every agent owns exactly one responsibility.
+Atlas sits at the top, thin and fast. It routes work to four primary agents (Prometheus plans, Oracle researches, Sisyphus executes, Code Review validates) plus Explorer for codebase scouting. Sisyphus can further delegate UI-specific work to Frontend Engineer. The key: context flows *down*, and every agent owns exactly one responsibility.
 
 ## The 5% Principle
 
 Here's the architectural insight that hit me hardest: Atlas, the orchestrator, uses roughly 5% of the available context window. That's it. It doesn't think deeply. It doesn't hold state. It reads the request, decides which subagent to spawn, and gets out of the way.
 
-This is the same pattern I keep arriving at in my own system. The orchestrator's job isn't to be smart — it's to be *fast* and *decisive*. The moment your orchestrator starts doing real work, you've lost the plot. It becomes a bottleneck instead of a router.
+This is the same pattern I keep arriving at in my own system. The orchestrator's job isn't to be smart. It's to be *fast* and *decisive*. The moment your orchestrator starts doing real work, you've lost the plot. It becomes a bottleneck instead of a router.
 
-The Atlas Method enforces this through custom instructions that literally tell the orchestrator: "You do not write code. You do not research. You delegate." It's separation of concerns applied to AI agents, and it works for the same reason it works in software architecture — because bounded responsibilities reduce errors and increase throughput.
+The Atlas Method enforces this through custom instructions that literally tell the orchestrator: "You do not write code. You do not research. You delegate." It's separation of concerns applied to AI agents, and it works for the same reason it works in software architecture. Because bounded responsibilities reduce errors and increase throughput.
 
 ## The Economics Are Absurd (For Now)
 
@@ -47,7 +47,7 @@ So you send one message to Atlas. Atlas spawns Prometheus to plan. Prometheus sp
 
 Is this a loophole? Absolutely. Will it last? Almost certainly not. GitHub is going to close this gap the moment subagent orchestration starts meaningfully impacting their compute costs. But right now, in February 2026, it works. And the people using it are getting 10x the output per request.
 
-I'm not saying you should build your workflow around a pricing loophole. I'm saying the *architecture* that makes this loophole possible — orchestrator spawning specialized subagents within a single execution context — is the right architecture regardless of pricing.
+I'm not saying you should build your workflow around a pricing loophole. I'm saying the *architecture* that makes this loophole possible, orchestrator spawning specialized subagents within a single execution context, is the right architecture regardless of pricing.
 
 ## The Patterns Worth Stealing
 
@@ -59,7 +59,7 @@ This is absurdly simple and absurdly effective. Most people (myself included, so
 
 **The Spec-Driven Workflow.** Every task starts with a spec that Oracle helps research and Prometheus formalizes. The spec becomes the contract. Sisyphus codes to the spec. Code Review validates against the spec. If there's no spec, there's no work.
 
-I've been implementing something similar in my OpenClaw-based system — a research agent that gathers context before a planning agent builds the execution strategy. Seeing the Atlas Method arrive at the same pattern independently tells me this isn't just one person's preference. It's a convergent design. Separating planning from execution is how multi-agent systems need to work.
+I've been implementing something similar in my OpenClaw-based system. A research agent that gathers context before a planning agent builds the execution strategy. Seeing the Atlas Method arrive at the same pattern independently tells me this isn't just one person's preference. It's a convergent design. Separating planning from execution is how multi-agent systems need to work.
 
 ## What I Think This Means
 
@@ -67,13 +67,13 @@ The Atlas Method is a custom instructions file. It's not a product. It's not a p
 
 That's both its genius and its fragility. It works today because Copilot's agent mode is flexible enough to support subagent delegation, and because the pricing model hasn't caught up to the usage pattern. Either of those could change tomorrow.
 
-But the *ideas* inside it — orchestrator minimalism, plan-then-execute, spec-driven development, specialized agents with bounded roles — those aren't going anywhere. Those are the patterns that every serious multi-agent system is converging on, whether it's built inside Copilot, on LangGraph, or on something custom like what I'm doing with OpenClaw.
+But the *ideas* inside it (orchestrator minimalism, plan-then-execute, spec-driven development, specialized agents with bounded roles) those aren't going anywhere. Those are the patterns that every serious multi-agent system is converging on, whether it's built inside Copilot, on LangGraph, or on something custom like what I'm doing with OpenClaw.
 
 If you're building anything with AI agents, study the Atlas Method. Not to copy the instructions file, but to understand *why* it works: a thin orchestrator that routes instead of thinks, specialized agents with bounded roles, and a plan-then-execute-then-review loop that catches drift before it compounds. These aren't clever tricks. They're architecture. And architecture outlasts any pricing loophole.
 
 ---
 
-I'm documenting my own multi-agent setup as I build it. Follow along at [patrickarobinson.com](https://patrickarobinson.com) or check out [agent-voices](https://github.com/on-par/agent-voices) — an open-source framework for giving your AI agents distinct voices.
+I'm documenting my own multi-agent setup as I build it. Follow along at [patrickarobinson.com](https://patrickarobinson.com) or check out [agent-voices](https://github.com/on-par/agent-voices), an open-source framework for giving your AI agents distinct voices.
 
 ---
 
