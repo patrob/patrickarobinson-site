@@ -27,23 +27,7 @@ Seven agents. One chat window. No external tooling.
 
 And here's how they fit together:
 
-```
-                         ┌─────────┐
-                         │  Atlas  │
-                         │  (5%)   │
-                         └────┬────┘
-            ┌──────────┬──────┼──────┬────────────┐
-            │          │      │      │            │
-       ┌────┴─────┐ ┌──┴──┐ ┌┴────┐ ┌┴─────────┐ ┌┴────────┐
-       │Prometheus│ │Oracle│ │Sisyphus│ │Code Review│ │Explorer│
-       │ Planner  │ │Research│ │Executor│ │    QA     │ │ Scout  │
-       └──────────┘ └──────┘ └───┬───┘ └───────────┘ └────────┘
-                                 │
-                          ┌──────┴──────┐
-                          │  Frontend   │
-                          │  Engineer   │
-                          └─────────────┘
-```
+![Atlas Method Architecture](/images/atlas-architecture.png)
 
 Atlas sits at the top, thin and fast. It routes work to four primary agents — Prometheus plans, Oracle researches, Sisyphus executes, Code Review validates — plus Explorer for codebase scouting. Sisyphus can further delegate UI-specific work to Frontend Engineer. The key: context flows *down*, and every agent owns exactly one responsibility.
 
