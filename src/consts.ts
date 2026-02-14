@@ -2,7 +2,7 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = 'Patrick Robinson';
-export const SITE_DESCRIPTION = 'Personal website and blog of Patrick Robinson - thoughts on web development, technology, and more.';
+export const SITE_DESCRIPTION = 'Software engineer and AI enthusiast building practical agent systems. I coach teams and build agents. Here\'s what actually works.';
 
 export const NAV_ITEMS = [
   { label: 'Home', href: '/' },
