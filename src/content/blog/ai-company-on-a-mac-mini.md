@@ -2,6 +2,7 @@
 title: "I'm Running an AI Company on a Mac Mini. Here's the Full Stack."
 description: 'Four AI agents, multiple models, zero cloud servers, all on a $600 Mac Mini M4. Here is how the whole thing works.'
 pubDate: 'Feb 17 2026'
+heroImage: '../../assets/og-mac-mini.png'
 ---
 
 There's a Mac Mini sitting on a desk in the middle of America that hasn't slept in weeks.
