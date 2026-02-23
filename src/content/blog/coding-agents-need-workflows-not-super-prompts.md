@@ -5,11 +5,10 @@ pubDate: 'Feb 23 2026'
 tags: ['ai', 'coding-agents', 'workflow', 'prompting']
 ---
 
-I used to think better outputs from coding agents came from writing better prompts.
+Most teams think coding-agent quality comes from better prompts.
+I think it comes from better workflow discipline.
 
-Now I think better outputs usually come from running a better workflow.
-
-Prompts still matter. Clear context matters. But in day to day work, what has helped me most is a repeatable operating pattern that keeps quality high and surprises low.
+Prompts matter, but the real gains for me came from a repeatable loop: draft, verify, fix, repeat.
 
 Here is the one I keep coming back to.
 
@@ -71,6 +70,8 @@ It is where I compare suggestions against the real codebase, run tests, inspect 
 
 Recently I ran a large migration with coding-agent support. Total effort was about 18.5 hours.
 
+The first pass looked solid, but verification caught multiple implementation gaps before merge, which is exactly why this loop pays for itself.
+
 The first drafts looked great quickly. But the real progress came from the verify/fix loop:
 
 - validating each major change path
@@ -103,10 +104,6 @@ If an agent gives me clean reasoning plus clean code, I still assume there are b
 
 ## Final thought
 
-Coding agents are getting better fast. But at least right now, I think workflow discipline is still the multiplier.
-
-Better prompts help.
-
-Better loops help more.
-
-If you are building with coding agents and want practical systems instead of hype, I share these kinds of workflows regularly on patrickarobinson.com. Follow along, and if you have your own patterns that work, I would love to learn from them.
+If you are using coding agents in production, try running one week with FAR + FACTS + a strict verify/fix loop.
+Then compare rework and review friction against your normal process.
+If you do it, send me what changed. I want to compare notes.
