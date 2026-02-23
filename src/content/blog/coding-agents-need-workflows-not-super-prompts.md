@@ -43,17 +43,17 @@ FAR is my quality check for any agent output:
 
 If something reads well but scores weakly on Factual, I treat it as a draft, not a decision.
 
-### FACTS for prompt and context setup
+### FACTS for plan validation
 
-Before I ask an agent to do meaningful work, I try to set context with FACTS:
+After planning, I validate the plan with FACTS:
 
-- **Frame**: What are we solving and why now?
-- **Assumptions**: What constraints or beliefs are we carrying in?
-- **Context**: What code, docs, and history matter here?
-- **Task**: What exact deliverable do I need?
-- **Success**: What does good look like, and how will we validate it?
+- **Feasibility**: Can we actually execute this with our current constraints?
+- **Atomic tasks**: Are tasks broken into one clear action each?
+- **Clarity**: Is each step unambiguous to a human and an agent?
+- **Testable**: Can each task be verified with concrete checks?
+- **Scoped properly**: Is the plan tight enough to ship without sprawl?
 
-In my experience, FACTS reduces vague outputs. FAR helps me pressure test whatever comes back.
+In my experience, FACTS catches vague or bloated plans. FAR pressure tests research quality before planning starts.
 
 ## The 20/20/60 split that keeps me out of trouble
 
