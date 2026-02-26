@@ -66,7 +66,7 @@ Notice what's missing: no style guide prose the model already knows, no explanat
 
 This is the single highest-leverage change. Tell your agent to run tests after making changes. Include linting in the workflow. For UI work, add screenshot comparison. Provide expected output or acceptance criteria in every task.
 
-Most teams I work with skip this entirely. Their agents produce plausible-looking code that compiles but doesn't handle edge cases. Adding "run the tests and fix any failures before marking this complete" to your agent's skill file costs you nothing and catches the majority of silent failures.
+Most teams I work with skip this entirely. Their agents produce plausible-looking code that compiles but doesn't handle edge cases. Adding "run the tests and fix any failures before marking this complete" as an [agent skill](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) costs you nothing and catches the majority of silent failures.
 
 The diagram below shows what this looks like in practice. The key detail is that every failure loops back to the agent for a self-fix attempt before a human ever sees it.
 
