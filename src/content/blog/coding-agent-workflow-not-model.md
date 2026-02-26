@@ -18,11 +18,11 @@ That number rewired how I think about coding agents. When your workflow can swin
 
 ## Where I Got This Wrong
 
-Here's the part that stings a little. When I first started setting up coding agents for my own projects, I spent weeks comparing models. I ran the same tasks through three different providers, tracked token costs, measured output quality. I built spreadsheets.
+Here's what actually happened. When I first started setting up coding agents, I let the agent write its own instruction files. It seemed efficient: who better to write the rules than the thing following them?
 
-And the whole time, my CLAUDE.md file was four lines of vague instructions. My agent had no verification loop. No scoped tasks. No environment setup.
+The results were bloated every time. Pages of instructions that restated things the model would already infer. Style guides that described defaults. Boundaries that were obvious. The instruction file looked thorough, but it was burning context window on information the agent already knew. Worse, the actually important rules got buried in noise.
 
-I was optimizing the wrong layer entirely. The moment I invested that same energy into scaffolding, the "mediocre" model started producing work I could actually ship.
+I was optimizing the wrong layer entirely. The moment I started writing concise, opinionated instruction files myself, focused on the things the model *couldn't* infer (my specific commands, my repo's quirks, my actual boundaries), the same model started producing work I could actually ship.
 
 ## What the Data Actually Shows
 
