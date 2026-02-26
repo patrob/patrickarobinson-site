@@ -6,7 +6,7 @@ heroImage: "../../assets/coding-agent-workflow-hero.png"
 tags: ["ai", "coding-agents", "workflows", "developer-productivity"]
 ---
 
-I've been coaching engineering teams on coding agents for a while now, and I keep hearing the same conversation. "We tried GitHub Copilot, but the output was inconsistent." "We're thinking about upgrading to a bigger model." "Maybe we should wait for the next generation."
+I've been coaching engineering teams on coding agents for a while now, and I keep hearing the same conversation. "We tried Copilot's coding agent, but it keeps producing slop." "We switched to Claude Code and it's not much better." "Maybe we just need to wait for a smarter model."
 
 Every time, my response is the same: your model isn't the problem. Your workflow is.
 
