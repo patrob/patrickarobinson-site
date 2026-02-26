@@ -2,7 +2,7 @@
 title: "Your Coding Agent Doesn't Need a Better Model. It Needs a Better Workflow."
 description: "SWE-bench shows 10x performance variance from scaffolding alone. Here are five workflow changes that matter more than model upgrades."
 pubDate: "Feb 26 2026"
-heroImage: "../../assets/blog-placeholder-1.jpg"
+heroImage: "../../assets/coding-agent-workflow-hero.png"
 tags: ["ai", "coding-agents", "workflows", "developer-productivity"]
 ---
 
