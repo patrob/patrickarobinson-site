@@ -12,7 +12,7 @@ Every time, my response is the same: your model isn't the problem. Your workflow
 
 ## The Number That Changed My Mind
 
-I used to think model quality was the primary lever too. Then I looked at the [SWE-bench data](https://openai.com/index/introducing-swe-bench-verified/) more carefully. GPT-4's performance on SWE-bench Lite ranged from 2.7% with an early RAG scaffold to 28.3% with the CodeR scaffold. Same model. Same benchmark. **A 10x difference from scaffolding alone.**
+I used to think model quality was the primary lever too. Then I looked at the [SWE-bench data](https://openai.com/index/introducing-swe-bench-verified/) more carefully. When researchers first ran GPT-4 through SWE-bench Lite, performance ranged from 2.7% with a basic RAG scaffold to 28.3% with the CodeR scaffold. Same model. Same benchmark. **A 10x difference from scaffolding alone.** That pattern has only gotten more pronounced as models have improved: the gap between a bare prompt and a well-scaffolded workflow keeps widening.
 
 That number rewired how I think about coding agents. When your workflow can swing performance by an order of magnitude, obsessing over which model to use is like tuning your engine while driving on flat tires.
 
@@ -34,7 +34,7 @@ The repos getting inconsistent results? Vague instruction files that read more l
 
 [Anthropic's context engineering research](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) reinforces the same point from a different angle. Context is a finite resource with diminishing returns. As the context window fills, attention degrades. Every token your agent spends figuring out your build system, discovering dependencies through trial and error, or reading files it doesn't need is a token not spent on the actual task.
 
-The research on verification loops is equally compelling. The [Self-Refine paper](https://arxiv.org/abs/2303.17651) showed roughly 20% average improvement from iterative self-feedback. The [Reflexion paper](https://arxiv.org/abs/2303.11366) hit 91% pass@1 on HumanEval with verbal self-reflection, compared to 80% without. Your agent gets meaningfully better when it can check its own work.
+The research on verification loops is equally compelling. Early foundational work like [Self-Refine](https://arxiv.org/abs/2303.17651) showed roughly 20% average improvement from iterative self-feedback, and [Reflexion](https://arxiv.org/abs/2303.11366) hit 91% pass@1 on HumanEval with verbal self-reflection compared to 80% without. Those numbers were measured on earlier models, but the core pattern holds: agents that check and correct their own work consistently outperform those that don't, regardless of which model is underneath.
 
 ## Five Scaffolding Changes You Can Make This Week
 
