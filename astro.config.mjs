@@ -2,6 +2,7 @@
 
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import rehypeExternalLinks from 'rehype-external-links';
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
@@ -14,5 +15,8 @@ export default defineConfig({
 			theme: 'github-dark',
 			wrap: true,
 		},
+		rehypePlugins: [
+			[rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
+		],
 	},
 });
