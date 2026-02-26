@@ -12,9 +12,9 @@ Every time, my response is the same: your model isn't the problem. Your workflow
 
 ## The Number That Changed My Mind
 
-I used to think model quality was the primary lever too. Then I looked at the [SWE-bench data](https://openai.com/index/introducing-swe-bench-verified/) more carefully. When researchers first ran GPT-4 through SWE-bench Lite, performance ranged from 2.7% with a basic RAG scaffold to 28.3% with the CodeR scaffold. Same model. Same benchmark. **A 10x difference from scaffolding alone.** That pattern has only gotten more pronounced as models have improved: the gap between a bare prompt and a well-scaffolded workflow keeps widening. Fast-forward to early 2026: [GLM-4.6 scored 55% or 68% on SWE-bench Verified](https://www.reddit.com/r/LocalLLaMA/comments/1qnt8vp/lets_talk_about_the_swebench_verified/) depending on which scaffold ran it, a 13-point swing on the same model. A [systematic study of 80 SWE-bench approaches](https://arxiv.org/html/2506.17208v2) confirmed that scaffolding dominates over model choice, and when the SWE-bench team [held scaffolding constant](https://www.swebench.com/post-250820-mini-roulette.html), frontier models like Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within four points of each other.
+I used to think model quality was the primary lever too. Then I looked at the [SWE-bench](https://openai.com/index/introducing-swe-bench-verified/) data more carefully. (SWE-bench is the standard benchmark for evaluating AI on real GitHub issues: given an issue description, can the agent produce a working fix?) When researchers first ran GPT-4 through SWE-bench Lite, performance ranged from 2.7% with a basic RAG scaffold to 28.3% with the CodeR scaffold. Same model. Same benchmark. **A 10x difference from scaffolding alone.** That pattern has only gotten more pronounced as models have improved: the gap between a bare prompt and a well-scaffolded workflow keeps widening. Fast-forward to early 2026: [GLM-4.6 scored 55% or 68% on SWE-bench Verified](https://www.reddit.com/r/LocalLLaMA/comments/1qnt8vp/lets_talk_about_the_swebench_verified/) depending on which scaffold ran it, a 13-point swing on the same model. A [systematic study of 80 SWE-bench approaches](https://arxiv.org/html/2506.17208v2) confirmed that scaffolding dominates over model choice, and when the SWE-bench team [held scaffolding constant](https://www.swebench.com/post-250820-mini-roulette.html), frontier models like Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within four points of each other.
 
-That number rewired how I think about coding agents. When your workflow can swing performance by an order of magnitude, obsessing over which model to use is like tuning your engine while driving on flat tires.
+That number rewired how I think about coding agents. "Scaffolding" here means everything around the model: the instruction files, the verification loops, the task scoping, the environment setup. When that surrounding workflow can swing performance by an order of magnitude, obsessing over which model to use is like tuning your engine while driving on flat tires.
 
 ## Where I Got This Wrong
 
@@ -34,7 +34,7 @@ The repos getting inconsistent results? Vague instruction files that read more l
 
 [Anthropic's context engineering research](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) reinforces the same point from a different angle. Context is a finite resource with diminishing returns. As the context window fills, attention degrades. Every token your agent spends figuring out your build system, discovering dependencies through trial and error, or reading files it doesn't need is a token not spent on the actual task.
 
-The research on verification loops is equally compelling. Early foundational work like [Self-Refine](https://arxiv.org/abs/2303.17651) showed roughly 20% average improvement from iterative self-feedback, and [Reflexion](https://arxiv.org/abs/2303.11366) hit 91% pass@1 on HumanEval with verbal self-reflection compared to 80% without. Those numbers were measured on earlier models, but the core pattern holds: agents that check and correct their own work consistently outperform those that don't, regardless of which model is underneath. The 2025 evidence is even more direct: a study on [self-improving coding agents](https://arxiv.org/abs/2504.15228) showed that reflection loops alone boosted SWE-bench performance by 17 to 53 percent, and [practitioner reports](https://www.latent.space/p/self-improving) confirm that lint-then-fix-then-retry verification is the single most effective coding agent accelerator.
+The research on verification loops is equally compelling. Early foundational work like [Self-Refine](https://arxiv.org/abs/2303.17651) showed roughly 20% average improvement from iterative self-feedback, and [Reflexion](https://arxiv.org/abs/2303.11366) hit 91% pass@1 on HumanEval with verbal self-reflection compared to 80% without. Those numbers were measured on earlier models, so treat the specific percentages as directional rather than definitive. But the core pattern holds across newer research too: agents that check and correct their own work consistently outperform those that don't, regardless of which model is underneath. The 2025 evidence is even more direct: a study on [self-improving coding agents](https://arxiv.org/abs/2504.15228) showed that reflection loops alone boosted SWE-bench performance by 17 to 53 percent, and [practitioner reports](https://www.latent.space/p/self-improving) confirm that lint-then-fix-then-retry verification is the single most effective coding agent accelerator.
 
 ## Five Scaffolding Changes You Can Make This Week
 
@@ -44,7 +44,23 @@ These aren't theoretical. I coach teams on these specific changes, and every one
 
 Your CLAUDE.md or agents.md should be executable documentation. Put your build, test, and lint commands at the top with exact flags. Show one real code snippet that demonstrates your style instead of writing three paragraphs describing it. Include three-tier boundaries: what the agent should always do, what it should ask about first, and what it should never touch.
 
-The [GitHub analysis](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) found that for every instruction, you should ask: "Would removing this cause the agent to make mistakes?" If the answer is no, cut it. Bloated instruction files cause agents to ignore the rules that actually matter.
+Here's a concrete example of what the critical section of an instruction file looks like:
+
+```markdown
+## Commands
+- Build: `npm run build`
+- Test: `npm test -- --watchAll=false`
+- Lint: `npm run lint -- --fix`
+- Single test: `npm test -- --testPathPattern="path/to/test"`
+
+## Boundaries
+- ALWAYS: run tests before committing
+- ALWAYS: use our AppError class for error handling (see src/lib/errors.ts)
+- ASK FIRST: changes to database schema or API contracts
+- NEVER: modify CI config, package.json scripts, or .env files
+```
+
+Notice what's missing: no style guide prose the model already knows, no explanation of what TypeScript is, no restatement of defaults. The [GitHub analysis](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) found that for every instruction, you should ask: "Would removing this cause the agent to make mistakes?" If the answer is no, cut it. Bloated instruction files cause agents to ignore the rules that actually matter.
 
 ### 2. Add Verification Loops Before You Add Anything Else
 
