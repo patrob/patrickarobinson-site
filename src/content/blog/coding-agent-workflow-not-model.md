@@ -12,7 +12,7 @@ Every time, my response is the same: your model isn't the problem. Your workflow
 
 ## The Number That Changed My Mind
 
-I used to think model quality was the primary lever too. Then I looked at the SWE-bench data more carefully. GPT-4's performance on SWE-bench Lite ranged from 2.7% with an early RAG scaffold to 28.3% with the CodeR scaffold. Same model. Same benchmark. **A 10x difference from scaffolding alone.**
+I used to think model quality was the primary lever too. Then I looked at the [SWE-bench data](https://openai.com/index/introducing-swe-bench-verified/) more carefully. GPT-4's performance on SWE-bench Lite ranged from 2.7% with an early RAG scaffold to 28.3% with the CodeR scaffold. Same model. Same benchmark. **A 10x difference from scaffolding alone.**
 
 That number rewired how I think about coding agents. When your workflow can swing performance by an order of magnitude, obsessing over which model to use is like tuning your engine while driving on flat tires.
 
@@ -28,13 +28,13 @@ I was optimizing the wrong layer entirely. The moment I invested that same energ
 
 This isn't just my experience. The evidence is piling up from multiple directions.
 
-GitHub analyzed over 2,500 repositories with agents.md files and found a clear split. The repos getting consistent results shared specific traits: executable commands with exact flags, real code examples instead of prose descriptions, explicit three-tier boundaries (always do, ask first, never touch), and coverage across six areas: commands, testing, project structure, code style, git workflow, and boundaries.
+[GitHub analyzed over 2,500 repositories](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) with agents.md files and found a clear split. The repos getting consistent results shared specific traits: executable commands with exact flags, real code examples instead of prose descriptions, explicit three-tier boundaries (always do, ask first, never touch), and coverage across six areas: commands, testing, project structure, code style, git workflow, and boundaries.
 
 The repos getting inconsistent results? Vague instruction files that read more like wish lists than operating manuals.
 
-Anthropic's context engineering research reinforces the same point from a different angle. Context is a finite resource with diminishing returns. As the context window fills, attention degrades. Every token your agent spends figuring out your build system, discovering dependencies through trial and error, or reading files it doesn't need is a token not spent on the actual task.
+[Anthropic's context engineering research](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) reinforces the same point from a different angle. Context is a finite resource with diminishing returns. As the context window fills, attention degrades. Every token your agent spends figuring out your build system, discovering dependencies through trial and error, or reading files it doesn't need is a token not spent on the actual task.
 
-The research on verification loops is equally compelling. The Self-Refine paper showed roughly 20% average improvement from iterative self-feedback. The Reflexion paper hit 91% pass@1 on HumanEval with verbal self-reflection, compared to 80% without. Your agent gets meaningfully better when it can check its own work.
+The research on verification loops is equally compelling. The [Self-Refine paper](https://arxiv.org/abs/2303.17651) showed roughly 20% average improvement from iterative self-feedback. The [Reflexion paper](https://arxiv.org/abs/2303.11366) hit 91% pass@1 on HumanEval with verbal self-reflection, compared to 80% without. Your agent gets meaningfully better when it can check its own work.
 
 ## Five Scaffolding Changes You Can Make This Week
 
@@ -44,7 +44,7 @@ These aren't theoretical. I coach teams on these specific changes, and every one
 
 Your CLAUDE.md or agents.md should be executable documentation. Put your build, test, and lint commands at the top with exact flags. Show one real code snippet that demonstrates your style instead of writing three paragraphs describing it. Include three-tier boundaries: what the agent should always do, what it should ask about first, and what it should never touch.
 
-The GitHub analysis found that for every instruction, you should ask: "Would removing this cause the agent to make mistakes?" If the answer is no, cut it. Bloated instruction files cause agents to ignore the rules that actually matter.
+The [GitHub analysis](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) found that for every instruction, you should ask: "Would removing this cause the agent to make mistakes?" If the answer is no, cut it. Bloated instruction files cause agents to ignore the rules that actually matter.
 
 ### 2. Add Verification Loops Before You Add Anything Else
 
@@ -54,13 +54,13 @@ Most teams I work with skip this entirely. Their agents produce plausible-lookin
 
 ### 3. Scope Tasks with Acceptance Criteria
 
-Treat every issue you assign to an agent like a prompt. Include the symptom, the likely file location, and a concrete definition of "done." OpenHands recommends keeping agent tasks under roughly 100 lines of code changes.
+Treat every issue you assign to an agent like a prompt. Include the symptom, the likely file location, and a concrete definition of "done." [OpenHands recommends](https://docs.openhands.dev/openhands/usage/tips/prompting-best-practices) keeping agent tasks under roughly 100 lines of code changes.
 
 This sounds obvious, but I watch teams hand agents vague tickets like "improve the error handling" and then wonder why the output is unfocused. An agent task that says "in src/api/auth.ts, the login function throws a raw error on line 47; wrap it in our AppError class and add a test case that verifies the error code is AUTH_FAILED" will outperform "fix the auth errors" every single time.
 
 ### 4. Pre-Install Dependencies and Standardize the Environment
 
-GitHub's Copilot coding agent docs describe what happens when agents work without environment setup: they discover and install dependencies through trial and error, which is slow and unreliable. Every turn your agent spends running `npm install` and hitting errors is a turn it's not spending on your actual task.
+[GitHub's Copilot coding agent docs](https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results) describe what happens when agents work without environment setup: they discover and install dependencies through trial and error, which is slow and unreliable. Every turn your agent spends running `npm install` and hitting errors is a turn it's not spending on your actual task.
 
 Create a setup file. Document your environment variables. Provide the exact commands the agent needs. Reduce the cold start so tokens go to real work.
 
