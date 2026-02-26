@@ -48,6 +48,8 @@ The [GitHub analysis](https://github.blog/ai-and-ml/github-copilot/how-to-write-
 
 ### 2. Add Verification Loops Before You Add Anything Else
 
+![The verification loop: scoped task flows through automated gates (tests, linter, acceptance criteria) with self-fix loops, then human review before shipping](../../assets/verify-loop-diagram.png)
+
 This is the single highest-leverage change. Tell your agent to run tests after making changes. Include linting in the workflow. For UI work, add screenshot comparison. Provide expected output or acceptance criteria in every task.
 
 Most teams I work with skip this entirely. Their agents produce plausible-looking code that compiles but doesn't handle edge cases. Adding "run the tests and fix any failures before marking this complete" to your agent instructions costs you nothing and catches the majority of silent failures.
