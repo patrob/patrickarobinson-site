@@ -1,30 +1,34 @@
 ---
 title: "Your Coding Agent Doesn't Need a Better Model. It Needs a Better Workflow."
-description: "Five concrete workflow changes that matter more than which model you pick."
+description: "Scaffolding dominates model choice for coding agents. Here are five practical changes that made my agents actually useful."
 pubDate: "Feb 26 2026"
 heroImage: "../../assets/coding-agent-workflow-hero.png"
 tags: ["coding-agents", "developer-tools", "workflow", "AI"]
 ---
 
-I've been coaching engineering teams on coding agents for a while now, and I keep hearing the same conversation. "We tried Copilot's coding agent, but it keeps producing slop." "We switched to Claude Code and it's not much better." "Maybe we just need to wait for a smarter model."
+Last month I was on a call with a team that had just burned three sprints trying to get Copilot's coding agent to produce usable PRs. They'd switched models twice. They were about to switch again.
 
-Every time, my response is the same: your model isn't the problem. Your workflow is.
+I asked to see their instruction file. It was four paragraphs of "please write clean, well-tested code following our standards." No build commands. No test commands. No boundaries. The agent was guessing at everything.
 
-The research backs this up. A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2408.04396) found that scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://swebench.com) and compared frontier models head-to-head, Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within a few points of each other. The model barely mattered. The workflow around it mattered enormously.
+We rewrote that file in 20 minutes. Same model, same codebase, same agent. The next PR was merge-ready.
 
-Here's what I actually do about it.
+This keeps happening. Teams blame the model when the real problem is everything around it. And the research confirms it: a [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2408.04396) found that scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://swebench.com) and compared frontier models head-to-head, Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within a few points of each other. The model barely matters. The workflow around it matters enormously.
 
-## Where I Got This Wrong
+I learned this the hard way. When I first set up coding agents, I let the agent write its own instruction files. Seemed efficient. The results were bloated every time: pages of rules restating things the model would already infer, with the actually important stuff buried in noise. The moment I started writing concise, opinionated instructions myself, focused on what the model couldn't know (my specific commands, my repo's quirks, my actual boundaries), the same model started producing work I could ship.
 
-When I first started setting up coding agents, I let the agent write its own instruction files. It seemed efficient: who better to write the rules than the thing following them?
+Here are five concrete changes that made the difference.
 
-The results were bloated every time. Pages of instructions that restated things the model would already infer. Style guides that described defaults. Boundaries that were obvious. The instruction file looked thorough, but it was burning context window on information the agent already knew. Worse, the actually important rules got buried in noise.
+## 1. Scope Tasks to One Thing
 
-I was optimizing the wrong layer entirely. The moment I started writing concise, opinionated instruction files myself, focused on the things the model couldn't infer (my specific commands, my repo's quirks, my actual boundaries), the same model started producing work I could actually ship.
+A [SWE-Bench Mobile study](https://arxiv.org/abs/2410.10400) tested 22 agent-model configurations and found up to a 6x performance gap from the same model in different scaffolds. One of the biggest factors? Task scope.
 
-## Five Scaffolding Changes You Can Make This Week
+When I give an agent a GitHub issue that says "refactor the auth module and also update the API docs and fix that flaky test," it produces garbage. When I give it "fix the race condition in `auth/session.ts` where concurrent refresh tokens can corrupt the session store," it produces something I can review in five minutes.
 
-### 1. Write an Operating Manual, Not a Wish List
+I've started writing issues specifically for agents. One clear problem. Reproduction steps if applicable. Pointers to the relevant files. That's it.
+
+This is the fastest change you can make. You don't need to touch any tooling. Just write better issues.
+
+## 2. Write an Operating Manual, Not a Wish List
 
 Your `agents.md` (or `CLAUDE.md`, or whatever your tool calls it) is the single highest-leverage file in your repo. But most of them read like vague wish lists.
 
@@ -48,7 +52,7 @@ Compare that to "Please follow best practices and write clean code." One gives t
 
 The key insight from [Anthropic's context engineering research](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview): context is a finite resource. Every token your agent spends figuring out your build system through trial and error is a token not spent on the actual task. Tell it upfront.
 
-### 2. Add Verification Loops
+## 3. Add Verification Loops
 
 This is the single most effective change I've made. Instead of letting the agent submit code and hoping it works, I make it check its own work before I ever see it.
 
@@ -67,32 +71,24 @@ In practice, I encode this directly in the instruction file:
 
 Step three matters. You want the agent to bail out rather than spiral into increasingly creative (and wrong) fixes.
 
-### 3. Scope Tasks to One Thing
+## 4. Close the PR Feedback Loop
 
-A [SWE-Bench Mobile study](https://arxiv.org/abs/2410.10400) tested 22 agent-model configurations and found up to a 6x performance gap from the same model in different scaffolds. One of the biggest factors? Task scope.
-
-When I give an agent a GitHub issue that says "refactor the auth module and also update the API docs and fix that flaky test," it produces garbage. When I give it "fix the race condition in `auth/session.ts` where concurrent refresh tokens can corrupt the session store," it produces something I can review in five minutes.
-
-I've started writing issues specifically for agents. One clear problem. Reproduction steps if applicable. Pointers to the relevant files. That's it.
-
-### 4. Pre-Install Dependencies
-
-This sounds trivial, but it's not. If your agent's environment doesn't have your dependencies installed, it will spend tokens (and time, and your money) figuring out how to install them. Or worse, it'll guess wrong and produce code that works against the wrong version.
-
-I use devcontainers or Docker images with everything pre-installed. The agent starts with a working environment from the first command. No `npm install`, no virtual environment setup, no guessing at Python versions.
-
-### 5. Close the PR Feedback Loop
-
-The last change is about what happens after the agent opens a PR. Most teams review the PR, leave comments, and then manually fix whatever the agent got wrong. That's leaving value on the table.
+Most teams review agent PRs, leave comments, and then manually fix whatever the agent got wrong. That's leaving value on the table.
 
 Instead, I have the agent read review comments and push fixes. The cycle is: agent opens PR, human reviews, agent addresses feedback, human re-reviews. This turns the PR review into a conversation instead of a handoff.
 
 The practical version: use your CI to post lint and test results as PR comments. Tag the agent on anything it needs to fix. Let it iterate.
 
-## The Uncomfortable Implication
+Paired with verification loops, this means most agent PRs converge in one or two review cycles. The agent catches the mechanical stuff itself; you focus review on design and intent.
 
-If scaffolding matters several times more than model selection, then the teams getting the best results aren't the ones with the biggest AI budgets. They're the ones with the most disciplined engineering practices.
+## 5. Pre-Install Dependencies
 
-That's actually good news. You don't need to wait for the next model release or negotiate a bigger API spend. You can start improving your coding agent's output today, with changes that take hours, not quarters.
+This sounds trivial, but it's not. If your agent's environment doesn't have your dependencies installed, it will spend tokens (and time, and your money) figuring out how to install them. Or worse, it'll guess wrong and produce code that works against the wrong version.
 
-Pick one of the five changes above, implement it this week, and measure the difference. I think you'll find that your "underperforming" model has been capable of much more all along. It just needed a better workflow to show it.
+I use devcontainers or Docker images with everything pre-installed. The agent starts with a working environment from the first command. No `npm install`, no virtual environment setup, no guessing at Python versions.
+
+## The Real Takeaway
+
+If scaffolding matters several times more than model selection, the teams getting the best results aren't the ones with the biggest AI budgets. They're the ones with the most disciplined engineering practices.
+
+You don't need to wait for the next model release. Pick one of these five changes, implement it this week, and measure the difference. I think you'll find that your "underperforming" model has been capable of much more all along. It just needed a better workflow to show it.
