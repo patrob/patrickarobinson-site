@@ -6,15 +6,11 @@ heroImage: "../../assets/coding-agent-workflow-hero.png"
 tags: ["coding-agents", "developer-tools", "workflow", "AI"]
 ---
 
-Last month I was on a call with a team that had just burned three sprints trying to get Copilot's coding agent to produce usable PRs. They'd switched models twice. They were about to switch again.
+When I was coaching engineering teams on coding agents, the pattern was always the same. People would prompt big asks, get back hallucinated garbage, and write the whole thing off. "AI just makes stuff up," they'd tell me.
 
-I asked to see their instruction file. It was four paragraphs of "please write clean, well-tested code following our standards." No build commands. No test commands. No boundaries. The agent was guessing at everything.
+Most of the time, the problem wasn't the model. It was that nobody had given the agent anything to work with. No instruction file. No verification steps. No structure for how to break down a task. In the first session, we'd set up a basic instructions file and talk through how to scope prompts differently. Small stuff. One developer who'd refused to use agent mode started running it on most of his work after a few weeks. Not because anything changed about the tool. He just learned how to use it.
 
-We rewrote that file in 20 minutes. Same model, same codebase, same agent. The next PR was merge-ready.
-
-This keeps happening. Teams blame the model when the real problem is everything around it. And the research confirms it: a [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2408.04396) found that scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://swebench.com) and compared frontier models head-to-head, Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within a few points of each other. The model barely matters. The workflow around it matters enormously.
-
-I learned this the hard way. When I first set up coding agents, I let the agent write its own instruction files. Seemed efficient. The results were bloated every time: pages of rules restating things the model would already infer, with the actually important stuff buried in noise. The moment I started writing concise, opinionated instructions myself, focused on what the model couldn't know (my specific commands, my repo's quirks, my actual boundaries), the same model started producing work I could ship.
+The research tells the same story. A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2408.04396) found that scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://swebench.com) and compared frontier models head-to-head, Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within a few points of each other. The model barely matters. The workflow around it matters enormously.
 
 Here are five concrete changes that made the difference.
 
