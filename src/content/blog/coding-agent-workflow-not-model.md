@@ -6,17 +6,17 @@ heroImage: "../../assets/coding-agent-workflow-hero.png"
 tags: ["coding-agents", "developer-tools", "workflow", "AI"]
 ---
 
-When I was coaching engineering teams on coding agents, the pattern was always the same. People would prompt big asks, get back hallucinated garbage, and write the whole thing off. "AI just makes stuff up," they'd tell me.
+A few months ago I was coaching a dev team that had one very vocal skeptic. His take: AI needed more babysitting than it was worth. He'd tried GitHub Copilot, gotten mediocre results, and written the whole thing off.
 
-Most of the time, the problem wasn't the model. It was that nobody had given the agent anything to work with. No instruction file. No verification steps. No structure for how to break down a task. In the first session, we'd set up a basic instructions file and talk through how to scope prompts differently. Small stuff. One developer who'd refused to use agent mode started running it on most of his work after a few weeks. Not because anything changed about the tool. He just learned how to use it.
+We didn't argue with him. Instead, we showed him how to set up copilot instructions, walked him through better tooling to interface with Copilot's agent, and gave him a methodical way to prompt that reduced the rework noticeably. Within a few weeks, the skeptic had converted into a power user. He wasn't complaining about babysitting anymore. He was asking questions like when to use premium models versus non-premium. Same model. Same codebase. Same developer. The difference was entirely workflow.
 
-The research tells the same story. A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2408.04396) found that scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://swebench.com) and compared frontier models head-to-head, Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within a few points of each other. The model barely matters. The workflow around it matters enormously.
+The research tells the same story. A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2506.17208) found that scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://swebench.com) and compared frontier models head-to-head, Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within a few points of each other. The model barely matters. The workflow around it matters enormously.
 
 Here are five concrete changes that made the difference.
 
 ## 1. Scope Tasks to One Thing
 
-A [SWE-Bench Mobile study](https://arxiv.org/abs/2410.10400) tested 22 agent-model configurations and found up to a 6x performance gap from the same model in different scaffolds. One of the biggest factors? Task scope.
+A [SWE-Bench Mobile study](https://arxiv.org/abs/2602.09540) tested 22 agent-model configurations and found up to a 6x performance gap from the same model in different scaffolds. One of the biggest factors? Task scope.
 
 When I give an agent a GitHub issue that says "refactor the auth module and also update the API docs and fix that flaky test," it produces garbage. When I give it "fix the race condition in `auth/session.ts` where concurrent refresh tokens can corrupt the session store," it produces something I can review in five minutes.
 
@@ -46,7 +46,7 @@ Here's what a good one looks like in practice:
 
 Compare that to "Please follow best practices and write clean code." One gives the agent something to execute. The other gives it nothing.
 
-The key insight from [Anthropic's context engineering research](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview): context is a finite resource. Every token your agent spends figuring out your build system through trial and error is a token not spent on the actual task. Tell it upfront.
+The key insight from [Anthropic's prompt engineering guidance](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview): context is a finite resource. Every token your agent spends figuring out your build system through trial and error is a token not spent on the actual task. Tell it upfront.
 
 ## 3. Add Verification Loops
 
@@ -54,7 +54,7 @@ This is the single most effective change I've made. Instead of letting the agent
 
 The pattern is simple: after the agent writes code, it runs the linter. If the linter fails, it fixes the issues. Then it runs tests. If tests fail, it fixes those too. Only after everything passes does it create a PR.
 
-A [2025 study on self-improving coding agents](https://arxiv.org/abs/2504.00519) showed that reflection loops alone boosted SWE-bench performance by 17 to 53 percent. I believe it. Before I added verification loops, maybe half the PRs my agents opened were merge-ready. After, it's closer to 80 percent.
+A [2025 study on self-improving coding agents](https://arxiv.org/abs/2504.15228) showed that reflection loops alone boosted SWE-bench performance by 17 to 53 percent. I believe it. Before I added verification loops, maybe half the PRs my agents opened were merge-ready. After, it's closer to 80 percent. That's a gut estimate, not a measured metric, but the difference was obvious in review load.
 
 In practice, I encode this directly in the instruction file:
 
