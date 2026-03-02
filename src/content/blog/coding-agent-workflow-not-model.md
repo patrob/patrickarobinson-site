@@ -10,9 +10,9 @@ A few months ago I was coaching a dev team that had one very vocal skeptic. His 
 
 We didn't argue with him. Instead, we showed him how to set up copilot instructions, walked him through better tooling to interface with Copilot's agent, and gave him a methodical way to prompt that reduced the rework noticeably. Within a few weeks, the skeptic had converted into a power user. He wasn't complaining about babysitting anymore. He was asking questions like when to use premium models versus non-premium. Same model. Same codebase. Same developer. The difference was entirely workflow.
 
-The research tells the same story. A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2506.17208) found that scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://swebench.com) and compared frontier models head-to-head, Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within a few points of each other. The model barely matters. The workflow around it matters enormously.
+A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2506.17208) found the same thing: scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://www.swebench.com/post-250820-mini-roulette.html) and compared frontier models head-to-head, Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within a few points of each other. The model barely matters. The workflow around it matters enormously.
 
-Here are five concrete changes that made the difference.
+Five things moved the needle for me.
 
 ## 1. Scope Tasks to One Thing
 
@@ -22,13 +22,13 @@ When I give an agent a GitHub issue that says "refactor the auth module and also
 
 I've started writing issues specifically for agents. One clear problem. Reproduction steps if applicable. Pointers to the relevant files. That's it.
 
-This is the fastest change you can make. You don't need to touch any tooling. Just write better issues.
+This was the fastest change I made. No new tooling required. Just better issues.
 
 ## 2. Write an Operating Manual, Not a Wish List
 
 Your `agents.md` (or `CLAUDE.md`, or whatever your tool calls it) is the single highest-leverage file in your repo. But most of them read like vague wish lists.
 
-[GitHub analyzed over 2,500 repositories](https://github.blog/changelog/2025-06-18-agents-md-guidelines-for-coding-agents/) with these files and found a clear split. The repos getting consistent results shared specific traits: executable commands with exact flags, real code examples instead of prose descriptions, and explicit three-tier boundaries (always do, ask first, never touch).
+[GitHub analyzed over 2,500 repositories](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) with these files and found a clear split. The repos getting consistent results shared specific traits: executable commands with exact flags, real code examples instead of prose descriptions, and explicit three-tier boundaries (always do, ask first, never touch).
 
 Here's what a good one looks like in practice:
 
@@ -46,7 +46,7 @@ Here's what a good one looks like in practice:
 
 Compare that to "Please follow best practices and write clean code." One gives the agent something to execute. The other gives it nothing.
 
-The key insight from [Anthropic's prompt engineering guidance](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview): context is a finite resource. Every token your agent spends figuring out your build system through trial and error is a token not spent on the actual task. Tell it upfront.
+[Anthropic's prompt engineering guidance](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview) makes the same point: context is a finite resource. Every token your agent spends figuring out your build system through trial and error is a token not spent on the actual task. Tell it upfront.
 
 ## 3. Add Verification Loops
 
@@ -69,7 +69,7 @@ Step three matters. You want the agent to bail out rather than spiral into incre
 
 ## 4. Close the PR Feedback Loop
 
-Most teams review agent PRs, leave comments, and then manually fix whatever the agent got wrong. That's leaving value on the table.
+Most teams review agent PRs, leave comments, and then manually fix whatever the agent got wrong. That's a missed loop. The agent can do that work.
 
 Instead, I have the agent read review comments and push fixes. The cycle is: agent opens PR, human reviews, agent addresses feedback, human re-reviews. This turns the PR review into a conversation instead of a handoff.
 
@@ -83,8 +83,6 @@ This sounds trivial, but it's not. If your agent's environment doesn't have your
 
 I use devcontainers or Docker images with everything pre-installed. The agent starts with a working environment from the first command. No `npm install`, no virtual environment setup, no guessing at Python versions.
 
-## The Real Takeaway
-
 If scaffolding matters several times more than model selection, the teams getting the best results aren't the ones with the biggest AI budgets. They're the ones with the most disciplined engineering practices.
 
-You don't need to wait for the next model release. Pick one of these five changes, implement it this week, and measure the difference. I think you'll find that your "underperforming" model has been capable of much more all along. It just needed a better workflow to show it.
+Pick one of these changes, implement it this week, and measure the difference. I think you'll find that your "underperforming" model has been capable of much more all along. It just needed a better workflow to show it.
