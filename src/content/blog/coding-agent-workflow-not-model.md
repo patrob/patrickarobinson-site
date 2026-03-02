@@ -10,7 +10,7 @@ A few months ago I was coaching a dev team that had one very vocal skeptic. His 
 
 We didn't argue with him. Instead, we showed him how to set up copilot instructions, walked him through better tooling to interface with Copilot's agent, and gave him a methodical way to prompt that reduced the rework noticeably. Within a few weeks, the skeptic had converted into a power user. He wasn't complaining about babysitting anymore. He was asking questions like when to use premium models versus non-premium. Same model. Same codebase. Same developer. The difference was entirely workflow.
 
-A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2506.17208) found the same thing: scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://www.swebench.com/post-250820-mini-roulette.html) and compared frontier models head-to-head, Sonnet 4, GPT-5, and Gemini 2.5 Pro all clustered within a few points of each other. The model barely matters. The workflow around it matters enormously.
+A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2506.17208) found the same thing: scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://www.swebench.com/post-250820-mini-roulette.html) and compared frontier models head-to-head, Sonnet 4 and GPT-5 scored within a point of each other. The model barely matters. The workflow around it matters enormously.
 
 Five things moved the needle for me.
 
@@ -22,7 +22,7 @@ When I give an agent a GitHub issue that says "refactor the auth module and also
 
 I've started writing issues specifically for agents. One clear problem. Reproduction steps if applicable. Pointers to the relevant files. That's it.
 
-This was the fastest change I made. No new tooling required. Just better issues.
+This was the fastest change I made. No new tooling required. Just better issues. On teams I've coached, getting everyone aligned on how to write agent-ready issues has been the single quickest win.
 
 ## 2. Write an Operating Manual, Not a Wish List
 
@@ -54,7 +54,7 @@ This is the single most effective change I've made. Instead of letting the agent
 
 The pattern is simple: after the agent writes code, it runs the linter. If the linter fails, it fixes the issues. Then it runs tests. If tests fail, it fixes those too. Only after everything passes does it create a PR.
 
-A [2025 study on self-improving coding agents](https://arxiv.org/abs/2504.15228) showed that reflection loops alone boosted SWE-bench performance by 17 to 53 percent. I believe it. Before I added verification loops, maybe half the PRs my agents opened were merge-ready. After, it's closer to 80 percent. That's a gut estimate, not a measured metric, but the difference was obvious in review load.
+A [2025 study on self-improving coding agents](https://arxiv.org/abs/2504.15228) found that letting an agent iteratively refine its own pipeline (including its verification steps) boosted SWE-bench performance by 17 to 53 percent depending on model and task. Before I added verification loops to my own setup, maybe half the PRs my agents opened were merge-ready. After, it's closer to 80 percent. That's a gut estimate, not a measured metric, but the difference was obvious in review load.
 
 In practice, I encode this directly in the instruction file:
 
@@ -73,9 +73,9 @@ Most teams review agent PRs, leave comments, and then manually fix whatever the 
 
 Instead, I have the agent read review comments and push fixes. The cycle is: agent opens PR, human reviews, agent addresses feedback, human re-reviews. This turns the PR review into a conversation instead of a handoff.
 
-The practical version: use your CI to post lint and test results as PR comments. Tag the agent on anything it needs to fix. Let it iterate.
+In my setup, GitHub Actions posts lint and test results as a PR comment automatically. When I leave review feedback, I prefix it with `@agent:` so my workflow routes it back to the coding agent. The agent reads all `@agent:` comments, pushes fixes, and the cycle repeats.
 
-Paired with verification loops, this means most agent PRs converge in one or two review cycles. The agent catches the mechanical stuff itself; you focus review on design and intent.
+Paired with verification loops, most agent PRs converge in one or two review cycles. The agent catches the mechanical stuff itself; I focus review on design and intent. For teams I've coached, this is where the biggest mindset shift happens: treating the agent like a junior dev who can take direction, not a black box that either works or doesn't.
 
 ## 5. Pre-Install Dependencies
 
