@@ -74,9 +74,11 @@ The attempt cap in step one matters. You want the agent to bail out rather than 
 
 Most teams review agent PRs, leave comments, and then manually fix whatever the agent got wrong. That's a missed loop. The agent can do that work.
 
-Instead, I have the agent read review comments and push fixes. The cycle is: agent opens PR, human reviews, agent addresses feedback, human re-reviews. This turns the PR review into a conversation instead of a handoff.
+The tooling for this has gotten surprisingly good. GitHub Copilot now does PR reviews, and they don't have to be shots in the dark. Your `copilot-instructions.md` file shapes what Copilot looks for and how it responds, the same way it shapes code generation. You can tell it to flag missing test coverage, enforce naming conventions, or check that acceptance criteria are met. The review reflects your standards, not generic suggestions.
 
-In my setup, GitHub Actions posts lint and test results as a PR comment automatically. When I leave review feedback, I prefix it with `@agent:` so my workflow routes it back to the coding agent. The agent reads all `@agent:` comments, pushes fixes, and the cycle repeats.
+You can also run these reviews locally in VS Code with the GitHub extension's PR Review button. No context switching to the browser, no waiting for CI. Just open the PR, click review, and Copilot walks through the diff with your instructions in mind.
+
+For my own setup, I take it a step further. GitHub Actions posts lint and test results as a PR comment automatically. When I leave review feedback, I prefix it with `@agent:` so my workflow routes it back to the coding agent. The agent reads all `@agent:` comments, pushes fixes, and the cycle repeats.
 
 Paired with verification loops, most agent PRs converge in one or two review cycles. The agent catches the mechanical stuff itself; I focus review on design and intent. For teams I've coached, this is where the biggest mindset shift happens: treating the agent like a junior dev who can take direction, not a black box that either works or doesn't.
 
