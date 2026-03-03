@@ -8,9 +8,7 @@ tags: ["coding-agents", "developer-tools", "workflow", "AI"]
 
 A few months ago I was coaching a dev team that had one very vocal skeptic. His take: AI needed more babysitting than it was worth. He'd tried GitHub Copilot, gotten mediocre results, and written the whole thing off.
 
-We didn't argue with him. Instead, we showed him how to set up copilot instructions, walked him through better tooling to interface with Copilot's agent, and gave him a methodical way to prompt that reduced the rework noticeably. Within a few weeks, the skeptic had converted into a power user. He wasn't complaining about babysitting anymore. He was asking questions like when to use premium models versus non-premium.
-
-> Same model. Same codebase. Same developer. The difference was entirely workflow.
+We didn't argue with him. Instead, we showed him how to set up copilot instructions, walked him through better tooling to interface with Copilot's agent, and gave him a methodical way to prompt that reduced the rework noticeably. Within a few weeks, the skeptic had converted into a power user. He wasn't complaining about babysitting anymore. He was asking questions like when to use premium models versus non-premium. Same model. Same codebase. Same developer. The difference was entirely workflow.
 
 A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2506.17208) found the same thing: scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://www.swebench.com/post-250820-mini-roulette.html) and compared frontier models head-to-head, Sonnet 4 and GPT-5 scored within a point of each other. The model barely matters. The workflow around it matters enormously.
 
@@ -56,7 +54,7 @@ This is the single most effective change I've made. Instead of letting the agent
 
 ![Verification loop diagram showing the agent workflow: scoped task flows through implementation, tests, linting, and criteria checks with self-fix loops at each gate, then through PR creation, human review, and finally merge and ship.](../../assets/verify-loop-diagram.png)
 
-The pattern is simple: after the agent writes code, it runs the linter. If the linter fails, it fixes the issues. Then it runs tests. If tests fail, it fixes those too. Only after everything passes does it create a PR.
+The pattern is simple: after the agent writes code, it runs the tests. If they fail, it fixes and re-runs. Then it runs the linter. If there are issues, same thing. Then it checks whether the original acceptance criteria are actually met. Only after all three gates pass does it create a PR.
 
 A [2025 study on self-improving coding agents](https://arxiv.org/abs/2504.15228) found that letting an agent iteratively refine its own pipeline (including its verification steps) boosted SWE-bench performance by 17 to 53 percent depending on model and task. Before I added verification loops to my own setup, maybe half the PRs my agents opened were merge-ready. After, it's closer to 80 percent. That's a gut estimate, not a measured metric, but the difference was obvious in review load.
 
@@ -64,12 +62,13 @@ In practice, I encode this directly in the instruction file:
 
 ```markdown
 ## Before Opening a PR
-1. Run `npm run lint:fix` and commit any changes
-2. Run `npm run test` and fix failures
-3. If tests fail twice, stop and explain what's wrong
+1. Run `npm run test` and fix failures (max 2 attempts, then stop and explain)
+2. Run `npm run lint:fix` and commit any changes
+3. Re-read the acceptance criteria from the issue and verify each one is met
+4. If any criterion is not met, revise and restart from step 1
 ```
 
-Step three matters. You want the agent to bail out rather than spiral into increasingly creative (and wrong) fixes.
+The attempt cap in step one matters. You want the agent to bail out rather than spiral into increasingly creative (and wrong) fixes. And step three catches the sneaky failures where tests pass but the agent solved the wrong problem.
 
 ## 4. Close the PR Feedback Loop
 
