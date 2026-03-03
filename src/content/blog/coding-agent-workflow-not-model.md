@@ -48,7 +48,7 @@ Here's what a good one looks like in practice:
 
 Compare that to "Please follow best practices and write clean code." One gives the agent something to execute. The other gives it nothing.
 
-[Anthropic's prompt engineering guidance](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview) makes the same point: context is a finite resource. Every token your agent spends figuring out your build system through trial and error is a token not spent on the actual task. Tell it upfront.
+[Anthropic's context engineering guide](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) makes the same point: context is a finite resource. Every token your agent spends figuring out your build system through trial and error is a token not spent on the actual task. Tell it upfront.
 
 ## 3. Add Verification Loops
 
