@@ -80,8 +80,6 @@ You can also run these reviews locally in VS Code with the GitHub extension's PR
 
 When you get review feedback, you can tag `@copilot` in a PR comment and it will push a fix. Other agents like Claude Code and Codex can do this too. The review becomes a conversation: you leave a comment, the agent addresses it, you re-review.
 
-For my own setup, I take it a step further. GitHub Actions posts lint and test results as a PR comment automatically, and my workflow routes review comments back to whichever coding agent opened the PR.
-
 Paired with verification loops, most agent PRs converge in one or two review cycles. The agent catches the mechanical stuff itself; I focus review on design and intent. For teams I've coached, this is where the biggest mindset shift happens: treating the agent like a junior dev who can take direction, not a black box that either works or doesn't.
 
 ## 5. Pre-Install Dependencies
