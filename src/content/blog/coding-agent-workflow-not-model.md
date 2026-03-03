@@ -1,6 +1,6 @@
 ---
 title: "Your Coding Agent Doesn't Need a Better Model. It Needs a Better Workflow."
-description: "Scaffolding dominates model choice for coding agents. Here are five practical changes that made my agents actually useful."
+description: "Scaffolding dominates model choice for coding agents. Here are four practical changes that made my agents actually useful."
 pubDate: "Feb 26 2026"
 heroImage: "../../assets/coding-agent-workflow-hero.png"
 tags: ["coding-agents", "developer-tools", "workflow", "AI"]
@@ -12,7 +12,7 @@ We didn't argue with him. Instead, we showed him how to set up copilot instructi
 
 A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2506.17208) found the same thing: scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://www.swebench.com/post-250820-mini-roulette.html) and compared frontier models head-to-head, Sonnet 4 and GPT-5 scored within a point of each other. The model barely matters. The workflow around it matters enormously.
 
-Five things moved the needle for me.
+Four things moved the needle for me.
 
 ## 1. Scope Tasks to One Thing
 
@@ -82,12 +82,6 @@ When you get review feedback, you can tag `@copilot` in a PR comment and it will
 
 Paired with verification loops, most agent PRs converge in one or two review cycles. The agent catches the mechanical stuff itself; I focus review on design and intent. For teams I've coached, this is where the biggest mindset shift happens: treating the agent like a junior dev who can take direction, not a black box that either works or doesn't.
 
-## 5. Pre-Install Dependencies
-
-This sounds trivial, but it's not. If your agent's environment doesn't have your dependencies installed, it will spend tokens (and time, and your money) figuring out how to install them. Or worse, it'll guess wrong and produce code that works against the wrong version.
-
-I use devcontainers or Docker images with everything pre-installed. The agent starts with a working environment from the first command. No `npm install`, no virtual environment setup, no guessing at Python versions.
-
 If scaffolding matters several times more than model selection, the teams getting the best results aren't the ones with the biggest AI budgets. They're the ones with the most disciplined engineering practices.
 
-Pick one of these changes, implement it this week, and measure the difference. I think you'll find that your "underperforming" model has been capable of much more all along. It just needed a better workflow to show it.
+Pick one of these four changes, implement it this week, and measure the difference. I think you'll find that your "underperforming" model has been capable of much more all along. It just needed a better workflow to show it.
