@@ -8,7 +8,9 @@ tags: ["coding-agents", "developer-tools", "workflow", "AI"]
 
 A few months ago I was coaching a dev team that had one very vocal skeptic. His take: AI needed more babysitting than it was worth. He'd tried GitHub Copilot, gotten mediocre results, and written the whole thing off.
 
-We didn't argue with him. Instead, we showed him how to set up copilot instructions, walked him through better tooling to interface with Copilot's agent, and gave him a methodical way to prompt that reduced the rework noticeably. Within a few weeks, the skeptic had converted into a power user. He wasn't complaining about babysitting anymore. He was asking questions like when to use premium models versus non-premium. Same model. Same codebase. Same developer. The difference was entirely workflow.
+We didn't argue with him. Instead, we showed him how to set up copilot instructions, walked him through better tooling to interface with Copilot's agent, and gave him a methodical way to prompt that reduced the rework noticeably. Within a few weeks, the skeptic had converted into a power user. He wasn't complaining about babysitting anymore. He was asking questions like when to use premium models versus non-premium.
+
+> Same model. Same codebase. Same developer. The difference was entirely workflow.
 
 A [systematic study of 80 SWE-bench approaches](https://arxiv.org/abs/2506.17208) found the same thing: scaffolding dominates over model choice. When the [SWE-bench team held scaffolding constant](https://www.swebench.com/post-250820-mini-roulette.html) and compared frontier models head-to-head, Sonnet 4 and GPT-5 scored within a point of each other. The model barely matters. The workflow around it matters enormously.
 
