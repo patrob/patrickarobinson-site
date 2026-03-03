@@ -54,6 +54,8 @@ Compare that to "Please follow best practices and write clean code." One gives t
 
 This is the single most effective change I've made. Instead of letting the agent submit code and hoping it works, I make it check its own work before I ever see it.
 
+![Verification loop diagram showing the agent workflow: scoped task flows through implementation, tests, linting, and criteria checks with self-fix loops at each gate, then through PR creation, human review, and finally merge and ship.](../../assets/verify-loop-diagram.png)
+
 The pattern is simple: after the agent writes code, it runs the linter. If the linter fails, it fixes the issues. Then it runs tests. If tests fail, it fixes those too. Only after everything passes does it create a PR.
 
 A [2025 study on self-improving coding agents](https://arxiv.org/abs/2504.15228) found that letting an agent iteratively refine its own pipeline (including its verification steps) boosted SWE-bench performance by 17 to 53 percent depending on model and task. Before I added verification loops to my own setup, maybe half the PRs my agents opened were merge-ready. After, it's closer to 80 percent. That's a gut estimate, not a measured metric, but the difference was obvious in review load.
