@@ -1,7 +1,7 @@
 ---
 title: "Your Coding Agent Doesn't Need a Better Model. It Needs a Better Workflow."
 description: "Scaffolding dominates model choice for coding agents. Here are four practical changes that made my agents actually useful."
-pubDate: "Feb 26 2026"
+pubDate: "Mar 02 2026"
 heroImage: "../../assets/coding-agent-workflow-hero.png"
 tags: ["coding-agents", "developer-tools", "workflow", "AI"]
 ---
@@ -74,13 +74,15 @@ The attempt cap in step one matters. You want the agent to bail out rather than 
 
 Most teams review agent PRs, leave comments, and then manually fix whatever the agent got wrong. That's a missed loop. The agent can do that work.
 
-The tooling for this has gotten surprisingly good. GitHub Copilot now does PR reviews, and they don't have to be shots in the dark. Your `copilot-instructions.md` file shapes what Copilot looks for and how it responds, the same way it shapes code generation. You can tell it to flag missing test coverage, enforce naming conventions, or check that acceptance criteria are met. The review reflects your standards, not generic suggestions.
+The tooling for this has gotten surprisingly good. GitHub Copilot now does PR reviews, and they don't have to be shots in the dark. Your `copilot-instructions.md` file [shapes what Copilot looks for](https://github.blog/ai-and-ml/unlocking-the-full-power-of-copilot-code-review-master-your-instructions-files/) and how it responds, the same way it shapes code generation. You can tell it to flag missing test coverage, enforce naming conventions, or check that acceptance criteria are met. The review reflects your standards, not generic suggestions.
 
 You can also run these reviews locally in VS Code with the GitHub extension's PR Review button. No context switching to the browser, no waiting for CI. Just open the PR, click review, and Copilot walks through the diff with your instructions in mind.
 
 When you get review feedback, you can tag `@copilot` in a PR comment and it will push a fix. Other agents like Claude Code and Codex can do this too. The review becomes a conversation: you leave a comment, the agent addresses it, you re-review.
 
 Paired with verification loops, most agent PRs converge in one or two review cycles. The agent catches the mechanical stuff itself; I focus review on design and intent. For teams I've coached, this is where the biggest mindset shift happens: treating the agent like a junior dev who can take direction, not a black box that either works or doesn't.
+
+## The takeaway
 
 If scaffolding matters several times more than model selection, the teams getting the best results aren't the ones with the biggest AI budgets. They're the ones with the most disciplined engineering practices.
 
