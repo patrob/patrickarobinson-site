@@ -129,9 +129,11 @@ Synthesis and practitioner guidance
 - The claim that product engineering is best treated as an operating model, and the specific five practices and 30/60/90 rollout, are my practitioner prescriptions. They are recommendations to test, not universal proofs.
 - The AI-driven upstream value shift is an informed projection and practitioner inference, plausible in many teams but not an established industry fact.
 
-### Links
-- Patrick, Full Stack Isn’t Enough: https://patrickarobinson.com/blog/full-stack-isnt-enough-full-product-developer/
+### Backlinks / Further reading
+- Full Stack Isn’t Enough — Patrick Robinson (May 2025): https://patrickarobinson.com/blog/full-stack-isnt-enough-full-product-developer/
 - Lean TECHniques recap: https://leantechniques.com/2025/05/06/full-stack-isnt-enough-the-rise-of-the-full-product-developer/
+
+### Links
 - Mixpanel: https://mixpanel.com/blog/product-engineer/
 - Heavybit: https://www.heavybit.com/library/article/what-is-product-engineering
 - Lee Robinson: https://leerob.com/product-engineers
