@@ -21,6 +21,8 @@ Engineers stop handing off work and start owning the outcomes customers actually
 7) Sources and which claims are sourced vs synthesis
 
 ### Intro
+This article extends my May 2025 post "Full Stack Isn't Enough" (https://patrickarobinson.com/blog/full-stack-isnt-enough-full-product-developer/) and the Lean TECHniques recap (https://leantechniques.com/2025/05/06/full-stack-isnt-enough-the-rise-of-the-full-product-developer/). I want those backlinks up front so readers and search can follow the thread.
+
 If your engineering teams still behave like relay racers, you are losing the most valuable part of engineering, judgement about what to build and why. Product engineering is an operating model that replaces handoffs with learning loops where product, design, and engineering act as one system accountable for outcomes.
 
 The goal here is simple and testable: move decision rights and incentives so teams measure validated learning and customer impact, not only tickets closed.
