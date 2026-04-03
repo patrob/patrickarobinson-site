@@ -1,6 +1,7 @@
 ---
 title: "How to Build a Product-Minded Engineering Culture"
 description: "Engineers stop handing off work and start owning the outcomes customers actually use. A practitioner-first theory and operating model for product engineering."
+pubDate: "2026-04-03"
 ---
 
 ## How to Build a Product-Minded Engineering Culture
