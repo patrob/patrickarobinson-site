@@ -1,11 +1,12 @@
 ---
 title: "Anthropic, OpenClaw, and the subscription shakeup"
+pubDate: 2026-04-05T00:00:00Z
 date: 2026-04-05
 description: "What to do now that Anthropic restricted Pro/Max subscriptions from powering agent SDK flows, and practical workarounds including the Claude Code CLI harness."
 tags:
   - ai
   - agents
-  - anthroptic
+  - anthropic
   - openclaw
 hero: /assets/images/blog/anthropic-openclaw-shakeup-hero.png
 ---
