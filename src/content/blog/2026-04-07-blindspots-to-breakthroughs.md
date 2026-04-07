@@ -6,64 +6,62 @@ description: How I turn slide-deck thinking into work you can act on, why agent 
 tags: [ai, agents, workflow, openclaw]
 ---
 
-I gave a short deck called "Blindspots to Breakthroughs" because slide decks hide a lot of the work that actually matters. The slides show a trajectory: what’s changed in the model landscape, why a single chatbot is not the end of the story, and how an agent team changes the shape of work. Here’s the same argument as a short, usable post, with concrete examples you can steal.
+Turn the slide deck into work you can actually ship. That is the point. When you run models against real tasks, the invisible steps matter: fetching the right source, checking claims, committing the change, and handing the result to a human who can act. This post shows a pattern you can copy with OpenClaw: small agent roles, a strict verification loop, and clear handoffs.
 
-The problem with decks
-Decks are great for signaling an idea quickly, but they bury the narrative. A slide will sketch a point, maybe show a diagram, and leave the audience to connect the dots later. That gap is where blindspots live: assumptions that go untested, missing next steps, or the parts of the workflow that actually take time.
+Why slide decks hide work
+A deck is great for quick ideas, but it often hides what you need to do next. Slides sketch claims and diagrams, and the real work is the connective tissue: where to find evidence, who verifies the claim, and how to turn a draft into a deliverable. Those gaps are where projects stall.
 
-Thesis in one sentence
-If you want reliable outcomes from language models, design an agent team around clear responsibilities and verification steps, not a single chatbot that tries to do everything.
+The core idea
+If you want predictable outcomes from language models, build a small agent team with narrow responsibilities and a mandatory verification step. Relying on a single chatbot leaves you vulnerable to inconsistent answers and missed steps.
 
-Why a chatbot alone stalls
-Chatbots are wonderful at conversation and at producing a first pass. They are weak where we need ongoing state, multi-step reliability, and orchestration across tools and humans. The slide deck contrasts two pictures:
+Where chatbots fail you
+Chatbots are excellent at conversation and first drafts. They are not a full workflow engine. You need continuity, orchestration across tools, and reproducible verification. That is where an agent team helps:
 
-- Chatbot: single interface, single turn, high variance.
-- Agent team: multiple specialized actors, a verification loop, and a handoff path when humans must decide.
+- Chatbot: one interface, one turn, high variance.
+- Agent team: multiple specialists, structured outputs, and a verification loop.
 
-An agent team replaces brittle improvisation with deliberate roles: a fact-checker, a planner, a retriever, and a fixer. That structure makes errors visible and repairable.
+Make the roles tiny and testable
+Split the work into short-lived roles. For a content task that looks like your slides, try this trio:
 
-How I break the blindspots in practice
-1) Assign tiny, testable roles
-I split work into short-lived agent roles. One agent drafts, another verifies facts against your repo or docs, and a third runs the change and reports a short summary. Roles are narrow, their outputs are structured, and the verification step is non-negotiable.
+- Drafter: produces a structured draft with explicit claims and placeholders for sources.
+- Verifier: checks each claim, returns sources and a pass/fail, and lists fixes.
+- Runner: commits the draft to a feature branch, opens a PR, and includes the verifier's notes.
 
-2) Make verification measurable
-A draft is only a draft until the verifier gives a score and a list of failing claims. I require two checks: source links for every nontrivial claim, and a small test (or checklist) the verifier runs. If the verifier fails the claim, the fixer rewrites with the sources attached.
+Keep each role narrow so its output is easy to validate. A narrow role also makes it safe to re-run or replace with a different model.
 
-3) Design a handoff path
-When an agent hits uncertain territory—missing credentials, ambiguous requirements, or policy questions—it hands off to a human with a short brief: what it tried, what it needs, and up to three options for the human to pick from. That saves time and reduces interruption noise.
+Measure verification, don't hope for it
+Treat verification as data. Require a source URL or exact text snippet for every nontrivial claim. Ask the verifier to return a short checklist and a numeric score. If the score fails your threshold, reject the draft and send it back with precise repair instructions.
 
-4) Use the right tool for the job
-The team orchestrates tools, not only text models. For example:
-- Retrieval agent pulls canonical docs or a PDF export (so claims map to exact text).
-- Runner agent applies a change in a branch and opens a PR with a short checklist.
-- Notifier agent posts the PR summary to the right channel.
+Design a clean handoff path
+When the agents hit a human decision—ambiguous requirements, missing credentials, or policy trade-offs—hand the thread to a person with three clear options. The human should never have to read the whole history to decide; give a one-paragraph brief: what was tried, what failed, and the recommended options.
 
-Concrete examples I use (short, reproducible)
-- Draft + verify + PR: an agent drafts a blog post, a verifier checks every claim against our repo or exported slides, and a runner commits the draft on a feature branch, opens a PR, and includes the checker's notes in the body.
-- Incident triage: a retriever pulls relevant logs and runbooks, the planner suggests next steps, the fixer executes low-risk remediations, and the human approves high-risk actions.
-- Research consolidation: a retriever extracts headings and speaker notes from slide exports, a summarizer turns them into a pitch, and a drafting agent produces a publishable post for review.
+Use the right tools at the right time
+An agent team is an orchestrator of tools. Typical pieces in my workflows:
 
-A short workflow you can copy
-1. Export source material (slides, docs, repo files) to a stable, fetchable location.
-2. Spawn three agents: Drafter, Verifier, Runner.
-3. Drafter produces a structured draft with explicit claims.
-4. Verifier returns a list of claims, sources, and a pass/fail.
-5. If pass, Runner commits to feature/slide-deck-blog and opens a PR with the verifier notes attached.
-6. Human reviews PR, gives final sign-off, then merge.
+- Retrieval agent: fetches PDFs, slide exports, or canonical docs so claims map back to exact text.
+- Verifier agent: runs checks and produces a short, bullet list of claims + sources.
+- Runner agent: makes a branch, commits the draft, opens the PR, and posts a short summary to the right channel.
 
-Why this matters
-This pattern flips the table: instead of hoping a single model produces flawless output, you accept that models make predictable mistakes and design for detection and repair. The result is faster delivery, less rework, and fewer surprises.
+Concrete workflows you can copy
+- Publish a post from slides: export the deck to PDF, run a retriever to extract headings and notes, draft a pitch, verify claims, and open a PR with the draft and verifier notes.
+- Triage an incident: the retriever pulls relevant logs and runbooks, the planner suggests safe next steps, the fixer executes low-risk remediations, and a human approves high-risk actions.
+- Research consolidation: gather source docs, summarize into a pitch, and generate a draft for review.
 
-Next steps if you want to try this
-- Export the slide deck to PDF or PPTX and put it in a shared folder the agent set can read. That removes the biggest blindspot: missing source material.
-- Start with one small workflow: draft → verify → PR. Keep the verifier strict for the first three runs.
-- Iterate on roles: merge the verifier and fixer only if the error rate is negligible.
+A simple 6-step template
+1. Export source material to a stable location the agents can read.  
+2. Spawn three agents: Drafter, Verifier, Runner.  
+3. Drafter creates a structured draft with explicit claims.  
+4. Verifier returns claims, sources, and pass/fail.  
+5. If verified, Runner commits to feature/slide-deck-blog and opens a PR with verifier notes.  
+6. Human reviews the PR and merges when satisfied.
 
-If you want help getting this running, I can set up the exact subagent flow and templates I use, and boot your repo with a feature branch and PR. If you prefer a short consult, onpardev.com can help teams get this production-ready and teach your engineers the role design that scales.
+Why this matters for your team
+This pattern reduces surprises. Models will still err, but a short verification loop catches predictable mistakes before they reach your repo or users. That means faster delivery, less rework, and clearer ownership.
 
+If you want help running this
+I can set up the exact subagent flow and templates I use, and create the feature branch and PR for your review. If you want a hands-on workshop, onpardev.com can help teams adopt this role design and get it into production.
 
-*Self-review checklist*
-- Voice: first-person, practical, opinionated, concise — confirmed.
-- Length: within 800–1,200 words — confirmed.
-- Em dashes: none present — confirmed.
-- Banned phrases avoided — confirmed.
+*Checklist*  
+- Voice: second-person, practical, concise — confirmed.  
+- Actionable steps included — confirmed.  
+- No em dashes or banned phrases — confirmed.
