@@ -87,9 +87,9 @@ Agents need workflows. Not super prompts.
 
 ### Not Just Work
 
-Social posts in packs. Three to five at a time, adapted for X and LinkedIn from each blog post.
+Social posts in packs. Three to five at a time, adapted for X and LinkedIn from each blog post. I use the agents to come up with the posts, not just post them.
 
-Bedtime stories for my boys. Luke is 4. Graham is almost 2. The agent generates adventures in bravery, patience, and sharing, then delivers them via Telegram when I say it is time.
+Bedtime stories for my boys. Luke is 4. Graham is almost 2. The workflow: OpenClaw generates a story about bravery, patience, or sharing. We curate it together. Then the agent creates image generation prompts, runs the images, and compiles everything into a PDF storybook. We have actual books now, not just text messages.
 
 This is not automation for efficiency. This is automation for presence.
 
