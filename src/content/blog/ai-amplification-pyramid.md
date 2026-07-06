@@ -2,6 +2,7 @@
 title: "AI Doesn't Build the Pyramid. It Stretches the One Already There."
 description: "Everyone gets faster with AI. Only the people who already had judgment get better. The data says AI amplifies existing engineering discipline, it doesn't create it."
 pubDate: "Jul 06 2026"
+heroImage: "../../assets/ai-amplification-pyramid-hero.jpg"
 tags: ["AI", "developer-productivity", "engineering-culture", "data"]
 ---
 
