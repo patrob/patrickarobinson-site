@@ -1,0 +1,20 @@
+# Security headers for Cloudflare Pages. See issue #42.
+#
+# CSP is tuned for this blog's third-party embeds:
+#   - Twitter/X widgets     (platform.twitter.com/widgets.js + syndication.twitter.com iframes)
+#   - YouTube iframe embeds (youtube.com / youtube-nocookie.com)
+#   - Cloudflare Web Analytics beacon (static.cloudflareinsights.com, edge-injected)
+#
+# script-src keeps 'unsafe-inline' deliberately: Astro inlines its component
+# scripts (nav/buttons/cards) into each page. This is a fully static blog with no
+# server-side/reflected input, so the practical inline-XSS surface is ~zero, and
+# pinning per-build hashes would break on the queued Astro major bump (issue #43).
+# All the high-value protections (script *origin* allowlist, object-src 'none',
+# framing, HSTS) remain enforced. Hardening scripts to hashes is a possible follow-up.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://platform.twitter.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://platform.twitter.com; img-src 'self' data: https:; font-src 'self' data:; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://platform.twitter.com https://syndication.twitter.com; connect-src 'self' https://syndication.twitter.com https://cdn.syndication.twimg.com https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
