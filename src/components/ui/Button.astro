@@ -288,47 +288,4 @@ const Tag = href ? 'a' : 'button';
   }
 </style>
 
-<script>
-  // Handle keyboard activation and loading state interactions
-  function initializeButtons() {
-    const buttons = document.querySelectorAll('.btn');
-
-    buttons.forEach((button) => {
-      if (button.tagName.toLowerCase() === 'button') {
-        const buttonElement = button as HTMLButtonElement;
-
-        // Handle keyboard activation (Enter/Space)
-        buttonElement.addEventListener('keydown', (event: KeyboardEvent) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            buttonElement.click();
-          }
-        });
-
-        // Prevent default action when loading
-        buttonElement.addEventListener('click', (event) => {
-          const isLoading = buttonElement.getAttribute('data-loading') === 'true';
-          if (isLoading) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-        });
-      }
-    });
-  }
-
-  // Initialize immediately and also on DOMContentLoaded
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeButtons);
-  } else {
-    initializeButtons();
-  }
-
-  // Make function available globally for testing
-  declare global {
-    interface Window {
-      initializeButtons: () => void;
-    }
-  }
-  window.initializeButtons = initializeButtons;
-</script>
+<script is:inline src="/scripts/button.js"></script>
