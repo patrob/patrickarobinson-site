@@ -41,7 +41,7 @@ That insult stuck. The word is older than the insult, though, and it's coming ba
 
 Here's the definition I use:
 
-> A Software Factory is a repeatable, observable pipeline that takes an intent (an issue) and turns it into verified, reviewed, mergeable software, with the human at the gates, not at the keyboard.
+> A Software Factory is a repeatable, observable pipeline that takes an intent and turns it into verified, reviewed, mergeable working software, with the human at the gates, not at the keyboard.
 
 The difference from a feature factory is in two words: *observable* and *gates*. The factory measures itself, and the human still owns the why.
 
