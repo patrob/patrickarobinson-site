@@ -2,7 +2,7 @@
 title: "Software Factories: From Vibe Coding to a Machine That Ships While You Sleep"
 description: "Notes and links from Alamo Agents, Night One. The talk in writing, plus every link and source."
 pubDate: "Sep 08 2026"
-heroImage: "../../assets/verify-loop-diagram.png"
+heroImage: "../../assets/software-factories-hero.jpg"
 ---
 
 <!-- Slides PDF: add when exported. Suggested path: /slides/software-factories.pdf -->
