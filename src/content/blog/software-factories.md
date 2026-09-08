@@ -137,11 +137,9 @@ These are from Sound Buddy between July 7 and tonight. They're my numbers, on my
 
 > You already have a factory. It's you, running the same skills in the same order. Write it down. Make it verify itself. Put yourself at the gates.
 
-## Next month
+## Keep up
 
-October's Alamo Agents is on personal agents: OpenClaw, Hermes, and Grok Bot, and what I learned running the factory from a Mac mini whose user account is still named `moltbot`. Working title: "Agents That Live With You." Alamo Tech Collective is also hosting a Hermes session; date to come.
-
-Want to demo? Email me at patrick@onpardev.com or come find me at the next one.
+For the next Alamo Agents meetup, watch [alamoagents.org](https://alamoagents.org) or the [Luma calendar](https://luma.com/alamo-agents). Want to demo sometime? Email me at patrick@onpardev.com.
 
 ## Links
 
