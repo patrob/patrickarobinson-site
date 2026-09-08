@@ -25,9 +25,7 @@ The end of that road has a name, and it's an old one.
 
 If you've worked in product for a while, "factory" sounds like an insult. John Cutler wrote [12 Signs You're Working in a Feature Factory](https://cutle.fish/blog/12-signs-youre-working-in-a-feature-factory/) in 2016. A developer friend of his said he was "just sitting in the factory, cranking out features, and sending them down the line." No measurement. Success theater around shipping. No connection to outcomes.
 
-So why would anyone want a software factory?
-
-Because the word is older than the insult, and it's coming back with a different meaning.
+That insult stuck. The word is older than the insult, though, and it's coming back with a different meaning.
 
 ## Three eras of the software factory
 
