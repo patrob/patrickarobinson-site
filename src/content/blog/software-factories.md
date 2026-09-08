@@ -135,7 +135,7 @@ These are from Sound Buddy between July 7 and tonight. They're my numbers, on my
 
 ## The takeaway
 
-> You already have a factory. It's you, running the same six skills in the same order. Write it down. Make it verify itself. Put yourself at the gates.
+> You already have a factory. It's you, running the same skills in the same order. Write it down. Make it verify itself. Put yourself at the gates.
 
 ## Next month
 
