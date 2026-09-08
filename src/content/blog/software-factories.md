@@ -76,7 +76,7 @@ Somewhere in there I found out this thing had a name. I was doing harness engine
 
 [on-par/software-factory](https://github.com/on-par/software-factory) is the engine, a Node and TypeScript monorepo. The first commit was 60 files and about +7,100 lines, with the bash original kept in `legacy/` for one week. Today it's about 545 commits, 561 PRs, 742 issues, and 85 architecture decision records, most of them written by the factory about itself.
 
-[on-par/factory-app](https://github.com/on-par/factory-app) is the control surface. It started August 28. About 108 commits, with about 60 in the two days before the talk. It's a web app / PWA that talks to one or more machines running the factory daemon, so I can start a run from my phone and close the browser. The factory helped build the factory app.
+The [factory control plane](https://factory.onpardev.com) is the hosted UI for that engine. It started August 28. About 108 commits, with about 60 in the two days before the talk. It's a web app / PWA that talks to one or more machines running the factory daemon, so I can start a run from my phone and close the browser. The factory helped build its own control plane.
 
 The dogfood target for all of it is Sound Buddy, a Mac app for church sound engineers that grades a recording and recommends EQ fixes. Local-only, no cloud. (I'm a Lean TECHniques consultant coaching teams on AI and agent frameworks, founder of On PAR Dev, and a church front-of-house sound volunteer, which is why the demo app is about church audio.)
 
@@ -149,7 +149,7 @@ Want to demo? Email me at patrick@onpardev.com or come find me at the next one.
 - Alamo Tech Collective: [alamotechcollective.com](https://alamotechcollective.com)
 - Slides: coming soon (PDF will land here after I export them)
 - Engine: [github.com/on-par/software-factory](https://github.com/on-par/software-factory)
-- Control surface: [github.com/on-par/factory-app](https://github.com/on-par/factory-app)
+- Factory control plane: [factory.onpardev.com](https://factory.onpardev.com) (login required; the app repo stays private)
 - Where it started: [github.com/patrob/ai-sdlc](https://github.com/patrob/ai-sdlc)
 - Sound Buddy: [soundbuddy.online](https://soundbuddy.online)
 - On PAR Dev: [onpardev.com](https://onpardev.com)
