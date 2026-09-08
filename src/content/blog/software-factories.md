@@ -5,7 +5,7 @@ pubDate: "Sep 08 2026"
 heroImage: "../../assets/software-factories-hero.jpg"
 ---
 
-<!-- Slides PDF: add when exported. Suggested path: /slides/software-factories.pdf -->
+<!-- Slides: /slides/software-factories.pdf -->
 
 Tonight was Night One of [Alamo Agents](https://alamoagents.org), a San Antonio meetup for people building agent systems. Thank you to [Alamo Tech Collective](https://alamotechcollective.com) for hosting us at Zelifcam on San Pedro. We're going to do this monthly: show up, demo what you're building, compare notes, leave with better ideas than you walked in with.
 
@@ -145,7 +145,7 @@ For the next Alamo Agents meetup, watch [alamoagents.org](https://alamoagents.or
 
 - Alamo Agents: [alamoagents.org](https://alamoagents.org) · [RSVP on Luma](https://luma.com/alamo-agents)
 - Alamo Tech Collective: [alamotechcollective.com](https://alamotechcollective.com)
-- Slides: coming soon (PDF will land here after I export them)
+- Slides: [Download PDF](/slides/software-factories.pdf)
 - Engine: [github.com/on-par/software-factory](https://github.com/on-par/software-factory)
 - Factory control plane: [factory.onpardev.com](https://factory.onpardev.com) (login required; the app repo stays private)
 - Where it started: [github.com/patrob/ai-sdlc](https://github.com/patrob/ai-sdlc)
