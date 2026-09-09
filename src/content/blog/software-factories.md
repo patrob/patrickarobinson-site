@@ -5,11 +5,11 @@ pubDate: "Sep 08 2026"
 heroImage: "../../assets/software-factories-hero.jpg"
 ---
 
-<!-- Slides: /slides/software-factories.pdf -->
+<!-- Slides: /slides/software-factories.pdf · Talk: https://www.youtube.com/watch?v=angmcGqg-C8 -->
 
 Tonight was Night One of [Alamo Agents](https://alamoagents.org), a San Antonio meetup for people building agent systems. Thank you to [Alamo Tech Collective](https://alamotechcollective.com) for hosting us at Zelifcam on San Pedro. We're going to do this monthly: show up, demo what you're building, compare notes, leave with better ideas than you walked in with.
 
-I gave the first talk, on Software Factories. This post is the talk in writing, plus every link I mentioned. If you were there and scanned the QR code, welcome. If you weren't, here's what you missed.
+I gave the first talk, on Software Factories. [Watch the talk](https://www.youtube.com/watch?v=angmcGqg-C8). This post is the talk in writing, plus every link I mentioned. If you were there and scanned the QR code, welcome. If you weren't, here's what you missed.
 
 ## All the engineering
 
@@ -145,6 +145,7 @@ For the next Alamo Agents meetup, watch [alamoagents.org](https://alamoagents.or
 
 - Alamo Agents: [alamoagents.org](https://alamoagents.org) · [RSVP on Luma](https://luma.com/alamo-agents)
 - Alamo Tech Collective: [alamotechcollective.com](https://alamotechcollective.com)
+- Talk video: [YouTube](https://www.youtube.com/watch?v=angmcGqg-C8)
 - Slides: [Download PDF](/slides/software-factories.pdf)
 - Engine: [github.com/on-par/software-factory](https://github.com/on-par/software-factory)
 - Factory control plane: [factory.onpardev.com](https://factory.onpardev.com) (login required; the app repo stays private)
