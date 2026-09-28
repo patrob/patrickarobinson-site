@@ -7,6 +7,7 @@ export const SITE_DESCRIPTION = 'Software engineer and AI enthusiast building pr
 export const NAV_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'Articles', href: '/blog' },
+  { label: 'Speaking', href: '/speaking' },
   { label: 'Contact', href: '/contact' }
 ];
 

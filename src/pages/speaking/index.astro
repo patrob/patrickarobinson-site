@@ -1,0 +1,63 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import TalkCard from '../../components/TalkCard.astro';
+import { SITE_TITLE } from '../../consts';
+import { TALKS } from '../../data/talks';
+---
+
+<HomeLayout title={`Speaking - ${SITE_TITLE}`} description="Talks by Patrick Robinson, with slides and links.">
+  <section class="speaking-section">
+    <div class="container">
+      <h1 class="speaking-title">Speaking</h1>
+      <p class="speaking-intro">
+        Talks I've given, with slides and links. If you scanned a QR code at an event, welcome.
+      </p>
+
+      <div class="talk-list">
+        {TALKS.map((talk) => <TalkCard talk={talk} />)}
+      </div>
+    </div>
+  </section>
+</HomeLayout>
+
+<style>
+  .speaking-section {
+    padding: 4rem 0;
+    background: white;
+  }
+
+  .container {
+    max-width: 800px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .speaking-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .speaking-intro {
+    font-size: 1.25rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .talk-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+  }
+</style>
