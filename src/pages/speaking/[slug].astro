@@ -1,0 +1,52 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import TalkCard from '../../components/TalkCard.astro';
+import { SITE_TITLE } from '../../consts';
+import { TALKS, type Talk } from '../../data/talks';
+
+export function getStaticPaths() {
+  return TALKS.map((talk) => ({ params: { slug: talk.slug }, props: { talk } }));
+}
+
+const { talk } = Astro.props as { talk: Talk };
+---
+
+<HomeLayout title={`${talk.title} - ${SITE_TITLE}`} description={`${talk.title}. ${talk.event}.`}>
+  <section class="speaking-section">
+    <div class="container">
+      <a href="/speaking" class="back-link">&larr; All talks</a>
+      <TalkCard talk={talk} standalone />
+    </div>
+  </section>
+</HomeLayout>
+
+<style>
+  .speaking-section {
+    padding: 4rem 0;
+    background: white;
+  }
+
+  .container {
+    max-width: 800px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: #666;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: #4299E1;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+  }
+</style>

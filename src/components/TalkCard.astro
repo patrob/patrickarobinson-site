@@ -1,0 +1,134 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import { hasSlides, type Talk } from '../data/talks';
+
+export interface Props {
+  talk: Talk;
+  /** Render the title as the page heading (detail page) instead of a link (list page). */
+  standalone?: boolean;
+}
+
+const { talk, standalone = false } = Astro.props;
+const slidesReady = hasSlides(talk);
+const TitleTag = standalone ? 'h1' : 'h2';
+---
+
+<article id={talk.slug} class:list={['talk-card', { standalone }]}>
+  <p class="talk-event">
+    {talk.event}
+    {talk.date && <> · <FormattedDate date={talk.date} /></>}
+    {talk.location && <> · {talk.location}</>}
+  </p>
+
+  <TitleTag class="talk-title">
+    {standalone ? talk.title : <a href={`/speaking/${talk.slug}`}>{talk.title}</a>}
+  </TitleTag>
+
+  {talk.summary && <p class="talk-summary">{talk.summary}</p>}
+
+  <div class="talk-links">
+    {slidesReady ? (
+      <a href={talk.slides} class="talk-link primary" download>Download slides (PDF)</a>
+    ) : (
+      <span class="talk-link pending">Slides coming soon</span>
+    )}
+    {talk.writeup && <a href={talk.writeup} class="talk-link">Read the write-up</a>}
+    {talk.video && (
+      <a href={talk.video} class="talk-link" target="_blank" rel="noopener noreferrer">Watch the talk</a>
+    )}
+  </div>
+</article>
+
+<style>
+  .talk-card {
+    padding: 2rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: #f8f9fa;
+    scroll-margin-top: 80px;
+  }
+
+  .talk-card.standalone {
+    padding: 0;
+    border: none;
+    background: none;
+  }
+
+  .talk-event {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.75rem;
+  }
+
+  .talk-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .standalone .talk-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .talk-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .talk-title a:hover {
+    color: #4299E1;
+  }
+
+  .talk-summary {
+    font-size: 1.125rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .talk-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .talk-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: white;
+    border: 1px solid #e9ecef;
+    color: #555;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  a.talk-link:hover {
+    background: #4299E1;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+  }
+
+  .talk-link.primary {
+    background: #4299E1;
+    border-color: #4299E1;
+    color: white;
+  }
+
+  .talk-link.primary:hover {
+    background: #3182CE;
+  }
+
+  .talk-link.pending {
+    border-style: dashed;
+    color: #666;
+  }
+</style>
