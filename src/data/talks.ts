@@ -27,6 +27,7 @@ export const TALKS: Talk[] = [
     event: 'SA Startup + Tech Week (SASW) 2026',
     location: 'San Antonio, TX',
     slides: '/slides/sasw-2026-speed-to-value.pdf',
+    video: 'https://youtu.be/IRZkiwQzvmo',
   },
   {
     slug: 'software-factories',
