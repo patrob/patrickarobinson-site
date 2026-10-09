@@ -1,6 +1,9 @@
 /* Design Tokens - CSS Custom Properties */
 
 :root {
+  /* Height of the fixed top navigation; used to offset page content and anchor scrolling */
+  --nav-height: 64px;
+
   /* Patrick Blue Gradients - Inspired by patrickellis.io */
   --color-patrick-blue-start: #0066CC;
   --color-patrick-blue-end: #004499;
@@ -13,6 +16,8 @@
   --color-text-primary: #1a202c;
   --color-text-secondary: #718096;
   --color-text-tertiary: #a0aec0;
+  /* Muted text that still meets WCAG AA: 5.41:1 on #fff, 4.80:1 on --color-bg-tertiary */
+  --color-text-muted: #5f6b7c;
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f7fafc;
   --color-bg-tertiary: #edf2f7;

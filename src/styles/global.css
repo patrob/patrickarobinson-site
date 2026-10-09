@@ -6,7 +6,18 @@
 /*
   Global styles with design system integration
 */
+/*
+  border-box everywhere: .container is width:100% + padding-inline, which with the
+  default content-box made every page 100% + 2rem wide (418px on a 390px phone).
+*/
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 html {
+	scroll-padding-top: calc(var(--nav-height) + 1rem);
 	font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 	font-size: 16px;
 	color-scheme: light;
@@ -27,6 +38,11 @@ body {
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Every page's <main> sits below the fixed nav */
+.main-content {
+	padding-top: var(--nav-height);
 }
 
 /* Reset margins and improve typography */

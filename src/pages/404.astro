@@ -1,0 +1,64 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro'
+import { SITE_TITLE } from '../consts'
+---
+
+<HomeLayout
+  title={`Page not found - ${SITE_TITLE}`}
+  description="Page not found."
+>
+  <section class="not-found">
+    <div class="container">
+      <p class="not-found-code">404</p>
+      <h1 class="not-found-title">Page not found</h1>
+      <ul class="not-found-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/">Articles</a></li>
+        <li><a href="/speaking/">Speaking</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </section>
+</HomeLayout>
+
+<style>
+  .not-found {
+    padding: 5rem 0 3rem;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .not-found-code {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #2b6cb0;
+  }
+
+  .not-found-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: #333;
+    margin-bottom: 2rem;
+  }
+
+  .not-found-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.5rem;
+  }
+
+  .not-found-links a {
+    color: #2b6cb0;
+    font-weight: 500;
+  }
+</style>
