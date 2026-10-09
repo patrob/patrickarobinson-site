@@ -99,13 +99,14 @@ const nextSteps = [
 
   .hero-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* wider text column so the H1 stays on one line at 1280px+ */
+    grid-template-columns: 3fr 2fr;
     gap: 4rem;
     align-items: center;
   }
 
   .bio-section {
-    max-width: 600px;
+    max-width: 660px;
   }
 
   .greeting {
@@ -239,6 +240,15 @@ const nextSteps = [
 
     .next-steps-grid {
       grid-template-columns: 1fr;
+    }
+
+    .next-steps {
+      text-align: center;
+    }
+
+    .next-step {
+      align-items: center;
+      padding: 1.25rem 2.5rem;
     }
 
     .hero-content {

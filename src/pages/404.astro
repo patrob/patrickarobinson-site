@@ -11,6 +11,8 @@ import { SITE_TITLE } from '../consts'
     <div class="container">
       <p class="not-found-code">404</p>
       <h1 class="not-found-title">Page not found</h1>
+      <p class="not-found-text">That page doesn't exist or has moved.</p>
+      <p class="not-found-home"><a href="/">Back to home</a></p>
       <ul class="not-found-links">
         <li><a href="/">Home</a></li>
         <li><a href="/blog/">Articles</a></li>
@@ -44,7 +46,32 @@ import { SITE_TITLE } from '../consts'
   .not-found-title {
     font-size: clamp(2rem, 5vw, 3rem);
     color: #333;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .not-found-text {
+    margin: 0 0 1rem;
+    font-size: 1.125rem;
+    color: #4a5568;
+  }
+
+  .not-found-home {
+    margin: 0 0 2.5rem;
+  }
+
+  .not-found-home a {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    border-radius: 8px;
+    background: #2b6cb0;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .not-found-home a:hover,
+  .not-found-home a:focus-visible {
+    background: #2c5282;
   }
 
   .not-found-links {

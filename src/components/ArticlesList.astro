@@ -1,6 +1,7 @@
 ---
 import Card from './ui/Card.astro';
 import type { CollectionEntry } from 'astro:content';
+import { DEFAULT_HERO_POSITION } from '../consts';
 
 export interface Props {
   articles: CollectionEntry<'blog'>[];
@@ -43,6 +44,7 @@ const gridClasses = {
           excerpt={showExcerpts ? article.data.description : undefined}
           date={article.data.pubDate}
           image={article.data.heroImage?.src}
+          imagePosition={article.data.heroPosition ?? DEFAULT_HERO_POSITION}
           imageAlt={`Cover image for ${article.data.title}`}
           href={`/blog/${article.id}/`}
           aria-label={`Read article: ${article.data.title}`}

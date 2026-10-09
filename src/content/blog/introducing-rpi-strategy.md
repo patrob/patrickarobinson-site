@@ -3,6 +3,7 @@ title: 'Introducing the RPI Strategy'
 description: 'A Framework for Reliable AI-Driven Software Development'
 pubDate: 'Sep 24 2025'
 heroImage: '../../assets/rpi-strategy-blog-hero-image.png'
+heroPosition: 'center top'
 ---
 
 Imagine an AI coding assistant that rarely hallucinates, stays focused on exactly what you need, and produces code that actually works the first time. Sound impossible? It's not—you just need the right framework.

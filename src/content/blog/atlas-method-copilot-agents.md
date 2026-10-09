@@ -3,6 +3,7 @@ title: "The Atlas Method: 7 AI Agents Inside Copilot (And Why the Architecture M
 description: "Someone built a multi-agent orchestration system for VS Code Copilot with dedicated agent files for each role. The economics are wild, but the architecture patterns are what I can't stop thinking about."
 pubDate: 2026-02-11
 heroImage: "../../assets/atlas-method-hero.jpg"
+heroPosition: "center 85%"
 ---
 
 I've been building my own multi-agent system for months now. So when I stumbled across the Atlas Method, a framework that orchestrates seven specialized AI agents inside VS Code through GitHub Copilot, I didn't just see a clever hack. I saw someone solving the same architectural problems I've been wrestling with, from a completely different angle.
