@@ -7,12 +7,12 @@ import { BOOKS } from '../../data/books';
 
 <HomeLayout
   title={`Books - ${SITE_TITLE}`}
-  description="Books Patrick Robinson has written or co-written, including Co-Habitat, a field report on people and AI agents working as one team."
+  description="Books Patrick Robinson has contributed to, starting with Co-Habitat."
 >
   <section class="books-section">
     <div class="container">
-      <h1 class="books-title">Books</h1>
-      <p class="books-intro">Books I've written or helped write.</p>
+      <h1 class="books-title">Books I've contributed to</h1>
+      <p class="books-intro">Right now that's one, written with friends and a few AI teammates.</p>
 
       <div class="book-list">
         {BOOKS.map((book) => <BookCard book={book} />)}

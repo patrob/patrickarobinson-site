@@ -22,6 +22,14 @@ describe('books data', () => {
     }
   });
 
+  it('has no placeholder copy left', () => {
+    for (const book of BOOKS) {
+      for (const text of [book.cardSubtitle, book.blurb, book.coverAlt]) {
+        expect(text).not.toMatch(/TODO|placeholder/i);
+      }
+    }
+  });
+
   it('every book links out over https', () => {
     for (const book of BOOKS) {
       expect(new URL(book.link).protocol).toBe('https:');
