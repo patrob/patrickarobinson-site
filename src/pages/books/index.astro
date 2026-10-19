@@ -1,0 +1,64 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import BookCard from '../../components/BookCard.astro';
+import { SITE_TITLE } from '../../consts';
+import { BOOKS } from '../../data/books';
+---
+
+<HomeLayout
+  title={`Books - ${SITE_TITLE}`}
+  description="Books Patrick Robinson has written or co-written, including Co-Habitat, a field report on people and AI agents working as one team."
+>
+  <section class="books-section">
+    <div class="container">
+      <h1 class="books-title">Books</h1>
+      <p class="books-intro">Books I've written or helped write.</p>
+
+      <div class="book-list">
+        {BOOKS.map((book) => <BookCard book={book} />)}
+      </div>
+    </div>
+  </section>
+</HomeLayout>
+
+<style>
+  .books-section {
+    padding: 4rem 0;
+    background: white;
+  }
+
+  .container {
+    max-width: 800px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .books-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .books-intro {
+    font-size: 1.25rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .book-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+  }
+</style>

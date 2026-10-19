@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import type { Book } from '../data/books';
+
+export interface Props {
+  book: Book;
+}
+
+const { book } = Astro.props;
+const paragraphs = book.blurb.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+---
+
+<article class="book-card">
+  <div class="book-cover">
+    <Image
+      src={book.cover}
+      alt={book.coverAlt}
+      widths={[220, 440]}
+      sizes="(max-width: 600px) 180px, 220px"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="book-body">
+    <p class="book-meta">
+      {book.publisher} · {book.year}
+    </p>
+    <h2 class="book-title">{book.title}</h2>
+    <p class="book-subtitle">{book.subtitle}</p>
+    <p class="book-authors">{book.authors}</p>
+    <p class="book-card-subtitle">{book.cardSubtitle}</p>
+
+    {paragraphs.map((p) => <p class="book-blurb">{p}</p>)}
+
+    <div class="book-links">
+      <a href={book.link} class="book-link primary" target="_blank" rel="noopener noreferrer">
+        {book.linkLabel}
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .book-card {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: #f8f9fa;
+    align-items: start;
+  }
+
+  .book-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  .book-meta {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.75rem;
+  }
+
+  .book-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .book-subtitle {
+    font-size: 1.125rem;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+  }
+
+  .book-authors {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.25rem;
+  }
+
+  .book-card-subtitle {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.75rem;
+  }
+
+  .book-blurb {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  .book-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .book-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .book-link.primary {
+    background: #4299E1;
+    border: 1px solid #4299E1;
+    color: white;
+  }
+
+  .book-link.primary:hover {
+    background: #3182CE;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+  }
+
+  @media (max-width: 600px) {
+    .book-card {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    .book-cover {
+      max-width: 180px;
+      margin: 0 auto;
+    }
+  }
+</style>
