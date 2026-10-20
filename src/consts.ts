@@ -8,6 +8,7 @@ export const NAV_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'Articles', href: '/blog' },
   { label: 'Speaking', href: '/speaking' },
+  { label: 'Books', href: '/books' },
   { label: 'Contact', href: '/contact' }
 ];
 
