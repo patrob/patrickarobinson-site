@@ -14,8 +14,8 @@ const pageDescription = 'Articles about web development, technology, and softwar
 
 <Layout title={pageTitle} description={pageDescription}>
 	<main class="main-content">
-		<div class="container mx-auto px-4 py-16">
-			<div class="blog-header text-center mb-16">
+		<div class="container blog-container">
+			<div class="blog-header text-center">
 				<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Blog</h1>
 				<p class="text-lg text-gray-600 max-w-2xl mx-auto">
 					Thoughts on web development, technology trends, and lessons learned from building modern applications.
@@ -28,6 +28,24 @@ const pageDescription = 'Articles about web development, technology, and softwar
 </Layout>
 
 <style>
+	.blog-container {
+		padding-block: var(--space-12) var(--space-16);
+	}
+
+	.blog-header {
+		margin-bottom: var(--space-12);
+	}
+
+	.blog-header h1 {
+		font-size: var(--font-size-4xl);
+		margin-bottom: var(--space-4);
+	}
+
+	.blog-header p {
+		max-width: 42rem;
+		margin-inline: auto;
+	}
+
 	.text-gray-900 {
 		color: var(--color-text-primary);
 	}

@@ -13,6 +13,9 @@ const blog = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: image().optional(),
+			// CSS object-position for cropped hero/card images, e.g. "center top" or "50% 85%".
+			// Defaults to DEFAULT_HERO_POSITION (consts.ts) when omitted.
+			heroPosition: z.string().optional(),
 		}),
 });
 

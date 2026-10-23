@@ -4,10 +4,11 @@ import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Button from '../components/ui/Button.astro';
+import { DEFAULT_HERO_POSITION } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroPosition = DEFAULT_HERO_POSITION } = Astro.props;
 ---
 
 <Layout title={title} description={description} image={heroImage}>
@@ -22,6 +23,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 							src={heroImage}
 							alt={`Cover image for ${title}`}
 							class="w-full h-24 md:h-32 lg:h-40 object-cover object-center rounded-lg shadow-lg mx-auto"
+							style={`object-position: ${heroPosition};`}
 						/>
 					</div>
 				)}
@@ -68,10 +70,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 </Layout>
 
 <style>
-	.main-content {
-		padding-top: 64px;
-	}
-
 	.prose {
 		color: var(--color-text-primary);
 	}
@@ -224,7 +222,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	}
 
 	.text-gray-600 {
-		color: var(--color-text-secondary);
+		color: var(--color-text-muted);
 	}
 
 	.text-gray-500 {

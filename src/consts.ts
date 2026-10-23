@@ -16,3 +16,7 @@ export const LOGO = {
   text: 'Patrick Robinson',
   href: '/'
 };
+
+// Focal point for hero images cropped into 16:9 cards / the post banner.
+// Most covers keep their subject (titles, faces) in the upper part of the frame.
+export const DEFAULT_HERO_POSITION = 'center top';

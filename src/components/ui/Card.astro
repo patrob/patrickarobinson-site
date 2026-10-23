@@ -4,6 +4,8 @@ export interface Props {
   excerpt?: string;
   date?: Date | string;
   image?: string;
+  /** CSS object-position for the 16:9 crop, e.g. "center top" */
+  imagePosition?: string;
   imageAlt?: string;
   href?: string;
   category?: string;
@@ -16,6 +18,7 @@ const {
   excerpt,
   date,
   image,
+  imagePosition = 'center top',
   imageAlt,
   href,
   category,
@@ -53,7 +56,7 @@ const wrapperAttrs = href ? { href, 'aria-label': ariaLabel || title } : {};
         src={image}
         alt={imageAlt || title}
         class="card-image w-full h-full object-cover"
-        style="transition: var(--transition-transform); transition-timing-function: var(--ease-out-cubic); will-change: transform;"
+        style={`object-position: ${imagePosition}; transition: var(--transition-transform); transition-timing-function: var(--ease-out-cubic); will-change: transform;`}
         loading="lazy"
         data-loading="true"
       />
@@ -88,7 +91,7 @@ const wrapperAttrs = href ? { href, 'aria-label': ariaLabel || title } : {};
     {formattedDate && (
       <time
         class="card-meta"
-        style="font-size: var(--font-size-sm); color: var(--color-text-tertiary); font-weight: var(--font-weight-normal);"
+        style="font-size: var(--font-size-sm); color: var(--color-text-muted); font-weight: var(--font-weight-normal);"
         datetime={date?.toString()}
       >
         {formattedDate}
@@ -103,6 +106,11 @@ const wrapperAttrs = href ? { href, 'aria-label': ariaLabel || title } : {};
 <style>
   /* Card Foundation with Design Tokens */
   .card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
     border-radius: var(--radius-lg);
     background-color: var(--color-bg-primary);
     border: 1px solid var(--color-border);
@@ -127,6 +135,9 @@ const wrapperAttrs = href ? { href, 'aria-label': ariaLabel || title } : {};
 
   /* Image Container with Aspect Ratio */
   .card-image-container {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
     aspect-ratio: 16 / 9;
     background-color: var(--color-bg-secondary);
     transition: var(--transition-transform);
@@ -134,6 +145,10 @@ const wrapperAttrs = href ? { href, 'aria-label': ariaLabel || title } : {};
   }
 
   .card-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: var(--transition-transform);
     transition-timing-function: var(--ease-out-cubic);
     will-change: transform;
@@ -145,6 +160,9 @@ const wrapperAttrs = href ? { href, 'aria-label': ariaLabel || title } : {};
 
   /* Enhanced Content Styling with Design Tokens */
   .card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     padding: var(--space-6);
     transition: var(--transition-opacity);
   }
@@ -179,8 +197,9 @@ const wrapperAttrs = href ? { href, 'aria-label': ariaLabel || title } : {};
   }
 
   .card-meta {
+    margin-top: auto;
     font-size: var(--font-size-sm);
-    color: var(--color-text-tertiary);
+    color: var(--color-text-muted);
     font-weight: var(--font-weight-normal);
   }
 
