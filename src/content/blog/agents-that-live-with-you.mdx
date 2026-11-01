@@ -1,0 +1,91 @@
+---
+title: "Agents That Live With You: Hermes Setup and Real Workflows"
+description: "Notes and links from Alamo Agents, Night Two: Hermes setup, a field guide to persistent agents, and the workflows I actually run."
+pubDate: "Oct 13 2026"
+---
+
+Tonight was Night Two of [Alamo Agents](https://alamoagents.org), a San Antonio meetup for people building agent systems. Thank you to [Alamo Tech Collective](https://alamotechcollective.com) for hosting us again at Zelifcam on San Pedro. The idea hasn't changed. It's a regular space to share demos, bring workflows and ideas, and have someone tell you why your thing doesn't work so you can learn. Nobody can keep up with everything happening in agents alone. I stopped trying a while ago.
+
+The theme was agents that live with you. These are the persistent kind: they keep running, remember things, and sometimes show up with work before you ask. This post is the night in writing. If you were there, thanks for coming. If you weren't, here's what you missed.
+
+<div style="width:100%;max-width:720px;margin:1.5rem auto;">
+  <a href="https://www.youtube.com/watch?v=wrT9GCKIWzw" target="_blank" rel="noopener noreferrer" style="display:block;position:relative;aspect-ratio:16/9;border-radius:0.5rem;overflow:hidden;background:#000;">
+    <img src="https://i.ytimg.com/vi/wrT9GCKIWzw/hqdefault.jpg" alt="Watch the Agents That Live With You talk on YouTube" width="1280" height="720" style="display:block;width:100%;height:100%;object-fit:cover;" />
+    <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);" aria-hidden="true">
+      <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24 27 14v20" fill="white"/></svg>
+    </span>
+  </a>
+</div>
+
+## Hermes, from zero to first chat
+
+David Novogrodsky opened with an intro to [Hermes Agent](https://hermes-agent.nousresearch.com) from Nous Research. It was aimed at anyone who had never installed an agent locally.
+
+He started with the difference between a chatbot and an agent. A chatbot is a stateless transaction: you ask, it answers, it forgets. An agent is stateful. It keeps memory from one session to the next, can reuse a prompt template so you don't repeat yourself, and takes actions with tools (web search, browser control, editing, image generation, text-to-speech) to finish a task.
+
+Setup is three steps:
+
+1. **Sign up at [Nous Portal](https://portal.nousresearch.com).** The free tier gives you models and tools to play with. They aren't frontier models, but they're capable. The portal also shows cost and usage per model, which makes budgeting simpler.
+2. **Install Hermes Agent.** The desktop app is the easy path. There's also a command-line install if you want it.
+3. **Connect and chat.** From the command line, `hermes setup --portal` walks you through the Portal OAuth login and connects your subscription, so the models and tools are ready for your first chat.
+
+From there, David's first workflow was an LLM wiki: an agent that builds and maintains a wiki for you, inspired by Andrej Karpathy's post. His slides and a longer architecture PDF are going up on the DevSA Discord.
+
+## My OpenClaw journey
+
+My love for agents started with Claude Code. Then OpenClaw came out and I realized how much more was possible. My first workflow was a cron job that summarized YouTube videos into a Discord channel and saved the transcripts and key takeaways into an Obsidian vault. One YouTuber I follow calls every new model the best one yet. I don't watch him anymore. My agent does, and I get the five minutes that matter.
+
+The bigger OpenClaw experiment was a shared Discord with friends and our agents in it. We were trying to figure out how you talk to someone else's agent in a chat. My side of it was Liam, my liaison agent. Liam was the DMZ. He was sandboxed, not allowed to share anything internal, and had an inbox and outbox folder so other agents could only hand him things through one door. That experiment turned into a real book, with each chapter labeled by which person or agent wrote it.
+
+Two things I learned the hard way:
+
+- **Watch the heartbeat.** A heartbeat wakes your agent on a timer to check things. I set one to every five minutes, and two days later I was out of usage.
+- **16 GB probably isn't enough for local models.** If you're buying a Mac mini to run an LLM, I'd go bigger.
+
+I uninstalled OpenClaw a couple of days before this talk, mostly because I found a new favorite. OpenClaw is still where the hype started, and it's open source, so you can make it whatever you want. That's also the danger if you like to tinker.
+
+## Hermes, OpenClaw, Grok Bot, Dots, and Muse
+
+They're the same idea with different trade-offs. Here's how I'd describe them today:
+
+- **Hermes:** a good place to start. Nous packages it with plan tiers, so you don't need a separate model subscription.
+- **OpenClaw:** open source and very customizable. Budget time for fixing what you break.
+- **Grok Bot:** where I live now. You can run as many bots as you want, and it's set up the way I tried to set up OpenClaw: a chief of staff I talk to, who delegates to other bots. I group them by area (personal brand, Alamo Agents, client work).
+- **Dots:** you get one. It's been the most proactive for me. It once reminded me about the one bill that wasn't on autopay, with no notifications set up.
+- **Muse:** you get one, with a generous free tier. If you already live in Facebook or Instagram and don't consider yourself technical, it's probably the easiest on-ramp. I wouldn't use it on a corporate machine. Their new model, Muse Wonder, dropped the day before the talk, so I hadn't tried it yet. It's a model, not the product.
+
+What made persistent agents worth keeping for me was proactivity. The first time one showed up with "I saw this in your email, want me to draft a reply?", I read the draft and hit send. Agents can run off webhooks, routines, and timers. For me, that's the difference.
+
+## Workflows I actually run
+
+**Agent-team QC for a local business.** A set of bots takes a bug report, tests the client's site from a bunch of angles, and records video of the bug reproducing (or not). I get a report and a video I can watch to verify. I'm not a QA person, and it made QA fun.
+
+**Breaker, Gardener, and Claude Code.** This is my favorite dev loop right now. The Gardener tends the code like a garden, looking for tech debt. The Breaker is chaos engineering as a bot. I pointed it at my software factory CLI and told it to read the README and do everything wrong. It found holes I wouldn't have thought of. Everything lands as GitHub issues, the factory picks those up, and Claude Code fixes them. Once a week it runs, finds issues, and fixes them. It's close to self-healing.
+
+**Talking to the factory from chat.** For my own products, I talk to my bot for a while, it breaks the idea into requirements the way I like them, and it queues the work in my software factory. One morning that turned Sound Buddy, my church sound app, into a native iPhone app by lunch. Later I screen-recorded a mix on my iPad that I knew sounded good, shared it to Grok Bot, and asked it to compare that against the app's EQ coaching and file issues where it was off. It came back with a more accurate way to measure what I wanted.
+
+## The takeaway
+
+> Pick one recurring task. Give it to an agent. Keep the final say until you trust the output, and put guardrails in place. Don't just blindly trust AI.
+
+I have 40 bots. Start with one.
+
+## Build time
+
+We closed with about 40 minutes of hands-on build time, starting from one question: what's one task you repeat every week? If you didn't have Hermes installed yet, that was the time to do it.
+
+## Keep up
+
+Next up is Builders Night, **Tue Nov 10, 6:00–7:30 PM CT** at Zelifcam. It's an agent buildathon: we pitch ideas on a whiteboard, vote on one, then build it together in about an hour. Bring a laptop and an idea. [RSVP on Luma](https://luma.com/sg6my481). Want to demo sometime? Email me at patrick@onpardev.com.
+
+## Links
+
+- Alamo Agents: [alamoagents.org](https://alamoagents.org) · [Luma calendar](https://luma.com/alamo-agents)
+- Builders Night, Nov 10: [RSVP on Luma](https://luma.com/sg6my481)
+- Alamo Tech Collective: [alamotechcollective.com](https://alamotechcollective.com)
+- Talk video: [YouTube](https://www.youtube.com/watch?v=wrT9GCKIWzw)
+- Hermes Agent: [hermes-agent.nousresearch.com](https://hermes-agent.nousresearch.com)
+- Nous Portal: [portal.nousresearch.com](https://portal.nousresearch.com)
+- Software Factories recap (Night One): [patrickarobinson.com/blog/software-factories](/blog/software-factories/)
+- Sound Buddy: [soundbuddy.online](https://soundbuddy.online)
+- On PAR Dev: [onpardev.com](https://onpardev.com)

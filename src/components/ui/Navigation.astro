@@ -79,6 +79,18 @@ const currentPath = Astro.url.pathname;
     border-bottom: 1px solid #f0f0f0;
   }
 
+  /* Drop the default <ul> left padding (40px) and let the links wrap instead
+     of pushing the page wider than a small phone. Vertical margin is left as-is
+     so the nav keeps its current height (PR #56 handles nav height separately). */
+  .nav-desktop {
+    padding: 0;
+    margin-inline: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.25rem;
+    max-width: 100%;
+  }
+
   .nav-link {
     padding: 0.5rem 0;
     position: relative;
@@ -106,11 +118,16 @@ const currentPath = Astro.url.pathname;
 
   @media (max-width: 768px) {
     .nav-desktop {
-      gap: 2rem;
+      column-gap: 2rem;
     }
 
     .nav-link {
       font-size: 0.9rem;
+    }
+  }
+  @media (max-width: 480px) {
+    .nav-desktop {
+      column-gap: 1.25rem;
     }
   }
 </style>
