@@ -1,10 +1,13 @@
 ---
 title: "Meet the Software Factory"
-description: "Notes from a DevSA livestream with Zach. How I turned a repeated coding-agent loop into a package with plan, build, check, and ship gates."
+description: "How a coding-agent loop I kept running by hand became a package with plan, build, check, and ship gates. What it does, what it's shipped, and what I'd steal from it."
 pubDate: "Nov 05 2026"
+heroImage: '../../assets/meet-the-software-factory-hero.jpg'
 ---
 
-I hopped on a [DevSA](https://www.devsa.community/) community livestream with Zach to walk through my software factory library. Not the history talk. Just the package, how it runs, and a few things it's been shipping while I talk.
+The software factory is a small package that runs the same coding-agent loop I used to run by hand. Plan, build, check, ship, with a gate between each step. This post covers what it is, how it runs, and a few things it's been shipping.
+
+Some of it came out of talking it through with folks in the [DevSA](https://www.devsa.community/) community. Not the history talk. Just the package.
 
 If you want the longer origin story, that's still over on [Software Factories](/blog/software-factories/). This one is the tool itself.
 
@@ -55,7 +58,7 @@ Under the hood it drives the coding harnesses I already pay for. I mostly live i
 
 It runs best on small vertical slices. Big tickets get weird. Small changes stack cleanly, stay easy to verify, and don't thrash the breaker.
 
-During the livestream the factory was already running in the background. That's normal for me. There's almost always something queued.
+Most of the time the factory is just running in the background. There's almost always something queued.
 
 ## Rough Truck Derby (and a few bots)
 
@@ -75,7 +78,7 @@ Together they're a useful loop: try to break it, write down what broke, let the 
 
 ## The plunging price of thought
 
-Someone asked on the call what happens as AI access changes. I didn't have the chart open, so I said I'd put it in a blog post. Here it is.
+A question I hear a lot: what happens as AI access changes? I don't have a crystal ball. But there's one chart I keep pointing people to, so here it is.
 
 [Epoch AI](https://epoch.ai/publications/the-plunging-price-of-thought) (Luke Emberson and David Roodman) looked at the cost of a *given level* of AI performance. Since 2023 that cost has fallen about **47% per quarter**, or roughly **13× per year**. Their comparison: about **54×** faster than electricity got cheaper historically, and also faster than DNA sequencing, compute, and lithium batteries.
 
