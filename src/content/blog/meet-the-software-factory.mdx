@@ -1,0 +1,128 @@
+---
+title: "Meet the Software Factory"
+description: "How a coding-agent loop I kept running by hand became a package with plan, build, check, and ship gates. What it does, what it's shipped, and what I'd steal from it."
+pubDate: "Nov 05 2026"
+heroImage: '../../assets/meet-the-software-factory-hero.jpg'
+---
+
+The software factory is a small package that runs the same coding-agent loop I used to run by hand. Plan, build, check, ship, with a gate between each step. This post covers what it is, how it runs, and a few things it's been shipping.
+
+Some of it came out of talking it through with folks in the [DevSA](https://www.devsa.community/) community. Not the history talk. Just the package.
+
+If you want the longer origin story, that's still over on [Software Factories](/blog/software-factories/). This one is the tool itself.
+
+{/* Slides: /slides/meet-the-software-factory.pdf · Talk: https://www.youtube.com/watch?v=94XEOCDuBu4 */}
+
+<div style="width:100%;max-width:720px;margin:1.5rem auto;">
+  <a href="https://www.youtube.com/watch?v=94XEOCDuBu4" target="_blank" rel="noopener noreferrer" style="display:block;position:relative;aspect-ratio:16/9;border-radius:0.5rem;overflow:hidden;background:#000;">
+    <img src="https://i.ytimg.com/vi/94XEOCDuBu4/hqdefault.jpg" alt="Watch the Meet the Software Factory talk on YouTube" width="1280" height="720" style="display:block;width:100%;height:100%;object-fit:cover;" />
+    <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);" aria-hidden="true">
+      <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24 27 14v20" fill="white"/></svg>
+    </span>
+  </a>
+</div>
+
+## The bottleneck moved
+
+Coding agents write a lot of the code now. On a high-performing team, code wasn't really the hard part for a long time anyway. What slowed me down was deciding what to build, and knowing it was the right thing once it landed.
+
+Analysis paralysis at the start. "Should we even make this?" after that. Then verification: does it do what we meant, and does it create any value?
+
+So the bottleneck, for me, is deciding what to build and verifying it. Writing the code is no longer the scarce thing.
+
+## The loop I kept repeating
+
+Before there was a package, there was a habit.
+
+I'd research the idea. Break the work into small stories with [INVEST](https://www.agilealliance.org/glossary/invest/) (Independent, Negotiable, Valuable, Estimable, Small, Testable). Run a code-and-verify loop. Send the diff through an AI code review. Open a draft PR. Wait for CI. Fix real findings. Leave nitpicks alone. Mark it ready when it was green. A human still hit merge.
+
+I was doing that same play on almost every change. Research, small stories, verify, review, draft PR. Over and over. At some point I realized I *was* the factory. The human was just the scheduler.
+
+So I scripted it.
+
+## From a bash script to a package
+
+Version one was a bash script. I asked Claude to turn the loop into something I could run without thinking. It worked for a few days.
+
+Then the gaps showed up. No real parallel work. No worktrees. Failures didn't resume cleanly. I couldn't run the same play across machines without babysitting. Bash is a great prototype. It was a terrible product for what I wanted next.
+
+So I rewrote it as a package that runs the play: **plan → build → check → ship**, with a gate between each step and (roughly) an agent per step.
+
+Plan freezes the intent. Build implements it. Check decides whether the result is good enough to ship. Ship opens the PR and watches CI.
+
+Between build and check there's a circuit breaker. Three tries. If it still fails, the work gets parked for me. I don't want a runaway loop chewing tokens on the same failure. Parked means "a human needs to look."
+
+Deterministic checks do a lot of the heavy lifting: tests, linters, compilers. The machine checking the machine. On top of that, an LLM-as-judge looks at the diff on a **fresh** sub-agent context. Same codebase, same standards, new eyes. If something fails, that judge has context to send the build step back with a real reason, not a vibe.
+
+Rules without a check don't really exist. If nothing ever looks, the rule is decoration.
+
+## What it feels like to run
+
+The main surface is a CLI. The ones I use most:
+
+- **triage** (and accept) to propose an order from a backlog
+- **ship** to run one issue through plan, build, check, and ship
+- **run** to keep picking up queued work
+- a few helpers for landing green PRs and peeking at cost
+
+Under the hood it drives the coding harnesses I already pay for. I mostly live in Claude. I've also had it fall over to another harness when I hit a limit, which is handy when you want the queue to keep moving.
+
+It runs best on small vertical slices. Big tickets get weird. Small changes stack cleanly, stay easy to verify, and don't thrash the breaker.
+
+Most of the time the factory is just running in the background. There's almost always something queued.
+
+## Rough Truck Derby (and a few bots)
+
+The demo was a monster truck game my four-year-old and I have been dreaming up. Rough Truck Derby. Trucks, jumps, crashes, tricks. He loves Monster Jam. I told him I couldn't use Grave Digger, so we landed on Zombie Crusher instead (zombie hand on top, gravestone on the body).
+
+We both played product manager. Ideas went into the queue. The factory chewed through them. Side effect I didn't plan for: play tests and demo videos would kick off on the Mac Mini while we were downstairs, and suddenly dinner had countdown beeps and crash sounds coming through the office door.
+
+I didn't stare at every line of that game code. I stared at the results. Controllers work. My son loves it. That was the bar for that project.
+
+Around the factory I also run a couple of bots that aren't part of the core pipeline, but they feed it.
+
+**Breaker** tries to use the software like a real user who refuses the happy path. Click the wrong thing. Follow the docs literally. Find the gap between what you wrote and what the code does. It has caught doc drift and real bugs for me.
+
+**Gardener** tends tech debt. The idea came from a post Lauren Tan shared about a gardener that learns from mistakes and writes up the cleanup. Mine looks for shortfalls, then files issues the factory can pick up later.
+
+Together they're a useful loop: try to break it, write down what broke, let the factory fix the small slices.
+
+## The plunging price of thought
+
+A question I hear a lot: what happens as AI access changes? I don't have a crystal ball. But there's one chart I keep pointing people to, so here it is.
+
+[Epoch AI](https://epoch.ai/publications/the-plunging-price-of-thought) (Luke Emberson and David Roodman) looked at the cost of a *given level* of AI performance. Since 2023 that cost has fallen about **47% per quarter**, or roughly **13× per year**. Their comparison: about **54×** faster than electricity got cheaper historically, and also faster than DNA sequencing, compute, and lithium batteries.
+
+Caveats apply. Benchmarks aren't the same as useful work. Real teams don't live on the absolute cost frontier. Still, the direction is hard to miss. Cory House [quoted the chart](https://x.com/housecor/status/2110691926479405142) with a useful punchline: the "use tokens while they're cheap" line sits next to a curve that keeps getting cheaper.
+
+For factory builders, that matters. Verification loops, fresh-context judges, and parked retries get more affordable over time. The scarce parts stay human: taste, judgment, and deciding what deserves a ticket.
+
+## What I'd steal from this
+
+A few takeaways I keep repeating to myself:
+
+1. **The bottleneck isn't writing code.** It's deciding what to build and verifying it.
+2. **Small vertical slices beat big asks.** Easier to plan, easier to check, easier to merge.
+3. **Unchecked rules don't exist.** If nothing enforces it, you don't have a rule.
+4. **You still own taste, judgment, and critical thinking.** Agents can draft and check. You decide what good looks like.
+5. **Building the factory can be more fun than shipping.** Watch that trap. Build it for the software you actually want to make.
+
+By all means, build your own. Start by doing the loop by hand until it's boring. Automate *that* loop, not the imaginary perfect one.
+
+## Keep up
+
+- Site: [patrickarobinson.com](https://patrickarobinson.com)
+- Community: [alamoagents.org](https://alamoagents.org)
+- Package: [github.com/on-par/software-factory](https://github.com/on-par/software-factory)
+
+## Links
+
+- Slides: [Download PDF](/slides/meet-the-software-factory.pdf)
+- Talk video: [YouTube](https://www.youtube.com/watch?v=94XEOCDuBu4)
+
+## Sources
+
+- Luke Emberson and David Roodman, [The plunging price of thought](https://epoch.ai/publications/the-plunging-price-of-thought), Epoch AI. Cost of a given level of AI performance fell ~47% per quarter since 2023 (~13×/year); ~54× faster than electricity historically; also faster than DNA sequencing, compute, and lithium batteries.
+- Cory House, [post quoting the Epoch chart](https://x.com/housecor/status/2110691926479405142)
+- Agile Alliance, [INVEST](https://www.agilealliance.org/glossary/invest/)
+- Earlier notes: [Software Factories](/blog/software-factories/) (Alamo Agents, Sep 8, 2026)
